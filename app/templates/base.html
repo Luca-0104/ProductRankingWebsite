@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% block title %}
+        <title>PR Hub</title>
+    {% endblock %}
+
+{#  for links to css #}
+    {% block style %}{% endblock %}
+</head>
+<body>
+{#      nav bar #}
+    <div>
+        <a href="{{ url_for('main.index') }}">PR Hub</a>
+        <a href="{{ url_for('main.index') }}">Home</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('auth.logout') }}">LogOut</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">LogIn</a>
+        {% endif %}
+    </div>
+    <hr>
+
+    {% block content %}{% endblock %}
+
+{#    for flash #}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+</body>
+</html>
