@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 
@@ -46,6 +48,88 @@ class Permission:
     COMMENT = 8
     VIEW_ALL_COMMENTS = 16
     ADMIN = 32
+    REMOVE_PRODUCT = 64
+
+
+class ReplyComment(db.Model):
+    """
+    a table for storing the replies of the comments of products
+    """
+    __tablename__ = 'comment_replies'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)    # 1 comment --> n replies
+    auth_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)          # 1 user --> n replies
+    is_deleted = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return '<ReplyComment %r>' % self.content[:10]
+
+
+class Comment(db.Model):
+    """
+    a table for storing the comments of products
+    """
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
+    pictures = db.relationship('CommentPic', backref='comment', lazy='dynamic')         # 1 comment --> n pictures
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)    # 1 product --> n comment
+    auth_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)          # 1 user --> n comment
+    replies = db.relationship('ReplyComment', backref='comment')                        # 1 comment --> n replies
+    is_deleted = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return '<Comment %r>' % self.content[:10]
+
+
+
+class CommentPic(db.Model):
+    """
+    a table for storing all the pictures of the comments of the products
+    """
+    __tablename__ = 'comment_pictures'
+    id = db.Column(db.Integer, primary_key=True)
+    address = db.Column(db.String(256), nullable=False)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))    # 1 comment --> n picture
+
+    def __repr__(self):
+        return '<CommentPic %r>' % self.address
+
+
+class ProductPic(db.Model):
+    """
+    a table for storing all the pictures related to the products
+    """
+    __tablename__ = 'product_pictures'
+    id = db.Column(db.Integer, primary_key=True)
+    address = db.Column(db.String(256), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))    # 1 product --> n picture
+
+    def __repr__(self):
+        return '<ProductPic %r>' % self.address
+
+
+class Product(db.Model):
+    """
+    a table for storing all the products in our website
+    """
+    __tablename__ = 'products'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128))
+    description = db.Column(db.Text())
+    price = db.Column(db.Integer)
+    release_time = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
+    pictures = db.relationship('ProductPic', backref='product', lazy='dynamic')  # 1 product --> n pictures
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))                   # 1 user --> n products
+    comments = db.relationship('Comment', backref='product', lazy='dynamic')     # 1 product --> n comments
+    rank = db.Column(db.Integer, default=0)         # the stars rank, 0 - 5
+    is_deleted = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return '<Product %r>' % self.name[:20]
 
 
 class Role(db.Model):
@@ -54,7 +138,7 @@ class Role(db.Model):
     name = db.Column(db.String(64), unique=True)
     default = db.Column(db.Boolean, default=False, index=True)  # we will set the 'customer' as default role
     permissions = db.Column(db.Integer)
-    users = db.relationship('User', backref='role', lazy='dynamic')
+    users = db.relationship('User', backref='role', lazy='dynamic')     # 1 role --> n users
 
     def __init__(self, **kwargs):
         super(Role, self).__init__(**kwargs)
@@ -122,7 +206,12 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    start_datetime = db.Column(db.DateTime(), default=datetime.utcnow)
+    is_deleted = db.Column(db.Boolean, default=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))                      # 1 role --> n users
+    released_products = db.relationship('Product', backref='user', lazy='dynamic')  # 1 user --> n products
+    released_comments = db.relationship('Comment', backref='user', lazy='dynamic')  # 1 user --> n comments
+    released_comment_replies = db.relationship('ReplyComment', backref='user', lazy='dynamic')  # 1 user --> n replies
 
     def __repr__(self):
         return '<User %r>' % self.username

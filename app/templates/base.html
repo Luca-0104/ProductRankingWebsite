@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
 
-    {% block title %}
-        <title>PR Hub</title>
-    {% endblock %}
+    <title>
+        {% block title %}PR Hub{% endblock %}
+    </title>
 
 {#  for links to css #}
     {% block style %}{% endblock %}
@@ -16,14 +16,17 @@
         <a href="{{ url_for('main.index') }}">PR Hub</a>
         <a href="{{ url_for('main.index') }}">Home</a>
         {% if current_user.is_authenticated %}
+            {# for the logged in users #}
             <a href="{{ url_for('auth.logout') }}">LogOut</a>
+            {% if current_user.can(Permission.UPLOAD_PRODUCT) %}
+                <a href="{{ url_for('product.upload_product') }}">Upload a New Product</a>
+            {% endif %}
         {% else %}
             <a href="{{ url_for('auth.login') }}">LogIn</a>
         {% endif %}
+        <a href="{{ url_for('main.secret') }}">Secret</a>
     </div>
     <hr>
-
-    {% block content %}{% endblock %}
 
 {#    for flash #}
     {% with messages = get_flashed_messages() %}
@@ -35,6 +38,11 @@
         </ul>
     {% endif %}
     {% endwith %}
+
+{# content #}
+    {% block content %}{% endblock %}
+
+
 
 </body>
 </html>
