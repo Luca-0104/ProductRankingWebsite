@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}PR Hub - {{ user.username }}{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>
+            {{ user.username }}
+        </h1>
+
+        <h3>
+            Account Type: {% if user.role_id == 1 %}Customer{% else %}Retailer{% endif %}
+        </h3>
+
+        <p>
+            Member since {{ moment(user.start_datetime).format('L') }}
+        </p>
+
+        {% if current_user.is_administrator() %}
+        {% endif %}
+    </div>
+{% endblock %}

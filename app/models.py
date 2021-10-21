@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 
 from app import db, login_manager
+from app.tableInfo import user_list
 
 
 @login_manager.user_loader
@@ -32,6 +33,7 @@ class Tools:
         This should be used in the console only a single time.
         """
         Role.insert_roles()
+        User.insert_users()
 
 
 class Permission:
@@ -105,7 +107,7 @@ class ProductPic(db.Model):
     """
     __tablename__ = 'product_pictures'
     id = db.Column(db.Integer, primary_key=True)
-    address = db.Column(db.String(256), nullable=False)
+    address = db.Column(db.String(256), default='upload/product/default.png')
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))    # 1 product --> n picture
 
     def __repr__(self):
@@ -120,12 +122,12 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128))
     description = db.Column(db.Text())
-    price = db.Column(db.Integer)
+    price = db.Column(db.Float)
     release_time = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
     pictures = db.relationship('ProductPic', backref='product', lazy='dynamic')  # 1 product --> n pictures
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))                   # 1 user --> n products
     comments = db.relationship('Comment', backref='product', lazy='dynamic')     # 1 product --> n comments
-    rank = db.Column(db.Integer, default=0)         # the stars rank, 0 - 5
+    rank = db.Column(db.Float, default=0)         # the stars rank, 0 - 5
     is_deleted = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
@@ -209,12 +211,29 @@ class User(UserMixin, db.Model):
     start_datetime = db.Column(db.DateTime(), default=datetime.utcnow)
     is_deleted = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))                      # 1 role --> n users
-    released_products = db.relationship('Product', backref='user', lazy='dynamic')  # 1 user --> n products
-    released_comments = db.relationship('Comment', backref='user', lazy='dynamic')  # 1 user --> n comments
-    released_comment_replies = db.relationship('ReplyComment', backref='user', lazy='dynamic')  # 1 user --> n replies
+    released_products = db.relationship('Product', backref='seller', lazy='dynamic')  # 1 user --> n products
+    released_comments = db.relationship('Comment', backref='author', lazy='dynamic')  # 1 user --> n comments
+    released_comment_replies = db.relationship('ReplyComment', backref='author', lazy='dynamic')  # 1 user --> n replies
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+    @staticmethod
+    def insert_users():
+        """
+        This is a method for inserting the testing user information, which means fulling the User table.
+        This should be used in the console only a single time.
+        """
+        for user_info in user_list:
+            email = user_info[0]
+            username = user_info[1]
+            password = user_info[2]
+            role_id = user_info[3]
+
+            new_user = User(email=email, username=username, password=password, role_id=role_id)
+
+            db.session.add(new_user)
+            db.session.commit()
 
     # ----- use Werkzeug to generate and check the password hash of the user password -----
     @property
@@ -238,7 +257,7 @@ class User(UserMixin, db.Model):
         return self.role is not None and self.role.has_permission(perm)
 
     def is_administrator(self):
-        return self.can(Permission.SYS_ADMIN)
+        return self.can(Permission.ADMIN)
 
 
 class AnonymousUser(AnonymousUserMixin):

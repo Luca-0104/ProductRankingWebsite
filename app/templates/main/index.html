@@ -3,7 +3,99 @@
 {% block title %}PR Hub - Home{% endblock %}
 
 {% block style %}
+    <link rel="stylesheet" href="../../static/css/main/index_style.css">
 {% endblock %}
 
 {% block content %}
+    {#    show the products on the index page#}
+    {#    <ul>#}
+    {#        {% for product in products %}#}
+    {#            <li>#}
+    {#                <a href="#">#}
+    {#              The first product picture#}
+    {#                    <div>#}
+    {#                  if there is no picture for this product, we will show the default picture #}
+    {#                        {% if product.pictures.count() > 0 %}#}
+    {#                            <img src="{{ url_for('static', filename=product.pictures[0].address)}}" alt="product img">#}
+    {#                        {% else %}#}
+    {#                            <img src="{{ url_for('static', filename='upload/product/default.png') }}" alt="product img">#}
+    {#                        {% endif %}#}
+    {##}
+    {#                    </div>#}
+    {##}
+    {#               The release time from now #}
+    {#                    <div>#}
+    {#                        {{ moment(product.release_time).fromNow() }}#}
+    {#                    </div>#}
+    {##}
+    {#                The product name #}
+    {#                    <div>#}
+    {#                        {{ product.name }}#}
+    {#                    </div>#}
+    {##}
+    {#                The product description #}
+    {#                    <div>#}
+    {#                        {{ product.description }}#}
+    {#                    </div>#}
+    {##}
+    {#                The retailer name#}
+    {#                    <div>#}
+    {#                        <a href="{{ url_for('main.user', username=product.seller.username) }}">{{ product.seller.username }}</a>#}
+    {#                    </div>#}
+    {##}
+    {#                </a>#}
+    {#            </li>#}
+    {#        {% endfor %}#}
+    {#    </ul>#}
+
+
+    {#    show the products on the index page#}
+    <ul class="products-list">
+        {% for product in products %}
+{#            this is each product card #}
+            <li class="products-list-item">
+                <ul class="product-box">
+                    <!-- picture of the product (clickable) -->
+                    <li class="product-img">
+                        <a href="#">
+                            {% if product.pictures.count() > 0 %}
+                                <img src="{{ url_for('static', filename=product.pictures[0].address) }}"
+                                     alt="{{ product.name }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='upload/product/default.png') }}"
+                                     alt="{{ product.name }}">
+                            {% endif %}
+                        </a>
+                    </li>
+
+                    <!-- product price -->
+                    <li class="product-price">
+                        <span>￥</span><span>{{ product.price }}</span>
+                    </li>
+
+                    <!-- product name (clickable) -->
+                    <li class="product-name">
+                        <a href="#">{{ product.name }}</a>
+                    </li>
+
+                    <!-- product description (clickable) -->
+                    <li class="product-desc">
+                        <a href="#">
+                            <p>{{ product.description }}</p>
+                        </a>
+                    </li>
+
+                    <!-- number of comments (clickable) -->
+                    <li class="product-cmt">
+                        <a href="#">{{ product.comments.count() }}</a> <span>comments</span>
+                    </li>
+
+                    <!-- retailer info (clickable) -->
+                    <li class="product-retailer">
+                        <span>retailer: </span> <i><a href="{{ url_for('main.user', username=product.seller.username) }}">{{ product.seller.username }}</a></i>
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

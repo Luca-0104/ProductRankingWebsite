@@ -35,5 +35,9 @@ def create_app(config_name):
     from .product import product as product_blueprint
     app.register_blueprint(product_blueprint)
 
+    # register blueprint - comment
+    from .comment import comment as comment_blueprint
+    app.register_blueprint(comment_blueprint)
+
     return app
 

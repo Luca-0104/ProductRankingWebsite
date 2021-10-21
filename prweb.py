@@ -1,5 +1,5 @@
 import os
-from app import create_app, db
+from app import create_app, db, fake
 from app.models import User, Role, Tools, Product, Permission, ProductPic, CommentPic, Comment, ReplyComment
 from flask_migrate import Migrate
 
@@ -16,6 +16,7 @@ def make_shell_context():
     """
     return dict(db=db,
                 Tools=Tools,
+                fake=fake,
                 Permission=Permission,
                 User=User,
                 Role=Role,

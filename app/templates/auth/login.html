@@ -7,44 +7,97 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
+    {#    <h1>Sign In</h1>#}
+    {#    <form action="" method="post" novalidate>#}
+    {#        {{ form.hidden_tag() }}#}
+    {##}
+    {#    email #}
+    {#        <p>#}
+    {#            {{ form.email.label }}#}
+    {#            <br>#}
+    {#            {{ form.email(size=32) }}#}
+    {#        </p>#}
+    {##}
+    {#        adding validation messages #}
+    {#        {% for error in form.email.errors %}#}
+    {#            <span class="error-message">[{{ error }}]</span>#}
+    {#        {% endfor %}#}
+    {##}
+    {#    password #}
+    {#        <p>#}
+    {#            {{ form.password.label }}#}
+    {#            <br>#}
+    {#            {{ form.password(size=32) }}#}
+    {#        </p>#}
+    {##}
+    {#         adding validation messages#}
+    {#        {% for error in form.password.errors %}#}
+    {#            <span class="error-message">[{{ error }}]</span>#}
+    {#        {% endfor %}#}
+    {##}
+    {##}
+    {#        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>#}
+    {##}
+    {#        <p>{{ form.submit() }}</p>#}
+    {#    </form>#}
+    {##}
+    {#    a link for registration #}
+    {#    <p>#}
+    {#        New here?#}
+    {#        <a href="{{ url_for('auth.register') }}">Click me for registration</a>#}
+    {#    </p>#}
 
-{#    email #}
-        <p>
-            {{ form.email.label }}
-            <br>
-            {{ form.email(size=32) }}
+    <div class="block-content">
+
+        <div class="container-outer">
+            <div class="container-left">
+                <h1>Sign In</h1>
+                <span>After Login, more functionalities can be available for you. <br>
+                    If you are a Customer, enjoy the products in our website. <br>
+                    If you are a Retailer, we are looking forward to your uploading.</span>
+            </div>
+
+            <div class="container-right">
+                <form action="" method="post" class="login-form" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    {#    email #}
+                    {{ form.email.label(class='hint-label') }}
+                    {{ form.email(size=32, class='input-blank') }}
+
+                    {#        adding validation messages #}
+                    {% for error in form.email.errors %}
+                        <div class="error-message">[{{ error }}]</div>
+                    {% endfor %}
+
+                    {#    password #}
+                    {{ form.password.label(class='hint-label') }}
+                    {{ form.password(size=32, class='input-blank') }}
+
+                    {#         adding validation messages#}
+                    {% for error in form.password.errors %}
+                        <div class="error-message">[{{ error }}]</div>
+                    {% endfor %}
+
+
+                    <div id="remember-me-box">{{ form.remember_me() }} {{ form.remember_me.label(id="remember-me-label") }}</div>
+
+
+                    {{ form.submit(id="btn-submit") }}
+                </form>
+
+            </div>
+
+        </div>
+
+        {#    a link for registration #}
+        <p class="link-registration">
+            New here?
+            <a href="{{ url_for('auth.register') }}">Click me for registration</a>
         </p>
 
-{#        adding validation messages #}
-        {% for error in form.email.errors %}
-            <span class="error-message">[{{ error }}]</span>
-        {% endfor %}
-
-{#    password #}
-        <p>
-            {{ form.password.label }}
-            <br>
-            {{ form.password(size=32) }}
-        </p>
-
-{#         adding validation messages#}
-        {% for error in form.password.errors %}
-            <span class="error-message">[{{ error }}]</span>
-        {% endfor %}
+    </div>
 
 
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-
-        <p>{{ form.submit() }}</p>
-    </form>
-
-{#    a link for registration #}
-    <p>
-        New here?
-        <a href="{{ url_for('auth.register') }}">Click me for registration</a>
-    </p>
 
 {% endblock %}

@@ -15,7 +15,7 @@ from ..models import Permission, Product, ProductPic
 from .forms import ProductUploadForm
 
 
-@product.route('/upload_product', methods=['GET', 'POST'])
+@product.route('/upload-product', methods=['GET', 'POST'])
 @login_required
 @permission_required(Permission.UPLOAD_PRODUCT)
 def upload_product():
@@ -106,6 +106,19 @@ def upload_product():
 @permission_required(Permission.REMOVE_PRODUCT)
 def remove_product():
     pass
+
+
+@product.route('/product-details/<product_id>')
+def product_details(product_id):
+    pass
+
+
+@product.route('/edit-product')
+@login_required
+def edit_product():
+    pass
+
+
 
 
 
