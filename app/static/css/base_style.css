@@ -1,13 +1,18 @@
+html{
+    overflow-x: hidden;
+}
+
 .nav {
     width: auto;
     height: 48px;
-    background-color: #e8e7e3;
+    background-color: #c379ff;
     /*position: fixed;*/
     /*margin: 100px auto;*/
+    overflow: hidden;
 }
 
 /* every item in the navbar */
-.nav li {
+.nav .nav-item {
     /* let every item float to the left, then they can be located horizontally */
     float: left;
 
@@ -20,18 +25,18 @@
 }
 
 /* word in the nav item */
-.nav li a {
+.nav .nav-item a {
     /* make the hole nav item clickable*/
     display: block;
 
     text-decoration: none;
-    color: #777;
+    color: #ffffff;
 
     padding: 0 44px;
 }
 
 /* when the cursor hovering the nav item */
 .nav a:hover {
-    background-color: #3f3f3f;
-    color: #e8e7e3;
+    background-color: #ffffff;
+    color: #ff8bc7;
 }

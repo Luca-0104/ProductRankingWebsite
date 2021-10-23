@@ -1,10 +1,15 @@
+import os
 from datetime import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 
 from app import db, login_manager
-from app.tableInfo import user_list
+from app.tableInfo import user_list, product_list, product_category_list, category_list, product_picture_list
+from app.fake import users, products
+
+from faker import Faker
+import random
 
 
 @login_manager.user_loader
@@ -32,8 +37,13 @@ class Tools:
         Fill all the tables in an specific order.
         This should be used in the console only a single time.
         """
-        Role.insert_roles()
-        User.insert_users()
+        Role.insert_roles()  # roles of users
+        User.insert_users()  # the constant user accounts for test
+        users(100)  # 100 fake users
+        Category.insert_categories()  # the product categories
+        Product.insert_products()  # the constant products for show
+        ProductPic.insert_pictures()  # the pictures of the constant products
+        products(100)  # 100 fake products
 
 
 class Permission:
@@ -53,6 +63,57 @@ class Permission:
     REMOVE_PRODUCT = 64
 
 
+'''
+    This is a table for containing the 'n to n' relationship of Product model and Category model 
+'''
+classifications = db.Table('classifications',
+                           db.Column('product_id', db.Integer, db.ForeignKey('products.id')),
+                           db.Column('category_id', db.Integer, db.ForeignKey('categories.id'))
+                           )
+
+class UserProductRank(db.Model):
+    """
+        This is a table for containing the 'n to n' relationship of Product model and User model
+        1 product can be ranked by n users
+        1 user can rank n products
+        This table also records the grade that the user rated this product, which is called 'rank'
+    """
+    __tablename__ = 'user_product_ranks'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    rank = db.Column(db.Float)
+
+    def __repr__(self):
+        return '<UserProductRank %r ranked %r as %r>' % (self.user, self.product, self.rank)
+
+
+class Category(db.Model):
+    """
+        a table for storing all the categories of products in our website.
+        1 product --> n categories;
+        1 category --> n products
+    """
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), unique=True, nullable=False)
+
+    def __repr__(self):
+        return '<Category %r>' % self.name
+
+    @staticmethod
+    def insert_categories():
+        """
+            This is a method for inserting the categories into the database.
+            This should be used a single time in the terminal.
+            This should be called before calling the Product.insert_products()
+        """
+        for cate_name in category_list:
+            new_category = Category(name=cate_name)
+            db.session.add(new_category)
+        db.session.commit()
+
+
 class ReplyComment(db.Model):
     """
     a table for storing the replies of the comments of products
@@ -61,8 +122,8 @@ class ReplyComment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
     timestamp = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
-    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)    # 1 comment --> n replies
-    auth_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)          # 1 user --> n replies
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=False)  # 1 comment --> n replies
+    auth_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # 1 user --> n replies
     is_deleted = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
@@ -77,15 +138,14 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
     timestamp = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
-    pictures = db.relationship('CommentPic', backref='comment', lazy='dynamic')         # 1 comment --> n pictures
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)    # 1 product --> n comment
-    auth_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)          # 1 user --> n comment
-    replies = db.relationship('ReplyComment', backref='comment')                        # 1 comment --> n replies
+    pictures = db.relationship('CommentPic', backref='comment', lazy='dynamic')  # 1 comment --> n pictures
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)  # 1 product --> n comment
+    auth_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # 1 user --> n comment
+    replies = db.relationship('ReplyComment', backref='comment')  # 1 comment --> n replies
     is_deleted = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Comment %r>' % self.content[:10]
-
 
 
 class CommentPic(db.Model):
@@ -95,7 +155,7 @@ class CommentPic(db.Model):
     __tablename__ = 'comment_pictures'
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(256), nullable=False)
-    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))    # 1 comment --> n picture
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))  # 1 comment --> n picture
 
     def __repr__(self):
         return '<CommentPic %r>' % self.address
@@ -108,10 +168,42 @@ class ProductPic(db.Model):
     __tablename__ = 'product_pictures'
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(256), default='upload/product/default.png')
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))    # 1 product --> n picture
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))  # 1 product --> n picture
 
     def __repr__(self):
         return '<ProductPic %r>' % self.address
+
+    @staticmethod
+    def insert_pictures():
+        """
+            This is a method for inserting the picture information into the database,
+            which are the pictures for the constant products.
+            This should be used a single time in the terminal.
+            This should be called after calling the Product.insert_products()
+        """
+        # the path to store the pictures
+        path = 'upload/product'
+
+        # we get the index when looping, this can help to get the correspond product, which owns this group of pictures
+        for index, pic_group in enumerate(product_picture_list):
+            '''
+                we have inserted the constant products first, therefore the id of constant product goes from 1.
+                Index begins from 0, so that using (index+1) can get the id of the corresponding product id
+            '''
+            product_id = index + 1
+
+            # loop through the picture group
+            for pic_name in pic_group:
+                # make sure the name of picture is safe
+                pic_name = generate_safe_pic_name(pic_name)
+                # generate the picture address by joining the directory and the picture name
+                pic_address = os.path.join(path, pic_name).replace('\\', '/')
+
+                new_pic = ProductPic(address=pic_address, product_id=product_id)
+
+                db.session.add(new_pic)
+
+        db.session.commit()
 
 
 class Product(db.Model):
@@ -125,13 +217,61 @@ class Product(db.Model):
     price = db.Column(db.Float)
     release_time = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
     pictures = db.relationship('ProductPic', backref='product', lazy='dynamic')  # 1 product --> n pictures
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))                   # 1 user --> n products
-    comments = db.relationship('Comment', backref='product', lazy='dynamic')     # 1 product --> n comments
-    rank = db.Column(db.Float, default=0)         # the stars rank, 0 - 5
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))  # 1 user --> n products
+    comments = db.relationship('Comment', backref='product', lazy='dynamic')  # 1 product --> n comments
+    # 1 product --> n categories;  1 category --> n products
+    categories = db.relationship('Category', secondary=classifications, backref=db.backref('products', lazy='dynamic'),
+                                 lazy='dynamic')
+    # 1 product --> rated ranked by n users; 1 user --> can rank n products
+    ranked_user_relations = db.relationship('UserProductRank', backref='product', lazy='dynamic')
+    rank = db.Column(db.Float, default=0)  # the stars rank, 0 - 5
+    rank_count = db.Column(db.Integer, default=0)  # How many times is this product being rated
     is_deleted = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<Product %r>' % self.name[:20]
+        return '<Product: %r; id: %r>' % (self.name[:20], self.id)
+
+    @staticmethod
+    def insert_products():
+        """
+            This is a method for inserting the constant product information.
+            This should be used in the console only a single time.
+        """
+
+        # use Faker to generate the past_datetime for products as the releasing datetime
+        fake = Faker()
+
+        # when looping, we also get the index, this can help to get the correspond category list
+        for index, product_info in enumerate(product_list):
+            name = product_info[0]
+            description = product_info[1]
+            price = product_info[2]
+
+            '''
+                get a random retailer user as the seller of this product
+            '''
+            # the number of users with retailer role
+            user_count = User.query.filter_by(role_id=2).count()
+            # get a user as the seller randomly (u must be the Retailer (role))
+            u = User.query.filter_by(role_id=2).offset(random.randint(0, user_count - 1)).first()
+
+            new_product = Product(name=name, description=description, price=price, release_time=fake.past_datetime(),
+                                  seller=u, rank=random.random() * 5)
+
+            db.session.add(new_product)
+
+            '''
+                give the category tags to this product
+            '''
+            # use the index to get the correspond category list
+            for tag in product_category_list[index]:
+                # find the category with this name and add it to this product
+                cate = Category.query.filter_by(name=tag).first()
+                new_product.categories.append(cate)
+
+                db.session.add(new_product)
+
+        db.session.commit()
 
 
 class Role(db.Model):
@@ -140,7 +280,7 @@ class Role(db.Model):
     name = db.Column(db.String(64), unique=True)
     default = db.Column(db.Boolean, default=False, index=True)  # we will set the 'customer' as default role
     permissions = db.Column(db.Integer)
-    users = db.relationship('User', backref='role', lazy='dynamic')     # 1 role --> n users
+    users = db.relationship('User', backref='role', lazy='dynamic')  # 1 role --> n users
 
     def __init__(self, **kwargs):
         super(Role, self).__init__(**kwargs)
@@ -173,8 +313,10 @@ class Role(db.Model):
         """
         # a roles dict, keys are roles, values are permission of the role
         roles = {
-            'Customer': [Permission.VIEW_ALL_PRODUCT, Permission.GRADE_STARS, Permission.COMMENT, Permission.VIEW_ALL_COMMENTS],
-            'Retailer': [Permission.VIEW_ALL_PRODUCT, Permission.GRADE_STARS, Permission.COMMENT, Permission.VIEW_ALL_COMMENTS, Permission.UPLOAD_PRODUCT],
+            'Customer': [Permission.VIEW_ALL_PRODUCT, Permission.GRADE_STARS, Permission.COMMENT,
+                         Permission.VIEW_ALL_COMMENTS],
+            'Retailer': [Permission.VIEW_ALL_PRODUCT, Permission.GRADE_STARS, Permission.COMMENT,
+                         Permission.VIEW_ALL_COMMENTS, Permission.UPLOAD_PRODUCT],
             'Administrator': [Permission.VIEW_ALL_PRODUCT, Permission.VIEW_ALL_COMMENTS, Permission.ADMIN]
         }
 
@@ -210,10 +352,12 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     start_datetime = db.Column(db.DateTime(), default=datetime.utcnow)
     is_deleted = db.Column(db.Boolean, default=False)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))                      # 1 role --> n users
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))  # 1 role --> n users
     released_products = db.relationship('Product', backref='seller', lazy='dynamic')  # 1 user --> n products
     released_comments = db.relationship('Comment', backref='author', lazy='dynamic')  # 1 user --> n comments
     released_comment_replies = db.relationship('ReplyComment', backref='author', lazy='dynamic')  # 1 user --> n replies
+    # 1 product --> rated ranked by n users; 1 user --> can rank n products
+    ranked_product_relations = db.relationship('UserProductRank', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -275,3 +419,6 @@ class AnonymousUser(AnonymousUserMixin):
 
 # tell Flask-Login that we use the AnonymousUser class that we defined by ourselves
 login_manager.anonymous_user = AnonymousUser
+
+# to avoid circular import, we should do this here.
+from app.product.views import generate_safe_pic_name

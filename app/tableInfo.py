@@ -9,6 +9,12 @@ user_list = [
     ['Retailer1@163.com', 'Retailer1', '123', 2]
 ]
 
+category_list = []
+
+# the picture address of the pics on the slide in index page
+slide_pic_address_list = []
+
+
 #
 product_picture_list = [
     # [name1, name2, ...] (at least 2, at most 5)

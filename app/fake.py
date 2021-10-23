@@ -1,8 +1,6 @@
 from random import randint
 from sqlalchemy.exc import IntegrityError
 from faker import Faker
-from . import db
-from .models import User, Product
 
 
 def users(count=100):
@@ -50,3 +48,9 @@ def products(count=100):
 
         db.session.add(p)
     db.session.commit()
+
+
+# to avoid circular import, we should do this here.
+from . import db
+from .models import User, Product
+

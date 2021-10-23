@@ -1,0 +1,185 @@
+/* clear the default style in the browsers */
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    bottom: 0;
+    text-decoration: none;
+
+}
+
+/* the whole page container below the navbar */
+.block-content{
+    display: flex;
+    /* let the children lined vertically */
+    flex-direction: column;
+    /* get to the center horizontally */
+    align-items: center;
+    height: 2000px;
+}
+
+
+/*
+       The basic information of the product
+       (name + price + description)
+*/
+.product-info-box{
+    width: 900px;
+    height: auto;
+    padding: 10px;
+    /*background: #bfa;*/
+}
+
+/* The product name */
+.product-info-box .product-name{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 30px 0;
+    margin-bottom: -27px;
+    color: rgb(0, 0, 0);
+}
+
+/* The product price */
+.price-box{
+    text-align: left;
+    font-size: 30px;
+    padding-left: 40px;
+    padding-top: 40px;
+}
+
+/* The product description */
+.product-info-box .product-desc{
+    font-size: 30px;
+    color: rgb(118, 118, 118);
+    margin: 40px;
+    line-height: 47px;
+}
+
+
+
+/*
+    The pictures of the product
+    (basic idea of this picture slide is learned from Internet (bilibili.com))
+ */
+
+/* the container of the pictures slide panel */
+.picture-panel-box{
+    width: 900px;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    border: 10px solid #a3e5ff;
+    border-radius: 5px;
+    /*box-shadow: 20px 30px 20px rgba(0, 0, 0, .5);*/
+}
+
+/* The picture list */
+.pic-container{
+    width: 100%;
+    height:100%;
+    display: flex;
+    position: absolute;
+    left: 0;
+    transition: .2s;
+}
+
+/* each single picture in the picture list */
+.pic-container .pic img{
+    /* size should be same as the picture-panel-box */
+    width: 900px;
+    height: 500px;
+    background-size: cover;
+}
+
+/* the outer box contains 'left' and 'right' button */
+.btn{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    /* the user cannot select the text in button by their cursor */
+    user-select: none;
+}
+
+/* the buttons inside the box */
+.btn-left, .btn-right{
+    font-size: 50px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0 20px;
+    cursor: pointer;
+    /* the parent has the height of 500px, so that set line-height same as parent's height to locate at the center vertically  */
+    line-height: 500px;
+    transition: .5s;
+}
+
+/* when hovering the button, we change the color of the button */
+.btn-left:hover, .btn-right:hover{
+    color: white;
+}
+
+/*
+    The ranking stars of the product
+*/
+
+/* an outer container contains hint and a list of stars*/
+.rank-box{
+    padding: 10px;
+    font-size: 30px;
+    margin-top: 40px;
+    height: 60px;
+}
+
+/* the hint to rank */
+.rank-hint{
+    float: left;
+    line-height: 60px;
+}
+
+/* the list of stars */
+.rank-stars{
+    float: left;
+    line-height: 60px;
+    margin-left: 20px;
+}
+
+/* the single star in the list */
+.star{
+    float: left;
+    font-size: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* the link of the star */
+.star a{
+    color: #9c9c9c;
+}
+
+/* when hovering and clicking the star
+    we will use javascript to add the following
+    classes to the star
+ */
+.hovered-star a, .clicked-star a{
+    color: #ffec39;
+}
+
+/* The star style for showing the feedback */
+.already-star{
+    color: #ffec39;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

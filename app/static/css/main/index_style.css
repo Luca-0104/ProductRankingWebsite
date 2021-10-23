@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
+    list-style: none;
 }
 
 /* the block-content inherited from the base */
@@ -10,25 +11,86 @@
 
 }
 
+/*
+     The slideshow of the product pictures
+ */
+
+/* set the big pictures */
+.pic:nth-child(1){
+    background-image: url('../../img/index_slides/pic1.jpg');
+}
+.pic:nth-child(2){
+    background-image: url('../../img/index_slides/pic2.jpg');
+}
+.pic:nth-child(3){
+    background-image: url('../../img/index_slides/pic3.jpg');
+}
+.pic:nth-child(4){
+    background-image: url('../../img/index_slides/pic4.jpg');
+}
+.pic:nth-child(5){
+    background-image: url('../../img/index_slides/pic5.jpg');
+}
+
+.pic-container{
+    width: 500%;
+    height:545px;
+    display: flex;
+    position: absolute;
+    left: 0;
+    transition: .2s;
+}
+
+.pic{
+    width: 100%;
+    background-size: cover;
+}
+
+/* dot buttons */
+.dot-group{
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 180px;
+    width: 20%;
+    z-index: 10;
+    right: 40%;
+}
+
+.dot{
+    width: 8px;
+    height: 8px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+/*
+    The product cards
+ */
+
 /* the hole panel, which contains lots of product cards */
 .products-list{
     margin-left: 55px;
-    margin-top: 20px;
+    margin-top: 860px;
 }
 
 /* the outer container of the product box */
 .products-list-item{
     float: left;
     margin-right: 40px;
-    margin-bottom: 25px;
+    margin-bottom: 100px;
+
+    background-color: #d9d9d9;
 }
 
 /* the outer box of the product card */
 .product-box{
     width: 250px;
-    height: 400px;
+    height: 420px;
 
-    background-color: #bfa;
+    /*background-color: #bfa;*/
 
 }
 
@@ -91,6 +153,36 @@
 .product-cmt a:hover{
     color: #fff;
 }
+
+/* product rating stars */
+.product-rate{
+    background-color: red;
+    padding-left: 7px;
+}
+
+/* the star list */
+.rate-stars{
+    float: left;
+    margin-right: 115px;
+    margin-bottom: 10px;
+}
+
+/* all those five stars */
+.product-rate .rate-stars li{
+    float: left;
+    margin: 3px;
+    font-size: 22px;
+}
+
+/* bright stars */
+.star-bright{
+    color: #ffec39;
+}
+/* dark stars */
+.star-dark{
+    color: #9c9c9c;
+}
+
 
 /* product retailer */
 .product-retailer{
