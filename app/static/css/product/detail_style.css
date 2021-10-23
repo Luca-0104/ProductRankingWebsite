@@ -66,7 +66,7 @@
 /* the container of the pictures slide panel */
 .picture-panel-box{
     width: 900px;
-    height: 640px;
+    height: 680px;
     position: relative;
     overflow: hidden;
     border: 10px solid #a3e5ff;
@@ -88,7 +88,7 @@
 .pic-container .pic img{
     /* size should be same as the picture-panel-box */
     width: 900px;
-    height: 640px;
+    height: 680px;
     background-size: cover;
 }
 
@@ -105,18 +105,20 @@
 
 /* the buttons inside the box */
 .btn-left, .btn-right{
-    font-size: 50px;
-    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 0;
     padding: 0 20px;
-    cursor: pointer;
     /* the parent has the height of 500px, so that set line-height same as parent's height to locate at the center vertically  */
-    line-height: 500px;
+    line-height: 680px;
     transition: .5s;
 }
 
 /* when hovering the button, we change the color of the button */
 .btn-left:hover, .btn-right:hover{
     color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 50px;
+    cursor: pointer;
+
 }
 
 /*
