@@ -88,6 +88,9 @@ for (let i = 0; i < dot.length; i++) {
     })
 }
 
+// Initially, we set the first dot as the current one.
+$(dot[0]).addClass('current-dot')
+
 // start the timer
 timer()
 

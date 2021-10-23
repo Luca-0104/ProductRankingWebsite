@@ -73,7 +73,8 @@
 
 /* the dot of the current picture. We will assign this class by js */
 .current-dot{
-    background-color: #3A7734;
+    background-color: #ffffff;
+    box-shadow: 0 0 16px 3px #ffffff;
 }
 
 
