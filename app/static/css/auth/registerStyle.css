@@ -21,7 +21,7 @@ body{
     /* let the items inside located vertically */
     flex-direction: column;
     /*background-image: linear-gradient(to bottom right, #dbdcff, #a283ff);*/
-    background-image: url("../../img/pic2.png");
+    background-image: url("../../img/pic1.png");
     height: 100%;
     background-size: cover;
 }

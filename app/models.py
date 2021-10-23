@@ -195,7 +195,7 @@ class ProductPic(db.Model):
             # loop through the picture group
             for pic_name in pic_group:
                 # make sure the name of picture is safe
-                pic_name = generate_safe_pic_name(pic_name)
+                # pic_name = generate_safe_pic_name(pic_name)
                 # generate the picture address by joining the directory and the picture name
                 pic_address = os.path.join(path, pic_name).replace('\\', '/')
 

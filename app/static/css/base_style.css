@@ -4,8 +4,9 @@ html{
 
 .nav {
     width: auto;
-    height: 48px;
-    background-color: #c379ff;
+    height: 57px;
+    background-color: 	#E0E0E0;
+    /*background-color: #CCCCCC;*/
     /*position: fixed;*/
     /*margin: 100px auto;*/
     overflow: hidden;
@@ -21,7 +22,7 @@ html{
     /* make each item taking full height of the navbar */
     height: 100%;
     /* making the word in each item align center vertically */
-    line-height: 48px; /* should same as the height of the parent */
+    line-height: 57px; /* should same as the height of the parent */
 }
 
 /* word in the nav item */
@@ -30,13 +31,15 @@ html{
     display: block;
 
     text-decoration: none;
-    color: #ffffff;
-
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Lucida Bright";
     padding: 0 44px;
 }
 
 /* when the cursor hovering the nav item */
 .nav a:hover {
-    background-color: #ffffff;
-    color: #ff8bc7;
+    background-color: #282525;
+    color: #CC9999;
 }

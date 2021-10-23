@@ -9,11 +9,24 @@ user_list = [
     ['Retailer1@163.com', 'Retailer1', '123', 2]
 ]
 
-category_list = []
 
 # the picture address of the pics on the slide in index page
 slide_pic_address_list = []
 
+category_list = [
+    'sports',
+    'foods',
+    'clothes',
+    'digital',
+    'books',
+    'makeup',
+    'luxury',
+    'daily',
+    'art',
+    'home',
+    'instruments',
+    'others'
+]
 
 #
 product_picture_list = [
@@ -25,13 +38,7 @@ product_picture_list = [
     ['91TKOKJe2zL._SL1500_.jpg', '91XslFohKxL._SL1500_.jpg'],
     ['9150Gx-BrKS._AC_SL1500_.jpg', '915zTdcqILS._AC_SL1500_.jpg'],
     ['61-ggLv1AuL._AC_UX466_.jpg', '61GL637HSNL._AC_UX466_.jpg', '61eQ776sLuL._AC_UX342_.jpg'],
-    ['finishes_1_sierra_blue__2bovafkl4yaa_large.jpg', 'iphone-13-pro-blue-select.png'],
-    [],
-    [],
-    [],
-    [],
-    [],
-
+    ['finishes_1_sierra_blue__2bovafkl4yaa_large.jpg', 'iphone-13-pro-blue-select.png']
 ]
 
 """
@@ -59,10 +66,8 @@ product_category_list = [
     ['foods'],
     ['clothes'],
     ['clothes'],
-    ['digital'],
-    [],
-    [],
-    [],
+    ['digital']
+
 
 
 ]
@@ -77,7 +82,7 @@ Designed for indoor play only', 290.84],
     ['Lindt Gourmet Chocolate Truffle Gift Box', 'Share the passion of delectable chocolate or have a moment of indulgence alone\
 Perfect for indulging with at home or as a surprise gift\
 Made by Lindt Master Chocolatiers with premium ingredients from world-renowned regions\
-The 14.7 oz. Box of gourmet truffles is an ideal gift for any occasion', 178.773],
+The 14.7 oz. Box of gourmet truffles is an ideal gift for any occasion', 178.7],
     ['BURTON Custom Flying V Snowboard', "Directional Shape is the classic snowboard shape, designed to be ridden with a slightly longer nose than tail to concentrate pop in the tail while providing plenty of float, flow, and control to rip any terrain or condition\
 Flying V Bend features rocker zones between and outside your feet for enhanced playfulness, and float and camber zones underneath your feet that focus edge control for crisp snap, added pop, and powerful turns\
 Twin Flex is perfectly symmetrical from tip to tail for a balanced ride that's equally versatile regular or switch\
@@ -97,13 +102,7 @@ Features: Vintage Black Dress, A-line Style, Sweetheart Neckline, Cap Sleeves, B
 Material: 98% Cotton & 2% Spandex.\
 Great for Wedding Party, Bridesmaid, Cocktail Party, Birthday, Work, Holiday, Tea Party, Dinner, Anniversary, Theme Party and Daily Casual.\
 Garment Care: Hand wash cold hang dry recommended, machine washable. Do not wring or twist, low iron to remove wrinkles if necessary.', 245.89],
-    ['iPhone 13 Pro', 'A dramatically more powerful camera system. A display so responsive, every interaction feels new again. The world’s fastest smartphone chip. Exceptional durability. And a huge leap in battery life.', 5999],
-    [],
-    [],
-    [],
-    [],
-    [],
-
+    ['iPhone 13 Pro', 'A dramatically more powerful camera system. A display so responsive, every interaction feels new again. The world’s fastest smartphone chip. Exceptional durability. And a huge leap in battery life.', 5999]
 
 ]
 
