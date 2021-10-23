@@ -40,28 +40,25 @@ function goNext() {
 }
 
 /**
- * This method is used to update the current index
- * to the index of the "LAST picture".
- * (Notice that we will play the pictures circularly)
- */
-function goLast() {
-    // if the current index has already reached the first picture, we will set it back to the last (final) one.
-    if (index < 1) {
-        index = dot.length-1
-    } else {
-        index--
-    }
-}
-
-/**
  * increase the index by 1 every 5 seconds, which means go into next picture.
  */
 function timer(){
     time = setInterval(() => {
+
         // we will go to the next picture every 5 seconds.
         // goNext() method can check whether should we go back to the first one.
         goNext()
         refreshPosition()
+
+        /*
+            When auto changing to the next picture,
+            make only the current dot brighter, remove the 'current-dot' class
+            from all the other dot elements
+         */
+        $(dot[index]).addClass('current-dot')
+        $(dot[index]).prevAll().removeClass('current-dot')
+        $(dot[index]).nextAll().removeClass('current-dot')
+
     }, 5000)
 }
 
@@ -72,6 +69,16 @@ function timer(){
 for (let i = 0; i < dot.length; i++) {
     dot[i].addEventListener("click", () => {
         index = i
+
+        /*
+            When manually changing to the next picture,
+            make only the current dot brighter, remove the 'current-dot' class
+            from all the other dot elements
+         */
+        $(dot[index]).addClass('current-dot')
+        $(dot[index]).prevAll().removeClass('current-dot')
+        $(dot[index]).nextAll().removeClass('current-dot')
+
         refreshPosition()
         // we should stop the timer and restart it again,
         // because if not, when we click on a dot button and go to the another picture,
@@ -83,3 +90,4 @@ for (let i = 0; i < dot.length; i++) {
 
 // start the timer
 timer()
+
