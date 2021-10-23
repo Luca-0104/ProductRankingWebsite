@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, MultipleFileField
+from wtforms import StringField, SubmitField, IntegerField, MultipleFileField, FloatField
 from wtforms.validators import DataRequired, Length, number_range, ValidationError
 
 
 class ProductUploadForm(FlaskForm):
     name = StringField('Product Name', validators=[DataRequired(), Length(1, 128)])
     description = StringField('Product Description', validators=[DataRequired()])
-    price = IntegerField('Set the Price', validators=[DataRequired(), number_range(0, 99999999)])
-    pictures = MultipleFileField('Upload pictures for exhibition', validators=[DataRequired()])
+    price = FloatField('Set the Price', validators=[DataRequired(), number_range(0, 99999999)])
+    pictures = MultipleFileField('Upload pictures for exhibition', validators=[DataRequired(), Length(2, 5, 'You must give 2-5 pictures')])
     submit = SubmitField('Confirm')
 
     def validate_pictures(self, field):

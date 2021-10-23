@@ -9,13 +9,15 @@
 
     <link rel="stylesheet" href="../static/css/reset.css">
     <link rel="stylesheet" href="../static/css/base_style.css">
-{#  for links to css #}
+    {#  for links to css #}
     {% block style %}{% endblock %}
 
-{#  for scripts of javascript #}
-    {% block scripts %}
-        {{ moment.include_moment() }}
-    {% endblock %}
+    {{ moment.include_moment() }}
+    {# import the jQuery package #}
+    <script type="text/javascript" src="../static/script/jquery-3.4.1.js"></script>
+    {#  for scripts of javascript #}
+    {% block scripts %}{% endblock %}
+
 </head>
 <body>
 {##}
@@ -24,7 +26,7 @@
 {#        <a href="{{ url_for('main.index') }}">PR Hub</a>#}
 {#        <a href="{{ url_for('main.index') }}">Home</a>#}
 {##}
-        {# for the logged in users #}
+{# for the logged in users #}
 {#        {% if current_user.is_authenticated %}#}
 {##}
 {#            loug out button #}
@@ -54,7 +56,7 @@
         <a href="{{ url_for('main.index') }}">Home</a>
     </li>
 
-        {# for the logged in users #}
+    {# for the logged in users #}
     {% if current_user.is_authenticated %}
 
         <li class="nav-item">
@@ -71,7 +73,7 @@
         </li>
 
         <li class="nav-item">
-            {#            profile button #}
+            {#            profile button (give the user name to the backend) #}
             <a href="{{ url_for('main.user', username=current_user.username) }}">My Profile</a>
         </li>
 
@@ -88,7 +90,7 @@
 </ul>
 
 {#    for flash #}
-    {% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul>
             {% for message in messages %}
@@ -96,12 +98,16 @@
             {% endfor %}
         </ul>
     {% endif %}
-    {% endwith %}
+{% endwith %}
 
 {# content #}
-    {% block content %}{% endblock %}
-
+{% block content %}{% endblock %}
 
 
 </body>
+
+{# for the children templates to define the javascript statements after the 'body' tag #}
+{% block scripts_after_body %}
+{% endblock %}
+
 </html>

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}PR Hub - Product: {{ product.name }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="../../static/css/product/detail_style.css">
+{% endblock %}
+
+{% block scripts_after_body %}
+    <script type="text/javascript" src="../../static/script/product_detail_pic.js"></script>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="../../static/script/rank_stars.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="block-content">
+
+        {#       product info #}
+        <div class="product-info-box">
+            <p class="product-name">{{ product.name }}</p>
+            {#    product price #}
+            <div class="price-box">
+                <span>￥</span> <span>{{ product.price }}</span>
+            </div>
+            <p class="product-desc">{{ product.description }}</p>
+        </div>
+
+
+        {#        product picture slide #}
+        {#            the outer box contains the picture list and picture selecting button #}
+        <div class="picture-panel-box">
+            <ul class="pic-container">
+                {# loop through all the pictures to make each of them in an list item #}
+                {% for picture in product.pictures %}
+                    <li class="pic">
+                        <img src="{{ url_for('static', filename=picture.address) }}">
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {# the btn container, wich contains the btn for next and last picture #}
+            <div class="btn">
+                <div class="btn-left"><</div>
+                <div class="btn-right">></div>
+            </div>
+        </div>
+
+
+        {#
+        product rank star
+        if the user has not ranked this product, we let him be able to rate.
+        if the user has already rated this product, we just show his rate.
+        #}
+        {% if pu_relation is not none %}
+            {# CASE1: The user has logged in and has rated this product #}
+            <div class="rank-box">
+                {#   the hint to rank  #}
+                <span class="rank-hint">My Feedback</span>
+                {#   the list of stars #}
+                <ul class="rank-stars">
+                    {# shows how much stars the user has rated this product #}
+                    {% if pu_relation.rank == 1 %}
+                        <li class="star already-star">&#9733</li>
+
+                    {% elif pu_relation.rank == 2 %}
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+
+                    {% elif pu_relation.rank == 3 %}
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+
+                    {% elif pu_relation.rank == 4 %}
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+
+                    {% elif pu_relation.rank == 5 %}
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+                        <li class="star already-star">&#9733</li>
+
+                    {% endif %}
+                </ul>
+            </div>
+
+        {% elif is_anonymous_user or (pu_relation is none and not is_anonymous_user) %}
+            {# CASE2: The user is anonynous #}
+            {# CASE3: The user has logged in but has not rated this product #}
+            <div class="rank-box">
+                {#   the hint to rank  #}
+                <span class="rank-hint">Click to Rate</span>
+                {#   the list of stars #}
+                <ul class="rank-stars">
+                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=1) }}">&#9733</a>
+                    </li>
+                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=2) }}">&#9733</a>
+                    </li>
+                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=3) }}">&#9733</a>
+                    </li>
+                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=4) }}">&#9733</a>
+                    </li>
+                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=5) }}">&#9733</a>
+                    </li>
+                </ul>
+            </div>
+
+        {% endif %}
+
+        {#    product comments#}
+
+        {#    page bottom #}
+        <div class="page-bottom"></div>
+
+    </div>
+
+{% endblock %}
