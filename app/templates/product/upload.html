@@ -2,63 +2,123 @@
 
 {% block title %}PR Hub - upload product{% endblock %}
 
+{% block style %}
+    <link rel="stylesheet" href="../../static/css/product/upload.css">
+{% endblock %}
+
 {% block content %}
 
-    <h1>Upload Product</h1>
-    <form action="" method="post" enctype="multipart/form-data" novalidate>
-        {{ form.hidden_tag() }}
+    {#    <h1>Upload Product</h1>#}
+    {#    <form action="" method="post" enctype="multipart/form-data" novalidate>#}
+    {#        {{ form.hidden_tag() }}#}
+    {##}
+    {#    name #}
+    {#        <p>#}
+    {#            {{ form.name.label }}#}
+    {#            <br>#}
+    {#            {{ form.name }}#}
+    {#        </p>#}
+    {##}
+    {#        adding validation messages #}
+    {#        {% for error in form.name.errors %}#}
+    {#            <span class="error-message">[{{ error }}]</span>#}
+    {#        {% endfor %}#}
+    {##}
+    {#    description #}
+    {#        <p>#}
+    {#            {{ form.description.label }}#}
+    {#            <br>#}
+    {#            {{ form.description }}#}
+    {#        </p>#}
+    {##}
+    {#         adding validation messages#}
+    {#        {% for error in form.description.errors %}#}
+    {#            <span class="error-message">[{{ error }}]</span>#}
+    {#        {% endfor %}#}
+    {##}
+    {#    price #}
+    {#        <p>#}
+    {#            {{ form.price.label }}#}
+    {#            <br>#}
+    {#            {{ form.price }}#}
+    {#        </p>#}
+    {##}
+    {#         adding validation messages#}
+    {#        {% for error in form.price.errors %}#}
+    {#            <span class="error-message">[{{ error }}]</span>#}
+    {#        {% endfor %}#}
+    {##}
+    {#    pictures #}
+    {#        <p>#}
+    {#            {{ form.pictures.label }}#}
+    {#            <br>#}
+    {#            {{ form.pictures }}#}
+    {#        </p>#}
+    {##}
+    {#         adding validation messages#}
+    {#        {% for error in form.pictures.errors %}#}
+    {#            <span class="error-message">[{{ error }}]</span>#}
+    {#        {% endfor %}#}
+    {##}
+    {##}
+    {#        <p>{{ form.submit() }}</p>#}
+    {#    </form>#}
 
-{#    name #}
-        <p>
-            {{ form.name.label }}
-            <br>
-            {{ form.name }}
-        </p>
 
-{#        adding validation messages #}
-        {% for error in form.name.errors %}
-            <span class="error-message">[{{ error }}]</span>
-        {% endfor %}
+    <div class="block-content">
 
-{#    description #}
-        <p>
-            {{ form.description.label }}
-            <br>
-            {{ form.description }}
-        </p>
+        <div class="box-outer">
+            <div class="box-up">
+                <h2>Upload your Product</h2>
+                <span>Upload your product with some description and pictures, let more people know about it!</span>
+            </div>
 
-{#         adding validation messages#}
-        {% for error in form.description.errors %}
-            <span class="error-message">[{{ error }}]</span>
-        {% endfor %}
+            <div class="box-down">
+                <form action="" method="post" enctype="multipart/form-data" class="upload-form" novalidate>
+                    {{ form.hidden_tag() }}
 
-{#    price #}
-        <p>
-            {{ form.price.label }}
-            <br>
-            {{ form.price }}
-        </p>
+                    {#    name #}
+                    {{ form.name.label(class='hint-label') }}
+                    {{ form.name(class='input-blank') }}
 
-{#         adding validation messages#}
-        {% for error in form.price.errors %}
-            <span class="error-message">[{{ error }}]</span>
-        {% endfor %}
+                    {#        adding validation messages #}
+                    {% for error in form.name.errors %}
+                        <span class="error-message">[{{ error }}]</span>
+                    {% endfor %}
 
-{#    pictures #}
-        <p>
-            {{ form.pictures.label }}
-            <br>
-            {{ form.pictures }}
-        </p>
+                    {#    description #}
+                    {{ form.description.label(class='hint-label') }}
+                    {{ form.description(class='input-blank') }}
 
-{#         adding validation messages#}
-        {% for error in form.pictures.errors %}
-            <span class="error-message">[{{ error }}]</span>
-        {% endfor %}
+                    {#         adding validation messages#}
+                    {% for error in form.description.errors %}
+                        <span class="error-message">[{{ error }}]</span>
+                    {% endfor %}
 
+                    {#    price #}
+                    {{ form.price.label(class='hint-label') }}
+                    {{ form.price(class='input-blank') }}
 
-        <p>{{ form.submit() }}</p>
-    </form>
+                    {#         adding validation messages#}
+                    {% for error in form.price.errors %}
+                        <span class="error-message">[{{ error }}]</span>
+                    {% endfor %}
+
+                    {#    pictures #}
+                    {{ form.pictures.label(class='choose-pic-label') }}
+                    {{ form.pictures(class='btn-choose-pic') }}
+
+                    {#         adding validation messages#}
+                    {% for error in form.pictures.errors %}
+                        <span class="error-message">[{{ error }}]</span>
+                    {% endfor %}
+
+                    {{ form.submit(id="btn-submit") }}
+                </form>
+            </div>
+        </div>
+
+    </div>
 
 
 {% endblock %}
