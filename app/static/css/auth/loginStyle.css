@@ -41,7 +41,7 @@ body {
 
 
 .container-left {
-    background-color: #fff;
+    background-color: #e8e7e7;
     height: 280px;
     position: relative;
     top: 20px;
@@ -62,7 +62,8 @@ body {
 }
 
 .container-right {
-    background-color: #474a59;
+    /*background-color: #474a59;*/
+    background-color: #282525;
     color: #f1f1f2;
     width: 50%;
     transition: 1s;
@@ -127,7 +128,7 @@ body {
 
 #btn-submit {
     color: #fff;
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     width: 100px;
     height: 35px;
@@ -138,7 +139,8 @@ body {
 #btn-submit:hover {
     letter-spacing: 2px;
     color: #000;
-    background-color: #fff;
+    background-color: #CC9999;
+    font-weight: bold;
     cursor: pointer;
 }
 

@@ -36,7 +36,7 @@ body{
 
 /* the inner box contains text of 'Registration' */
 .box-right {
-    background-color: #fff;
+    background-color: #e8e7e7;
     height: 280px;
     position: relative;
     top: 20px;
@@ -60,7 +60,7 @@ body{
 
 /* The inner box at the left side, which contains the form */
 .box-left {
-    background-color: #474a59;
+    background-color: #282525;
     color: #f1f1f2;
     width: 50%;
     transition: 1s;
@@ -125,7 +125,7 @@ body{
 #submit {
     color: #fff;
     margin-top: 40px;
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(255, 255, 255, .2);
     border-radius: 20px;
     width: 100px;
     height: 35px;
@@ -136,7 +136,8 @@ body{
 #submit:hover {
     letter-spacing: 2px;
     color: #000;
-    background-color: #fff;
+    background-color: #CC9999;
+    font-weight: bold;
     cursor: pointer;
 }
 
