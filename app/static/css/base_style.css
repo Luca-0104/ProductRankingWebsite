@@ -48,3 +48,59 @@ html{
     color: #CC9999;
 }
 
+/* The footer */
+.footer{
+    display: block;
+    width: 100%;
+    background: black;
+    background-position: center;
+    font-size: 12px;
+    padding: 25px;
+    /*margin-top: 30px;*/
+    color: #CC9999;
+    font-family: 'Lucida Bright', 'Times New Roman', 'Geneva', 'Verdana', sans-serif;
+}
+
+/* clear the style of the link */
+.footer a:link, .footer a:visited{
+    color: #CC9999;
+}
+
+/* when hovering the link, or the visited links */
+.footer a:active, .footer a:hover{
+    color: #ffffff;
+}
+
+.footer-box-outer ul{
+    float: left;
+    margin: 0 7%;
+}
+
+.footer-box-title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.footer-box li{
+    margin-bottom: 20px;
+}
+
+.footer-box-left-3 li{
+    margin-bottom: 6px;
+}
+
+.footer-box-left-1 .web-name{
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 93%;
+}
+
+.footer-box-left-4{
+    width: 200px;
+}
+
+/* This is an empty div, which is used to clear the float */
+.empty-for-clear-float{
+    clear: both;
+}
+

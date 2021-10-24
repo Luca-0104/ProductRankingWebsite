@@ -112,13 +112,12 @@
     transition: .5s;
 }
 
-/* when hovering the button, we change the color of the button */
-.btn-left:hover, .btn-right:hover{
+/* when hovering the picture, we will show the buttons */
+.btn:hover .btn-left, .btn:hover .btn-right{
     color: white;
     background-color: rgba(0, 0, 0, 0.4);
     font-size: 50px;
     cursor: pointer;
-
 }
 
 /*

@@ -58,9 +58,9 @@
         </li>
     {% endif %}
 
-    <li class="nav-item hover-item">
-        <a href="{{ url_for('main.secret') }}">Secret</a>
-    </li>
+{#    <li class="nav-item hover-item">#}
+{#        <a href="{{ url_for('main.secret') }}">Secret</a>#}
+{#    </li>#}
 </ul>
 
 {#    for flash #}
@@ -77,6 +77,57 @@
 {# content #}
 {% block content %}{% endblock %}
 
+<footer class="footer">
+    <div class="footer-box-outer">
+
+        <ul class="footer-box footer-box-left-1">
+            <li class="web-name"><a href="#">PR Hub</a></li>
+            <li class="web-c">&copy; 2021 LiuZhe & GengTianyi</li>
+        </ul>
+
+        <ul class="footer-box footer-box-left-2">
+            <li class="footer-box-title">My Account</li>
+            <li>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for("auth.logout") }}">Log Out</a>
+                {% else %}
+                    <a href="{{ url_for("auth.login") }}">Sign In</a>
+                {% endif %}
+            </li>
+            <li><a href="{{ url_for('auth.register') }}">Join Us</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('main.user_profile', username=current_user.username) }}">My Profile</a></li>
+            {% endif %}
+        </ul>
+
+        <ul class="footer-box footer-box-left-3">
+            <li class="footer-box-title">Categories</li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='sports') }}">sports</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='foods') }}">foods</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='clothes') }}">clothes</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='digital') }}">digital</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='books') }}">books</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='makeup') }}">makeup</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='luxury') }}">luxury</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='daily') }}">daily</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='art') }}">art</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='home') }}">home</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='instruments') }}">instruments</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='others') }}">others</a></li>
+        </ul>
+
+        <ul class="footer-box footer-box-left-4">
+            <li class="footer-box-title">Contact With Us</li>
+            <li>We'd love to hear from you - please use the form to send us your message or ideas.</li>
+            <li>Hours: 00:00am-23:59pm (GMT+8) M-S</li>
+            <li>Email: zhe.liu1@ucdconnect.ie</li>
+        </ul>
+
+        {#    This is an empty div, which is used to clear the float #}
+        <div class="empty-for-clear-float"></div>
+
+    </div>
+</footer>
 
 </body>
 
