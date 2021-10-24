@@ -1,6 +1,7 @@
 import os
 from app import create_app, db, fake
-from app.models import User, Role, Tools, Product, Permission, ProductPic, CommentPic, Comment, ReplyComment
+from app.models import User, Role, Tools, Product, Permission, ProductPic, CommentPic, Comment, ReplyComment, Category, \
+    UserProductRank
 from flask_migrate import Migrate
 
 # create an object of our app
@@ -24,4 +25,6 @@ def make_shell_context():
                 ProductPic=ProductPic,
                 CommentPic=CommentPic,
                 Comment=Comment,
-                ReplyComment=ReplyComment)
+                ReplyComment=ReplyComment,
+                Category=Category,
+                UserProductRank=UserProductRank)

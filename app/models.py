@@ -71,6 +71,7 @@ classifications = db.Table('classifications',
                            db.Column('category_id', db.Integer, db.ForeignKey('categories.id'))
                            )
 
+
 class UserProductRank(db.Model):
     """
         This is a table for containing the 'n to n' relationship of Product model and User model

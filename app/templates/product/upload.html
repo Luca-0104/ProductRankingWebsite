@@ -110,7 +110,7 @@
 
                     {#         adding validation messages#}
                     {% for error in form.pictures.errors %}
-                        <span class="error-message">[{{ error }}]</span>
+                        <span class="error-message error-message-choose-pic">[{{ error }}]</span>
                     {% endfor %}
 
                     {{ form.submit(id="btn-submit") }}

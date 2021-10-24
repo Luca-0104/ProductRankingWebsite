@@ -9,10 +9,6 @@ user_list = [
     ['Retailer1@163.com', 'Retailer1', '123', 2]
 ]
 
-
-# the picture address of the pics on the slide in index page
-slide_pic_address_list = []
-
 category_list = [
     'sports',
     'foods',

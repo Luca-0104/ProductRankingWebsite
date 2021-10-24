@@ -20,11 +20,12 @@
         <div class="picture-panel-box">
             {#    The big pictures in the slideshow#}
             <ul class="pic-container">
-                <li class="pic"></li>
-                <li class="pic"></li>
-                <li class="pic"></li>
-                <li class="pic"></li>
-                <li class="pic"></li>
+{#               clicking on each picture can goes into the page of products in corresponding category #}
+                <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='digital') }}"></a></li>
+                <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='instruments') }}"></a></li>
+                <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='luxury') }}"></a></li>
+                <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='sports') }}"></a></li>
+                <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='digital') }}"></a></li>
             </ul>
 
             {#        The mini dots in on the bottom of the slid window to show the current picture#}
@@ -137,7 +138,7 @@
                         <!-- retailer info (clickable) -->
                         <li class="product-retailer">
                             <span>retailer: </span> <i><a
-                                href="{{ url_for('main.user', username=product.seller.username) }}">{{ product.seller.username }}</a></i>
+                                href="{{ url_for('main.user_profile', username=product.seller.username) }}">{{ product.seller.username }}</a></i>
                         </li>
                     </ul>
                 </li>

@@ -5,10 +5,6 @@
 
 body{
     height: 100vh;
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*background-image: linear-gradient(to bottom right, #dbdcff, #a283ff);*/
 }
 
 .block-content {
@@ -17,7 +13,6 @@ body{
     align-items: center;
     /* let the items inside located vertically */
     flex-direction: column;
-    /*background-image: linear-gradient(to bottom right, #dbdcff, #a283ff);*/
     background-image: url("../../img/pic1.png");
     height: 100%;
     background-size: cover;
@@ -35,9 +30,7 @@ body{
     background-color: #fff;
     height: 20%;
     position: relative;
-    /* 开启相对布局top才有用 position: relative; */
     top: 20px;
-    /* 这个百分数需要和父控件里其他元素一起设 */
     width: 80%;
     margin-left: 30px;
 }
@@ -63,6 +56,11 @@ body{
     width: 100%;
     margin-left: 6px;
     z-index: 1;
+    transition: 1s;
+}
+
+.box-down:hover{
+    box-shadow: 0 0 30px 20px rgba(255, 255, 255, .2);
 }
 
 .upload-form {
@@ -93,7 +91,7 @@ body{
     background: transparent;
     border: 0;
     color: #f2f2f2f2;
-    font-size: 20px;
+    font-size: 18px;
     height: 32px;
     line-height: 30px;
     width: 100%;
@@ -101,7 +99,6 @@ body{
 }
 
 .hint-label::before {
-    /* content: 'asd'; */
     content: '';
     display: block;
     position: absolute;
@@ -136,5 +133,9 @@ body{
     margin-top: -24px;
     display: inline-block;
     position: absolute;
-    right: 180px;
+    margin-left: -100px;
+}
+
+.error-message-choose-pic{
+    margin-left: -30px;
 }

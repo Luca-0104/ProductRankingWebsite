@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from . import main
 from .. import db, moment
-from ..models import Product, Permission, User
+from ..models import Product, Permission, User, Category
 
 
 @main.route('/')
@@ -17,7 +17,7 @@ def index():
 
     else:
         # for anonymous users
-        products = Product.query.order_by(Product.release_time.desc()).limit(5)
+        products = Product.query.order_by(Product.release_time.desc()).limit(4)
 
 
     return render_template('main/index.html', products=products)
@@ -30,11 +30,24 @@ def secret():
     return 'nothing here ~'
 
 
-@main.route('/user/<username>')
-def user(username):
+@main.route('/user_profile/<username>')
+def user_profile(username):
     """
     For showing the user profile
     :param username: the username the get from the frontend
     """
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('main/user.html', user=user)
+
+
+@main.route('/products-in-category/<category_name>')
+@login_required
+def products_in_category(category_name):
+    """
+    For showing the products in a specific category
+    :param category_name:   the name of the category we will show
+    """
+    category = Category.query.filter_by(name=category_name).first()
+    products = category.products
+    return render_template('main/category_products.html', products=products)
+
