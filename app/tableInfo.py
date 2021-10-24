@@ -71,7 +71,15 @@ product_picture_list = [
     ['csm_C_227_black_polished_HH_xl_rectangle_4375299f00.jpg', 'Fluegel_C_White_03.jpg', 'Fluegel_C_Black_03.jpg'],
     ['28000153_fr.jpg', '28000153_b.jpg', '28000153_lm.jpg'],
     ['5905_1A_001_8.jpg', '5905_1A_001_1.jpg', '5905_1A_001_1 (1).jpg'],
-    ['6119G_001_8.jpg', '6119G_001_9.jpg', '6119G_001_10.jpg']
+    ['6119G_001_8.jpg', '6119G_001_9.jpg', '6119G_001_10.jpg'],
+    ['giro-ratio-mips-snow-helmet-matte-midnight-side.jpg', 'giro-ratio-mips-snow-helmet-matte-ox-red-side.jpg'],
+    ['848556-004_Team-TLS_White-Black_Product-1_0.jpg', '848556-004_Team-TLS_White-Black_Product-3_0.jpg'],
+['eternal-n-5-necklace-white-white-gold-diamond-packshot-default-j11991-8845375995934.jpg', 'eternal-n-5-necklace-white-white-gold-diamond-packshot-motif-j11991-8845518077982.jpg', 'eternal-n-5-necklace-white-white-gold-diamond-packshot-fermoir-j11991-8845539934238.jpg'],
+['giro-contour-goggle-black-phased-vivid-jet-black-hero.jpg', 'giro-contour-goggle-black-phased-vivid-jet-black-left.jpg'],
+    ['21-machine-carbon-grey-p1.png.png', '21-machine-carbon-grey-p2.png.png', '21-machine-carbon-grey-p3.png.png'],
+['ultra-bracelet-white-diamond-white-gold-white-ceramic-packshot-default-j2931-8834193948702.jpg', 'ultra-bracelet-white-diamond-white-gold-white-ceramic-packshot-arriere-j2931-8834194800670.jpg', 'ultra-bracelet-white-diamond-white-gold-white-ceramic-packshot-motif-j2931-8834195292190.jpg'],
+['mini-flap-bag-black-white-velvet-gold-tone-metal-velvet-gold-tone-metal-packshot-artistique-vue1-as2597b06780c0229-8845484851230.jpg', 'mini-flap-bag-black-white-velvet-gold-tone-metal-velvet-gold-tone-metal-packshot-artistique-vue2-as2597b06780c0229-8845484916766.jpg', 'mini-flap-bag-black-white-velvet-gold-tone-metal-velvet-gold-tone-metal-packshot-artistique-vue4-as2597b06780c0229-8845484785694.jpg'],
+
 
 ]
 
@@ -120,7 +128,13 @@ product_category_list = [
     ['luxury'],
 ['luxury'],
 ['luxury'],
-
+['sports'],
+['sports'],
+['luxury'],
+['sports'],
+['sports'],
+['luxury'],
+['luxury'],
 
 ]
 
@@ -212,7 +226,12 @@ Garment Care: Hand wash cold hang dry recommended, machine washable. Do not wrin
     ['MVMT RAPTOR HONEY SMOKE', "Dressed to kill. The Raptor Honey Smoke watch brings a double threat design that’s both radical and refined. Its sport chronograph dial commands attention with bold geometric hands, a lifted, bolted bezel, and crown with knurling grip. Featuring a gunmetal and gold colorway with blue dial accents.", 8999],
     ['Patek Philippe 5905/1A - COMPLICATIONS', "Available for the first time in steel, the Reference 5905 self-winding flyback chronograph with Annual Calendar radiates a resolutely sporty look. The rhythmic dial features an elegant and casual 'sunburst' olive green color. The integrated bracelet is enhanced by contrasting polished and satin finishes. Thanks to the vertical disk-type clutch, the central chronograph seconds hand can be used as a permanent (running) seconds display. The patented Annual Calendar automatically takes account of 30- and 31-day months, requiring only one correction per year, on March 1st.", 120000],
     ['Patek Philippe 6119G - CALATRAVA', 'Patek Philippe gives fresh momentum to the emblematic Calatrava model featuring a guilloched hobnail pattern also known as Clous de Paris by treating it to a slightly larger diameter and a design reinterpreted in a contemporary spirit. The faceted applied white gold hour-markers, combined with dauphine-style hours/minutes hands, create a sleek and timeless dial aesthetic. The elegantly refined white gold case houses the new manually wound movement 30-255 PS with a 65-hour power reserve.', 98000],
-
-
+['Giro RATIO MIPS HELMET', 'THE RATIO™ MIPS® HELMET HAS THE PERFECT RATIO OF EVERYTHING YOU NEED TO ACCOMPANY YOU ON THE MOUNTAIN, FROM ITS THERMOSTAT CONTROL ADJUSTABLE VENTING TO ITS MIPS® TECHNOLOGY TO ITS LAID-BACK STYLE.', 699],
+    ['Nitro TEAM TLS', "Delivering team-tested and snowboarder-proven performance year after year, the Nitro Team is considered by snowboarders everywhere to be the most versatile snowboard boot on the market with a proper fit that never quits.", 2999],
+['Chanel ETERNAL N°5 NECKLACE', 'The different adjustment rings on the chain enable the necklace to be worn either in the long or short version.', 24800],
+['Giro CONTOUR GOGGLE', "HEAD DOWN THE MOUNTAIN IN STYLE WITH THE CONTOUR GOGGLE. WITH A NEW TORIC LENS SHAPE AND VIVID LENSES WITH OPTICS BY ZEISS®, YOU'LL BE ABLE TO SEE AS GREAT AS YOU LOOK.", 780],
+    [' Nitro Machine binding', "The Nitro Machine binding has become a staple within the Nitro Binding line over the years for its unmatched customizable fits and unparalleled responsive performance. The Machine is the binding where the Nitro binding engineers can put their attention to detail to the test continue to create the lightest, strongest, and most responsive binding on the market, without sacrificing anything when it comes to fit. Designed for precision!", 1800],
+['Chanel ULTRA BRACELET', 'The radically stunning combination of black and white gives unique rhythm to Ultra jewellery creations.', 89000],
+    ['Chanel MINI FLAP BAG', "Velvet & Gold-Tone Metal Black & White Ref.  AS2597 B06780 C0229 dimensions 5.9 × 7.8 × 2.9 in ( cm )", 59000],
 
 ]
