@@ -4,6 +4,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="../../static/css/main/index_style.css">
+    <link rel="stylesheet" href="../../static/css/iconfonts/incon_down/iconfont.css">   <!-- import the iconfont of 'down' -->
 {% endblock %}
 
 {% block scripts_after_body %}
@@ -43,6 +44,12 @@
             show the product cards on the index page
          -->
         <ul class="products-list">
+{#        a title of going to see the products #}
+            <li class="title-list-item">
+                <div class="title">See What We Have</div>
+                <span class="iconfont icon-31xiala icon-down"></span>
+            </li>
+
             {% for product in products %}
                 {# this is each product card #}
                 <li class="products-list-item">

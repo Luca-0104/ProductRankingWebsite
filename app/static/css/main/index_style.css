@@ -4,8 +4,8 @@
     padding: 0;
     text-decoration: none;
     list-style: none;
-
 }
+
 
 /* the block-content inherited from the base */
 .block-content{
@@ -13,9 +13,11 @@
     background-color: white;
 }
 
+
 /*
      The slideshow of the product pictures
  */
+
 
 /* set the big pictures */
 .pic:nth-child(1){
@@ -89,14 +91,42 @@
 
 
 /*
+    The hint to see product list
+*/
+/* the title of going to see the products */
+.title-list-item{
+    height: 10px;
+    margin-top: -140px;
+    margin-bottom: 200px;
+
+}
+
+/* the text of the title */
+.title-list-item .title{
+    text-align: center;
+    padding-right: 100px;
+    font-size: 60px;
+    font-weight: 500;
+    font-family: 'Times New Roman', 'Lucida Bright' ,'Lucida Sans Unicode', 'Geneva', 'Verdana', serif;
+}
+
+/* The iconfont ('down' icon) */
+.title-list-item .icon-down{
+    font-size: 50px;
+    display: inline-block;
+    margin: 10px 45%;
+}
+
+
+/*
     The product cards
  */
+
 
 /* the hole panel, which contains lots of product cards */
 .products-list{
     margin-left: 100px;
     margin-top: 180px;
-
 }
 
 /* the outer container of the product box */

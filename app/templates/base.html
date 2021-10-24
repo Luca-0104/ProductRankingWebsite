@@ -20,32 +20,6 @@
 
 </head>
 <body>
-{##}
-{#      nav bar #}
-{#    <div>#}
-{#        <a href="{{ url_for('main.index') }}">PR Hub</a>#}
-{#        <a href="{{ url_for('main.index') }}">Home</a>#}
-{##}
-{# for the logged in users #}
-{#        {% if current_user.is_authenticated %}#}
-{##}
-{#            loug out button #}
-{#            <a href="{{ url_for('auth.logout') }}">LogOut</a>#}
-{##}
-{#            upload product button #}
-{#            {% if current_user.can(Permission.UPLOAD_PRODUCT) %}#}
-{#                <a href="{{ url_for('product.upload_product') }}">Upload a New Product</a>#}
-{#            {% endif %}#}
-{##}
-{#            profile button #}
-{#            <a href="{{ url_for('main.user', username=current_user.username) }}">My Profile</a>#}
-{##}
-{#        {% else %}#}
-{#            <a href="{{ url_for('auth.login') }}">LogIn</a>#}
-{#        {% endif %}#}
-{##}
-{#        <a href="{{ url_for('main.secret') }}">Secret</a>#}
-{#    </div>#}
 
 <ul class="nav">
     <li class="nav-item">
