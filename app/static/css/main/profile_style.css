@@ -3,6 +3,7 @@
     clear: both;
 }
 
+/* the whole content in the page between the navbar and the footer */
 .block-content{
     margin-bottom: 350px;
 }

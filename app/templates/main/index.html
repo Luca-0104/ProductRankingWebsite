@@ -79,19 +79,19 @@
 
                         <!-- product name (clickable) -->
                         <li class="product-name">
-                            <a href="#">{{ product.name }}</a>
+                            <a href="{{ url_for('product.product_details', product_id=product.id) }}">{{ product.name }}</a>
                         </li>
 
                         <!-- product description (clickable) -->
                         <li class="product-desc">
-                            <a href="#">
+                            <a href="{{ url_for('product.product_details', product_id=product.id) }}">
                                 <p>{{ product.description }}</p>
                             </a>
                         </li>
 
                         <!-- number of comments (clickable) -->
                         <li class="product-cmt">
-                            <a href="#">{{ product.comments.count() }}</a> <span>comments</span>
+                            <a href="{{ url_for('product.product_details', product_id=product.id) }}">{{ product.comments.count() }}</a> <span>comments</span>
                         </li>
 
                         <!-- rating stars of this product -->

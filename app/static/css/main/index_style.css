@@ -8,6 +8,7 @@
 
 
 /* the block-content inherited from the base */
+/* the whole content in the page between the navbar and the footer */
 .block-content{
     width: 100%;
     background-color: white;
@@ -18,8 +19,7 @@
      The slideshow of the product pictures
  */
 
-
-/* set the big pictures */
+/* set the big pictures to each li in the ul */
 .pic:nth-child(1){
     background-image: url('../../img/index_slides/pic1.jpg');
 }
@@ -36,12 +36,14 @@
     background-image: url('../../img/index_slides/pic5.jpg');
 }
 
+/* a outer container for the picture list */
 .picture-panel-box{
     width: 100%;
     height: 545px;
     position: relative;
 }
 
+/* the picture list contains 5 pictures */
 .pic-container{
     width: 500%;
     height:545px;
@@ -51,6 +53,7 @@
     transition: .2s;
 }
 
+/* the li in the picture list, each one has held a picture now */
 .pic{
     width: 100%;
     background-size: cover;
@@ -64,7 +67,11 @@
     width: 100%;
 }
 
-/* dot buttons */
+/*
+    The dot buttons
+*/
+
+/* the list of dot buttons */
 .dot-group{
     display: flex;
     justify-content: space-evenly;
@@ -74,7 +81,7 @@
     z-index: 10;
     right: 40%;
 }
-
+/* each dot button */
 .dot{
     width: 8px;
     height: 8px;
@@ -98,7 +105,6 @@
     height: 10px;
     margin-top: -140px;
     margin-bottom: 200px;
-
 }
 
 /* the text of the title */
@@ -117,7 +123,7 @@
     width: 5%;
     color: black;
 }
-
+/* when hovering on the 'down' icon */
 .title-list-item a:hover{
     color: #ce8787;
 }

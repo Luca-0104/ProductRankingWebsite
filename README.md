@@ -15,8 +15,7 @@ GengTianyi|19206222|@19206222
 ## Basic Logic of our Product Ranking Website
 There are three kinds of user role in total - **Customer**, Retailer, Administrator.   
 Customers are able to search, view, rate, comment, favorite, and buy the products that
-the retailer users uploaded.  
-A 
+the retailer users uploaded.
 
 
 ## Intended Functionalities

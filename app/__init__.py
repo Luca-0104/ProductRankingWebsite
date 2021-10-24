@@ -1,3 +1,8 @@
+"""
+    The basic idea of this file is learned from a book called
+    'Flask Web Development: Developing Web Applications with Python, Second Edition'
+"""
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import config

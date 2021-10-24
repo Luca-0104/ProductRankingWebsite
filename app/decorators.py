@@ -1,3 +1,8 @@
+"""
+    The main idea of this file is learned from a book called
+    'Flask Web Development: Developing Web Applications with Python, Second Edition'
+"""
+
 from functools import wraps
 from flask import abort
 from flask_login import current_user
@@ -8,6 +13,7 @@ This module is used to define decorators
 '''
 
 
+# copied from this book
 def permission_required(permission):
     """
     The decorator of the requirement of the 'permission'
@@ -25,11 +31,10 @@ def permission_required(permission):
     return decorator
 
 
+# copied from this book
 def admin_required(f):
     """
     The decorator of the requirement of administration permission
-    :param f:
-    :return:
     """
     return permission_required(Permission.ADMIN)(f)
 

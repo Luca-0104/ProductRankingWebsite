@@ -1,3 +1,8 @@
+"""
+    The basic idea of this file is learned from a book called
+    'Flask Web Development: Developing Web Applications with Python, Second Edition'
+"""
+
 import os
 
 # The directory of this project

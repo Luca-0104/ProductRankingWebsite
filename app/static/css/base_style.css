@@ -1,7 +1,9 @@
 html{
+    /*we will not let the user to scrolling the screen horizontally */
     overflow-x: hidden;
 }
 
+/* the whole nav bar */
 .nav {
     width: auto;
     height: 57px;
@@ -12,6 +14,7 @@ html{
     overflow: hidden;
 }
 
+/* our web logo */
 #web-name a{
     font-size: 35px;
 }
@@ -71,30 +74,36 @@ html{
     color: #ffffff;
 }
 
+/* every column in the footer, in total there are 4  */
 .footer-box-outer ul{
     float: left;
     margin: 0 7%;
 }
 
+/* the title of each column */
 .footer-box-title{
     font-size: 20px;
     font-weight: bold;
 }
 
+/* each item in each column */
 .footer-box li{
     margin-bottom: 20px;
 }
 
+/* the item in the third column */
 .footer-box-left-3 li{
     margin-bottom: 6px;
 }
 
+/* our web logo */
 .footer-box-left-1 .web-name{
     font-size: 50px;
     font-weight: bold;
     margin-bottom: 93%;
 }
 
+/* the 4th column in the footer */
 .footer-box-left-4{
     width: 200px;
 }

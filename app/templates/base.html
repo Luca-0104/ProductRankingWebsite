@@ -58,9 +58,9 @@
         </li>
     {% endif %}
 
-{#    <li class="nav-item hover-item">#}
-{#        <a href="{{ url_for('main.secret') }}">Secret</a>#}
-{#    </li>#}
+    {#    <li class="nav-item hover-item">#}
+    {#        <a href="{{ url_for('main.secret') }}">Secret</a>#}
+    {#    </li>#}
 </ul>
 
 {#    for flash #}
@@ -80,11 +80,13 @@
 <footer class="footer">
     <div class="footer-box-outer">
 
+        {#    the logo and the copyright of our website#}
         <ul class="footer-box footer-box-left-1">
             <li class="web-name"><a href="#">PR Hub</a></li>
             <li class="web-c">&copy; 2021 LiuZhe & GengTianyi</li>
         </ul>
 
+        {#    the account column #}
         <ul class="footer-box footer-box-left-2">
             <li class="footer-box-title">My Account</li>
             <li>
@@ -100,6 +102,7 @@
             {% endif %}
         </ul>
 
+        {#    the category column #}
         <ul class="footer-box footer-box-left-3">
             <li class="footer-box-title">Categories</li>
             <li><a href="{{ url_for('main.products_in_category', category_name='sports') }}">sports</a></li>
@@ -116,6 +119,7 @@
             <li><a href="{{ url_for('main.products_in_category', category_name='others') }}">others</a></li>
         </ul>
 
+        {#    the contact information column #}
         <ul class="footer-box footer-box-left-4">
             <li class="footer-box-title">Contact With Us</li>
             <li>We'd love to hear from you - please use the form to send us your message or ideas.</li>

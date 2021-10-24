@@ -8,7 +8,7 @@
 
 }
 
-/* the whole page container below the navbar */
+/* the whole content in the page between the navbar and the footer */
 .block-content{
     display: flex;
     /* let the children lined vertically */

@@ -292,7 +292,8 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role %r>' % self.name
 
-    # ----- functions for permission management -----
+    # ----- functions for permission management (learned from the book) -----
+    # book: 'Flask Web Development: Developing Web Applications with Python, Second Edition'
     def has_permission(self, perm):
         return self.permissions & perm == perm
 
@@ -380,7 +381,8 @@ class User(UserMixin, db.Model):
             db.session.add(new_user)
             db.session.commit()
 
-    # ----- use Werkzeug to generate and check the password hash of the user password -----
+    # ----- use Werkzeug to generate and check the password hash of the user password (learned from the book) -----
+    # book: 'Flask Web Development: Developing Web Applications with Python, Second Edition'
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
@@ -392,7 +394,8 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    # ----- The management of permissions of a user -----
+    # ----- The management of permissions of a user (learned from the book) -----
+    # book: 'Flask Web Development: Developing Web Applications with Python, Second Edition'
     def can(self, perm):
         """
         Check whether a user has a specific permission
@@ -405,6 +408,8 @@ class User(UserMixin, db.Model):
         return self.can(Permission.ADMIN)
 
 
+# (learned from the book)
+# book: 'Flask Web Development: Developing Web Applications with Python, Second Edition'
 class AnonymousUser(AnonymousUserMixin):
     """
         With this AnonymousUser class, we can access the following functions as well

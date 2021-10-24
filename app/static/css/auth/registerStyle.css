@@ -14,6 +14,7 @@ body{
 }
 
 /* the hole background container */
+/* the whole content in the page between the navbar and the footer */
 .block-content {
     display: flex;
     justify-content: center;
@@ -92,6 +93,7 @@ body{
     transition: .3s;
 }
 
+/* when hovering on the labels in the form */
 .label-input-blank:hover, .label-radio-group:hover{
     color: #ffffff;
     letter-spacing: 3px;
@@ -141,6 +143,7 @@ body{
     cursor: pointer;
 }
 
+/* error-message for the input errors */
 .error-message {
     color: #b888ff;
     margin-top: -24px;

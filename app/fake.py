@@ -1,3 +1,9 @@
+"""
+    The basic idea of this file is learned from a book called
+    'Flask Web Development: Developing Web Applications with Python, Second Edition'
+"""
+
+
 import os
 from random import randint
 from sqlalchemy.exc import IntegrityError
@@ -47,6 +53,10 @@ def products(count=100):
                     release_time=fake.past_datetime(),
                     seller=u)
 
+        # set the category for this product
+        cate = Category.query.filter_by(name='digital').first()
+        p.categories.append(cate)
+
         db.session.add(p)
         db.session.commit()
 
@@ -82,4 +92,4 @@ def insert_pictures(product_id):
 
 # to avoid circular import, we should do this here.
 from . import db
-from .models import User, Product, ProductPic
+from .models import User, Product, ProductPic, Category

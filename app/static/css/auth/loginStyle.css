@@ -12,12 +12,9 @@ The main aesthetics conceptions are partially learned from the internet
 
 body {
     height: 100vh;
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*background-image: linear-gradient(to bottom right, #dbdcff, #a283ff);*/
 }
 
+/* the whole content in the page between the navbar and the footer */
 .block-content {
     display: flex;
     justify-content: center;
@@ -30,16 +27,14 @@ body {
     background-size: cover;
 }
 
+/* the container that contains left and right boxes */
 .container-outer {
     width: 640px;
     height: 320px;
     display: flex;
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*background-color: #abc;*/
 }
 
-
+/* the left box with LogIn logo */
 .container-left {
     background-color: white;
     height: 280px;
@@ -48,11 +43,13 @@ body {
     width: 50%;
 }
 
+/* a big login logo */
 .container-left h1 {
     font: 900 50px '';
     margin: 50px 40px 40px;
 }
 
+/* the text under the logo */
 .container-left span {
     display: block;
     color: #999;
@@ -61,6 +58,7 @@ body {
     line-height: 20px;
 }
 
+/* the right box contains the login form */
 .container-right {
     background-color: #353a5b;
     color: #f1f1f2;
@@ -68,16 +66,19 @@ body {
     transition: 1s;
 }
 
+/* when hovering the right box, let it show shadow */
 .container-right:hover{
     box-shadow: 0 0 30px 20px rgba(255, 255, 255, .2);
 }
 
+/* the login form */
 .login-form {
     margin-top: 50px;
     margin-left: 30px;
     position: absolute;
 }
 
+/* the label for each input in the form */
 .hint-label {
     /* background-color: #fff; */
     color: #c2c2c5;
@@ -90,11 +91,13 @@ body {
     transition: .3s;
 }
 
+/* when hovering the labels */
 .hint-label:hover{
     color: #ffffff;
     letter-spacing: 3px;
 }
 
+/* the input blank in the form  */
 .input-blank {
     background: transparent;
     font-size: 14px;
@@ -106,6 +109,7 @@ body {
     outline: none !important;
 }
 
+/* set a ::before for each label to replace the input borders */
 .hint-label::before {
     /* content: 'asd'; */
     content: '';
@@ -117,14 +121,17 @@ body {
     background-image: linear-gradient(to right, #5044ff, #ff8bc7);
 }
 
+/* the remember me box */
 #remember-me-box {
     margin-top: 20%;
 }
 
+/* label for the remember me box */
 #remember-me-label{
     color: #c2c2c5;
 }
 
+/* the submit button */
 #btn-submit {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.05);
@@ -135,6 +142,7 @@ body {
     transition: .3s;
 }
 
+/* when hovering on the submit button */
 #btn-submit:hover {
     letter-spacing: 2px;
     color: #000;
@@ -143,6 +151,7 @@ body {
     cursor: pointer;
 }
 
+/* error-message for the input errors */
 .error-message {
     color: #b888ff;
     margin-top: -24px;
@@ -151,11 +160,13 @@ body {
     right: -25px;
 }
 
+/* a link button to the registration form */
 .link-registration{
     margin-top: 100px;
     color: #fff;
 }
 
+/* the text in the register button */
 .link-registration a{
     display: inline-block;
     width: 260px;
@@ -169,6 +180,7 @@ body {
     transition: .3s;
 }
 
+/* when hovering the register button */
 .link-registration a:hover{
     background-color: #ffffff;
     letter-spacing: 2px;
