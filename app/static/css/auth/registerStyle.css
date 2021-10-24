@@ -36,7 +36,7 @@ body{
 
 /* the inner box contains text of 'Registration' */
 .box-right {
-    background-color: #e8e7e7;
+    background-color: white;
     height: 280px;
     position: relative;
     top: 20px;
@@ -60,7 +60,7 @@ body{
 
 /* The inner box at the left side, which contains the form */
 .box-left {
-    background-color: #282525;
+    background-color: #353a5b;
     color: #f1f1f2;
     width: 50%;
     transition: 1s;

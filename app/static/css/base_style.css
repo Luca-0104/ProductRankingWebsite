@@ -12,6 +12,10 @@ html{
     overflow: hidden;
 }
 
+#web-name a{
+    font-size: 35px;
+}
+
 /* every item in the navbar */
 .nav .nav-item {
     /* let every item float to the left, then they can be located horizontally */
@@ -39,7 +43,8 @@ html{
 }
 
 /* when the cursor hovering the nav item */
-.nav a:hover {
+.nav .hover-item a:hover {
     background-color: #282525;
     color: #CC9999;
 }
+
