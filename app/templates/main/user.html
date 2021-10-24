@@ -2,21 +2,32 @@
 
 {% block title %}PR Hub - {{ user.username }}{% endblock %}
 
+{% block style %}
+    <link rel="stylesheet" href="../../static/css/main/profile_style.css">
+{% endblock %}
+
 {% block content %}
-    <div>
-        <h1>
-            {{ user.username }}
-        </h1>
+    <div class="block-content">
 
-        <h3>
-            Account Type: {% if user.role_id == 1 %}Customer{% else %}Retailer{% endif %}
-        </h3>
+        <div>
+            <h1>
+                {{ user.username }}
+            </h1>
 
-        <p>
-            Member since {{ moment(user.start_datetime).format('L') }}
-        </p>
+            <h3>
+                Account Type: {% if user.role_id == 1 %}Customer{% else %}Retailer{% endif %}
+            </h3>
 
-        {% if current_user.is_administrator() %}
-        {% endif %}
+            <p>
+                Member since {{ moment(user.start_datetime).format('L') }}
+            </p>
+
+            {% if current_user.is_administrator() %}
+            {% endif %}
+        </div>
+
+        {#    This is an empty div, which is used to clear the float #}
+        <div class="empty-for-clear-float"></div>
+
     </div>
 {% endblock %}
