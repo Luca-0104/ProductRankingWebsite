@@ -1,21 +1,10 @@
-/*
-The main aesthetics conceptions are partially learned from the internet
-@bilibili
-*/
-
-
-/*clear the default margin and padding of the browsers*/
 * {
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
-body {
+body{
     height: 100vh;
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*background-image: linear-gradient(to bottom right, #dbdcff, #a283ff);*/
 }
 
 .block-content {
@@ -24,109 +13,105 @@ body {
     align-items: center;
     /* let the items inside located vertically */
     flex-direction: column;
-    /*background-image: linear-gradient(to bottom right, #dbdcff, #a283ff);*/
     background-image: url("../../img/pic1.png");
     height: 100%;
     background-size: cover;
 }
 
-.container-outer {
+.box-outer {
     width: 640px;
-    height: 320px;
+    height: 650px;
     display: flex;
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*background-color: #abc;*/
+    flex-direction: column;
+    /* background-color: #abc; */
 }
 
-
-.container-left {
+.box-up {
     background-color: #fff;
-    height: 280px;
+    height: 20%;
     position: relative;
     top: 20px;
-    width: 50%;
+    width: 80%;
+    margin-left: 30px;
 }
 
-.container-left h1 {
-    font: 900 50px '';
-    margin: 50px 40px 40px;
+.box-up h2 {
+    font: 900 40px '';
+    margin: 5px 40px 40px;
 }
 
-.container-left span {
+.box-up span {
     display: block;
     color: #999;
     font-size: 14px;
-    margin: -23px 40px 40px;
+    margin: 40px;
+    margin-top: -33px;
     line-height: 20px;
 }
 
-.container-right {
+.box-down {
     background-color: #474a59;
+    box-shadow: 0 0 40px 16px rgba(0, 0, 0, .2);
     color: #f1f1f2;
-    width: 50%;
+    width: 100%;
+    margin-left: 6px;
+    z-index: 1;
     transition: 1s;
 }
 
-.container-right:hover{
+.box-down:hover{
     box-shadow: 0 0 30px 20px rgba(255, 255, 255, .2);
 }
 
-.login-form {
-    margin-top: 50px;
-    margin-left: 30px;
-    position: absolute;
+.upload-form {
+    width: fit-content;
+    margin-top: 47px;
+    margin-left: 190px;
+    /* position: absolute; */
 }
 
-.hint-label {
+.hint-label, .choose-pic-label {
     /* background-color: #fff; */
     color: #c2c2c5;
     display: block;
-    font-size: 16px;
-    height: 16px;
+    font-size: 14px;
+    height: 17px;
     margin-top: 20px;
     margin-bottom: 5px;
     position: relative;
     transition: .3s;
 }
 
-.hint-label:hover{
+.hint-label:hover, .choose-pic-label:hover{
     color: #ffffff;
     letter-spacing: 3px;
 }
 
 .input-blank {
     background: transparent;
-    font-size: 14px;
     border: 0;
     color: #f2f2f2f2;
-    height: 30px;
+    font-size: 18px;
+    height: 32px;
     line-height: 30px;
     width: 100%;
     outline: none !important;
 }
 
 .hint-label::before {
-    /* content: 'asd'; */
     content: '';
     display: block;
     position: absolute;
-    top: 52px;
+    top: 50px;
     width: 100%;
     height: 3px;
     background-image: linear-gradient(to right, #5044ff, #ff8bc7);
 }
 
-#remember-me-box {
-    margin-top: 20%;
-}
-
-#remember-me-label{
-    color: #c2c2c5;
-}
-
 #btn-submit {
     color: #fff;
+    margin-top: 20px;
+    margin-bottom: 30px;
     background-color: rgba(255, 255, 255, .1);
     border-radius: 20px;
     width: 100px;
@@ -140,6 +125,7 @@ body {
     color: #000;
     background-color: #fff;
     cursor: pointer;
+
 }
 
 .error-message {
@@ -147,28 +133,9 @@ body {
     margin-top: -24px;
     display: inline-block;
     position: absolute;
-    right: -25px;
+    margin-left: -100px;
 }
 
-.link-registration{
-    margin-top: 100px;
-    color: #fff;
-}
-
-.link-registration a{
-    display: inline-block;
-    width: 260px;
-    height: 20px;
-    text-decoration: none;
-    text-align: center;
-    background-color: rgba(255, 255, 255, .5);
-    border: 1px solid #b888ff;
-    border-radius: 25px;
-    padding: 10px;
-    transition: .3s;
-}
-
-.link-registration a:hover{
-    background-color: #ffffff;
-    letter-spacing: 2px;
+.error-message-choose-pic{
+    margin-left: -30px;
 }

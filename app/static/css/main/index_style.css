@@ -10,7 +10,6 @@
 /* the block-content inherited from the base */
 .block-content{
     width: 100%;
-    height: 18580px;
     background-color: white;
 }
 
@@ -53,6 +52,14 @@
 .pic{
     width: 100%;
     background-size: cover;
+}
+
+/* the link on each picture */
+.pic a{
+    /* make the link has the same size of the picture, so that we can click on the picture to active the link */
+    display: inline-block;
+    height: 545px;
+    width: 100%;
 }
 
 /* dot buttons */
