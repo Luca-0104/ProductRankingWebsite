@@ -110,11 +110,23 @@
     font-family: 'Times New Roman', 'Lucida Bright' ,'Lucida Sans Unicode', 'Geneva', 'Verdana', serif;
 }
 
+/* the <a> outers the icon span */
+.title-list-item a{
+    display: inline-block;
+    margin: 10px 45%;
+    width: 5%;
+    color: black;
+}
+
+.title-list-item a:hover{
+    color: #ce8787;
+}
+
 /* The iconfont ('down' icon) */
 .title-list-item .icon-down{
     font-size: 50px;
     display: inline-block;
-    margin: 10px 45%;
+    font-weight: bold;
 }
 
 

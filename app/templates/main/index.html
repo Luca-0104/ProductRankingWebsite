@@ -4,7 +4,8 @@
 
 {% block style %}
     <link rel="stylesheet" href="../../static/css/main/index_style.css">
-    <link rel="stylesheet" href="../../static/css/iconfonts/incon_down/iconfont.css">   <!-- import the iconfont of 'down' -->
+    <link rel="stylesheet" href="../../static/css/iconfonts/incon_down/iconfont.css">
+    <!-- import the iconfont of 'down' -->
 {% endblock %}
 
 {% block scripts_after_body %}
@@ -21,9 +22,10 @@
         <div class="picture-panel-box">
             {#    The big pictures in the slideshow#}
             <ul class="pic-container">
-{#               clicking on each picture can goes into the page of products in corresponding category #}
+                {#               clicking on each picture can goes into the page of products in corresponding category #}
                 <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='digital') }}"></a></li>
-                <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='instruments') }}"></a></li>
+                <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='instruments') }}"></a>
+                </li>
                 <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='luxury') }}"></a></li>
                 <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='sports') }}"></a></li>
                 <li class="pic"><a href="{{ url_for('main.products_in_category', category_name='digital') }}"></a></li>
@@ -44,11 +46,14 @@
             show the product cards on the index page
          -->
         <ul class="products-list">
-{#        a title of going to see the products #}
+            {#        a title of going to see the products #}
             <li class="title-list-item">
                 <div class="title">See What We Have</div>
-                <span class="iconfont icon-31xiala icon-down"></span>
+                <a href="#anchor-products"><span class="iconfont icon-31xiala icon-down"></span></a>
             </li>
+
+            {# the anchor for the 'down' button to jump to#}
+            <div id="anchor-products"></div>
 
             {% for product in products %}
                 {# this is each product card #}

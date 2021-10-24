@@ -13,11 +13,11 @@ def index():
 
     if current_user.is_authenticated and current_user.can(Permission.VIEW_ALL_PRODUCT):
         # for users who logged in
-        products = Product.query.order_by(Product.release_time.desc()).all()
+        products = Product.query.order_by(Product.rank.desc()).all()
 
     else:
         # for anonymous users
-        products = Product.query.order_by(Product.release_time.desc()).limit(4)
+        products = Product.query.order_by(Product.rank.desc()).limit(4)
 
 
     return render_template('main/index.html', products=products)
