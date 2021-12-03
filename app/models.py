@@ -6,9 +6,7 @@ from flask_login import UserMixin, AnonymousUserMixin
 
 from app import db, login_manager
 from app.tableInfo import user_list, product_list, product_category_list, category_list, product_picture_list
-from app.fake import users, products
 
-from faker import Faker
 import random
 
 
@@ -39,11 +37,11 @@ class Tools:
         """
         Role.insert_roles()  # roles of users
         User.insert_users()  # the constant user accounts for test
-        users(100)  # 100 fake users
+        # users(100)  # 100 fake users
         Category.insert_categories()  # the product categories
         Product.insert_products()  # the constant products for show
         ProductPic.insert_pictures()  # the pictures of the constant products
-        products(100)  # 100 fake products
+        # products(100)  # 100 fake products
 
 
 class Permission:
@@ -239,8 +237,8 @@ class Product(db.Model):
             This should be used in the console only a single time.
         """
 
-        # use Faker to generate the past_datetime for products as the releasing datetime
-        fake = Faker()
+        # # use Faker to generate the past_datetime for products as the releasing datetime
+        # fake = Faker()
 
         # when looping, we also get the index, this can help to get the correspond category list
         for index, product_info in enumerate(product_list):
@@ -256,7 +254,13 @@ class Product(db.Model):
             # get a user as the seller randomly (u must be the Retailer (role))
             u = User.query.filter_by(role_id=2).offset(random.randint(0, user_count - 1)).first()
 
-            new_product = Product(name=name, description=description, price=price, release_time=fake.past_datetime(),
+            # new_product = Product(name=name, description=description, price=price, release_time=fake.past_datetime(),
+            #                       seller=u, rank=random.random() * 5)
+
+            # -------------------------------- change release time to random!!! ------------------------------------------------------------------------------------------------------
+            # -------------------------------- change release time to random!!! ------------------------------------------------------------------------------------------------------
+            # -------------------------------- change release time to random!!! ------------------------------------------------------------------------------------------------------
+            new_product = Product(name=name, description=description, price=price, release_time=datetime.utcnow,
                                   seller=u, rank=random.random() * 5)
 
             db.session.add(new_product)
