@@ -1,4 +1,4 @@
-from flask import request, url_for, redirect, flash, render_template
+from flask import request, url_for, redirect, flash, render_template, session
 from flask_login import login_user, login_required, logout_user
 
 from app import db
@@ -55,6 +55,8 @@ def login():
             # ensure the relative url, avoiding the malicious redirection
             if next is None or not next.startswith('/'):
                 next = url_for('main.index')
+
+                # session["username"] = ""
 
             # redirect back to the original url or the index page
             return redirect(next)
