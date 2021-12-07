@@ -4,16 +4,16 @@
 """
 
 from functools import wraps
-from flask import abort
-from flask_login import current_user
-from .models import Permission
+from flask import abort, session
+from .models import Permission, User
+from .public_tools import get_user_by_name
 
 '''
 This module is used to define decorators
 '''
 
 
-# copied from this book
+# learned from the book
 def permission_required(permission):
     """
     The decorator of the requirement of the 'permission'
@@ -23,10 +23,18 @@ def permission_required(permission):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            if not current_user.can(permission):
+            # check if the user logged in
+            username = session.get("username")
+            if username:
+                current_user = get_user_by_name(username)
+                # check if the user has the permission
+                if not current_user.can(permission):
+                    # HTTP deny
+                    abort(403)
+                return f(*args, **kwargs)
+            else:
                 # HTTP deny
                 abort(403)
-            return f(*args, **kwargs)
         return decorated_function
     return decorator
 

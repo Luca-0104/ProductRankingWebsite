@@ -3,7 +3,6 @@ from datetime import datetime
 import random
 
 from flask import request, url_for, redirect, flash, render_template, session
-from flask_login import login_required, current_user
 from sqlalchemy import and_
 from werkzeug.utils import secure_filename
 
@@ -14,6 +13,7 @@ from app.product.forms import ProductUploadForm
 from ..decorators import permission_required
 from ..models import Permission, Product, ProductPic, UserProductRank
 from .forms import ProductUploadForm
+from ..public_tools import get_user_by_name
 
 
 def generate_safe_pic_name(pic_name):
@@ -42,88 +42,95 @@ def generate_safe_pic_name(pic_name):
 
 
 @product.route('/upload-product', methods=['GET', 'POST'])
-@login_required
 @permission_required(Permission.UPLOAD_PRODUCT)
 def upload_product():
     form = ProductUploadForm()
 
-    if form.validate_on_submit():
+    # check if the user logged in
+    if session.get("username"):
 
-        """
-            store the product object into the database
-        """
-        product = Product(name=form.name.data,
-                          description=form.description.data,
-                          price=form.price.data,
-                          user_id=current_user.id)
+        current_user = get_user_by_name(session.get("username"))
 
-        db.session.add(product)
-        db.session.commit()
+        if form.validate_on_submit():
 
-        flash("Product uploaded successfully!")
+            """
+                store the product object into the database
+            """
+            product = Product(name=form.name.data,
+                              description=form.description.data,
+                              price=form.price.data,
+                              user_id=current_user.id)
 
-        """
-            dealing with the uploaded pictures
-        """
+            db.session.add(product)
+            db.session.commit()
 
-        # get a list of file objects from the user upload
-        picture_list = form.pictures.data
+            flash("Product uploaded successfully!")
 
-        # check if there are pictures uploaded
-        if len(picture_list) > 0 and picture_list[0].filename != "":
+            """
+                dealing with the uploaded pictures
+            """
 
-            # loop through the list getting and storing each picture
-            for pic in picture_list:
+            # get a list of file objects from the user upload
+            picture_list = form.pictures.data
 
-                # get the name of the picture
-                pic_name = pic.filename
-                pic_name_origin = pic_name
-                # get the suffix of the picture
-                suffix = pic_name.rsplit('.')[-1]
+            # check if there are pictures uploaded
+            if len(picture_list) > 0 and picture_list[0].filename != "":
 
-                if suffix in Config.ALLOWED_PIC_SUFFIXES:
-                    path = 'upload/product'
+                # loop through the list getting and storing each picture
+                for pic in picture_list:
 
-                    # make sure the name of picture is safe
-                    pic_name = generate_safe_pic_name(pic_name)
+                    # get the name of the picture
+                    pic_name = pic.filename
+                    pic_name_origin = pic_name
+                    # get the suffix of the picture
+                    suffix = pic_name.rsplit('.')[-1]
 
-                    """
-                        save the picture in the local directory
-                    """
-                    # get the path to store the picture (dir + pic_name)
-                    file_path = os.path.join(Config.product_dir, pic_name).replace('\\', '/')
+                    if suffix in Config.ALLOWED_PIC_SUFFIXES:
+                        path = 'upload/product'
 
-                    # save the picture
-                    pic.save(file_path)
+                        # make sure the name of picture is safe
+                        pic_name = generate_safe_pic_name(pic_name)
 
-                    """
-                        save the picture in the database
-                    """
-                    pic_address = os.path.join(path, pic_name).replace('\\', '/')
-                    pic_object = ProductPic(address=pic_address, product_id=product.id)
+                        """
+                            save the picture in the local directory
+                        """
+                        # get the path to store the picture (dir + pic_name)
+                        file_path = os.path.join(Config.product_dir, pic_name).replace('\\', '/')
 
-                    db.session.add(pic_object)
-                    db.session.commit()
+                        # save the picture
+                        pic.save(file_path)
 
-                    flash('Picture "' + pic_name_origin + '" uploaded successfully!')
+                        """
+                            save the picture in the database
+                        """
+                        pic_address = os.path.join(path, pic_name).replace('\\', '/')
+                        pic_object = ProductPic(address=pic_address, product_id=product.id)
 
-                else:
-                    flash("Fail to uploaded picture, the suffix should be only 'jpg', 'png', 'gif', 'bmp', 'webp', 'pcx', 'tif', 'jpeg', 'tga', 'exif', 'fpx', 'svg', 'psd', 'cdr', 'pcd', 'dxf', 'ufo', 'eps', 'al', 'hdri', 'raw', 'wmf', 'flic', 'emf', 'ico', 'avif', 'apng'")
+                        db.session.add(pic_object)
+                        db.session.commit()
 
-        else:
-            flash("No pictures uploaded!")
+                        flash('Picture "' + pic_name_origin + '" uploaded successfully!')
+
+                    else:
+                        flash(
+                            "Fail to uploaded picture, the suffix should be only 'jpg', 'png', 'gif', 'bmp', 'webp', 'pcx', 'tif', 'jpeg', 'tga', 'exif', 'fpx', 'svg', 'psd', 'cdr', 'pcd', 'dxf', 'ufo', 'eps', 'al', 'hdri', 'raw', 'wmf', 'flic', 'emf', 'ico', 'avif', 'apng'")
+
+            else:
+                flash("No pictures uploaded!")
+
+            return redirect(url_for('main.index'))
+
+        return render_template('product/upload.html', form=form)
+
+    # for the anonymous users
+    else:
+        return redirect(url_for('auth.login'))
 
 
-        return redirect(url_for('main.index'))
-
-
-
-    return render_template('product/upload.html', form=form)
 
 
 
 @product.route('/remove-product')
-@login_required
 @permission_required(Permission.REMOVE_PRODUCT)
 def remove_product():
     pass
@@ -136,13 +143,15 @@ def product_details(product_id):
     :param product_id: the id of the selected product that is got from the frontend
     :return:
     """
+    # get the product by id
     product = Product.query.get(product_id)
 
-    '''
-        filter out the ranking relation be tween user and product
-    '''
     # only the user who has logged in has the ranking relation to the product
-    if current_user.is_authenticated:
+    if session.get("username"):
+        # get the user object
+        current_user = get_user_by_name(session.get("username"))
+
+        # filter out the ranking relation be tween user and product
         pu_relation = current_user.ranked_product_relations.filter(
             and_(UserProductRank.user == current_user, UserProductRank.product == product)).first()
         is_anonymous_user = False
@@ -156,44 +165,52 @@ def product_details(product_id):
 
 
 @product.route('/edit-product')
-@login_required
 def edit_product():
     pass
 
 
 @product.route('/rank/<product_id>-<rank>')
-@login_required
 @permission_required(Permission.GRADE_STARS)
 def rank_product(product_id, rank):
 
-    # cast the rank from str to float, so that it can be calculated
-    rank = float(rank)
+    # check if the user logged in
+    if session.get("username"):
+        # get the user object
+        current_user = get_user_by_name(session.get("username"))
 
-    # find the product by id
-    product = Product.query.get(product_id)
+        # cast the rank from str to float, so that it can be calculated
+        rank = float(rank)
 
-    '''
-        record the n to n relationship between user and the product rank
-        record the current product is ranked by current user
-        ! Also record the rate that this user ranked this product
-    '''
-    # product.ranked_users.append(current_user)
-    pu_relation = UserProductRank(user=current_user, product=product, rank=rank)
-    db.session.add(pu_relation)
+        # find the product by id
+        product = Product.query.get(product_id)
 
-    '''
-        calculate the average rank, 
-        (current total rank + this rank) / (current rank times + 1)
-    '''
-    product.rank = ((product.rank * product.rank_count) + rank) / (product.rank_count + 1)
-    product.rank_count += 1
+        '''
+            record the n to n relationship between user and the product rank
+            record the current product is ranked by current user
+            ! Also record the rate that this user ranked this product
+        '''
+        pu_relation = UserProductRank(user=current_user, product=product, rank=rank)
+        db.session.add(pu_relation)
 
-    db.session.add(product)
-    db.session.commit()
+        '''
+            calculate the average rank, 
+            (current total rank + this rank) / (current rank times + 1)
+        '''
+        product.rank = ((product.rank * product.rank_count) + rank) / (product.rank_count + 1)
+        product.rank_count += 1
 
-    flash("Submitted! Thanks for your feedback!")
+        db.session.add(product)
+        db.session.commit()
 
-    return render_template('product/detail.html', product=product, pu_relation=pu_relation, is_anonymous_user=False)
+        flash("Submitted! Thanks for your feedback!")
+
+        return render_template('product/detail.html', product=product, pu_relation=pu_relation, is_anonymous_user=False)
+
+
+    # for the anonymous users
+    else:
+        return redirect(url_for('auth.login'))
+
 
 
 

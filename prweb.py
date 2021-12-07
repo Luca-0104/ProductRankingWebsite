@@ -1,12 +1,13 @@
 import os
+
+from flask import session
+
 from app import create_app, db
 from app.models import User, Role, Tools, Product, Permission, ProductPic, CommentPic, Comment, ReplyComment, Category, \
     UserProductRank
 
 # create an object of our app
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-
-# test
 
 
 @app.shell_context_processor

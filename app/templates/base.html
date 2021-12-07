@@ -30,7 +30,7 @@
     </li>
 
     {# for the logged in users #}
-    {% if current_user.is_authenticated %}
+    {% if session.get("username") %}
 
         <li class="nav-item hover-item">
             {#            loug out button #}
@@ -40,14 +40,12 @@
 
         <li class="nav-item hover-item">
             {#            upload product button #}
-            {% if current_user.can(Permission.UPLOAD_PRODUCT) %}
-                <a href="{{ url_for('product.upload_product') }}">Upload a New Product</a>
-            {% endif %}
+            <a href="{{ url_for('product.upload_product') }}">Upload a New Product</a>
         </li>
 
         <li class="nav-item hover-item">
             {#            profile button (give the user name to the backend) #}
-            <a href="{{ url_for('main.user_profile', username=current_user.username) }}">My Profile</a>
+            <a href="{{ url_for('main.user_profile', username=session.get("username")) }}">My Profile</a>
         </li>
 
 
@@ -89,15 +87,15 @@
         <ul class="footer-box footer-box-left-2">
             <li class="footer-box-title">My Account</li>
             <li>
-                {% if current_user.is_authenticated %}
+                {% if session.get("username") %}
                     <a href="{{ url_for("auth.logout") }}">Log Out</a>
                 {% else %}
                     <a href="{{ url_for("auth.login") }}">Sign In</a>
                 {% endif %}
             </li>
             <li><a href="{{ url_for('auth.register') }}">Join Us</a></li>
-            {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('main.user_profile', username=current_user.username) }}">My Profile</a></li>
+            {% if session.get("username") %}
+                <li><a href="{{ url_for('main.user_profile', username=session.get("username")) }}">My Profile</a></li>
             {% endif %}
         </ul>
 

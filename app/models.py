@@ -2,20 +2,11 @@ import os
 from datetime import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, AnonymousUserMixin
 
-from app import db, login_manager
+from app import db
 from app.tableInfo import user_list, product_list, product_category_list, category_list, product_picture_list
 
 import random
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    """
-        Flask-Login extension required this
-    """
-    return User.query.get(int(user_id))
 
 
 class Tools:
@@ -350,7 +341,7 @@ class Role(db.Model):
         db.session.commit()
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
@@ -411,24 +402,6 @@ class User(UserMixin, db.Model):
     def is_administrator(self):
         return self.can(Permission.ADMIN)
 
-
-# (learned from the book)
-# book: 'Flask Web Development: Developing Web Applications with Python, Second Edition'
-class AnonymousUser(AnonymousUserMixin):
-    """
-        With this AnonymousUser class, we can access the following functions as well
-        even if the user is not logged in
-    """
-
-    def can(self, perm):
-        return False
-
-    def is_administrator(self):
-        return False
-
-
-# tell Flask-Login that we use the AnonymousUser class that we defined by ourselves
-login_manager.anonymous_user = AnonymousUser
 
 # to avoid circular import, we should do this here.
 from app.product.views import generate_safe_pic_name

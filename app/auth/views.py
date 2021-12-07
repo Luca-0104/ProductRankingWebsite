@@ -1,5 +1,4 @@
 from flask import request, url_for, redirect, flash, render_template, session
-from flask_login import login_user, login_required, logout_user
 
 from app import db
 from . import auth
@@ -8,13 +7,12 @@ from app.models import User
 
 
 @auth.route('/logout')
-@login_required
 def logout():
     """
     The function to log the user out
     :return: redirect back to the home page
     """
-    logout_user()
+    session.pop("username", None)
     flash('You have been logged out')
     return redirect(url_for("main.index"))
 
@@ -47,19 +45,13 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user is not None and user.verify_password(form.password.data):
-            # call the login_user function in the Flask-Login extension to mark the user as logged in the session
-            login_user(user, form.remember_me.data)
+            # record the user in session
+            session["username"] = user.username
 
-            # get the original url that the user was browsing before login
-            next = request.args.get('next')
-            # ensure the relative url, avoiding the malicious redirection
-            if next is None or not next.startswith('/'):
-                next = url_for('main.index')
-
-                # session["username"] = ""
+            flash("Login success!")
 
             # redirect back to the original url or the index page
-            return redirect(next)
+            return redirect(url_for('main.index'))
 
         # if we get here, this means the user give the wrong data and login failed
         flash("Login Failed! Check your username or password.")

@@ -3,15 +3,12 @@
     'Flask Web Development: Developing Web Applications with Python, Second Edition'
 """
 
-from flask import Flask
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from config import config
-from flask_login import LoginManager
 
 # load the extensions we need
 db = SQLAlchemy()
-login_manager = LoginManager()
-login_manager.login_view = 'auth.login'     # when anonymous users trying to access the protected routes（@login_required），FLask-Login will redirect it to the login page
 
 
 def create_app(config_name):
@@ -23,7 +20,6 @@ def create_app(config_name):
 
     # initialize the extensions we need
     db.init_app(app)
-    login_manager.init_app(app)
 
     # register blueprint - main
     from .main import main as main_blueprint
