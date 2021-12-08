@@ -251,7 +251,7 @@ class Product(db.Model):
             # -------------------------------- change release time to random!!! ------------------------------------------------------------------------------------------------------
             # -------------------------------- change release time to random!!! ------------------------------------------------------------------------------------------------------
             # -------------------------------- change release time to random!!! ------------------------------------------------------------------------------------------------------
-            new_product = Product(name=name, description=description, price=price, release_time=datetime.utcnow,
+            new_product = Product(name=name, description=description, price=price, release_time=datetime.utcnow(),
                                   seller=u, rank=random.random() * 5)
 
             db.session.add(new_product)
@@ -348,6 +348,7 @@ class User(db.Model):
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     start_datetime = db.Column(db.DateTime(), default=datetime.utcnow)
+    avatar = db.Column(db.String(256), default='upload/avatar/default__0__.jpg')  # The avatar
     is_deleted = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))  # 1 role --> n users
     released_products = db.relationship('Product', backref='seller', lazy='dynamic')  # 1 user --> n products

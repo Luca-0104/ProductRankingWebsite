@@ -11,7 +11,7 @@ html{
     /*background-color: #CCCCCC;*/
     /*position: fixed;*/
     /*margin: 100px auto;*/
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 /* our web logo */
@@ -50,6 +50,29 @@ html{
     background-color: #282525;
     color: #CC9999;
 }
+
+/* a dropdown list for selecting the category */
+.dropdown-btn ul{
+    position: absolute;
+    z-index: 11;      /* make the list cover the picture(z-index=9) */
+}
+
+/* items in dropdown list of category */
+.dropdown-btn ul li{
+    height: 0;                      /* if do not hover on the btn, list items are collapsed at the place of first item */
+    transition: 0.2s;
+    opacity: 0;                     /* if do not hover on the btn, list items are invisible */
+    transform: translateY(-57px);   /* make the collapsed list items locate at the navbar */
+}
+
+/* when hovering on each item in the dropdown list */
+.dropdown-btn:hover ul li{
+    height: 57px;                   /* open the list (cancel the collapsing) */
+    opacity: 1;                     /* make the list items visible */
+    background-color: #E0E0E0;
+    transform: translateY(0);       /* put the list down from the navbar */
+}
+
 
 /* The footer */
 .footer{

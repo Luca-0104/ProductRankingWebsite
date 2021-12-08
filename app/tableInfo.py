@@ -6,6 +6,10 @@ Those information should be stored in this file
 #
 user_list = [
     ['Customer1@163.com', 'Customer1', '123', 1],
+    ['Customer2@163.com', 'Customer2', '123', 1],
+    ['Customer3@163.com', 'Customer3', '123', 1],
+    ['Customer4@163.com', 'Customer4', '123', 1],
+    ['Customer5@163.com', 'Customer5', '123', 1],
     ['Retailer1@163.com', 'Retailer1', '123', 2],
     ['Retailer2@163.com', 'Retailer2', '123', 2],
     ['Retailer3@163.com', 'Retailer3', '123', 2],

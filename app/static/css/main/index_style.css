@@ -49,6 +49,7 @@
     height:545px;
     display: flex;
     position: absolute;
+    z-index: 9;
     left: 0;
     transition: .2s;
 }

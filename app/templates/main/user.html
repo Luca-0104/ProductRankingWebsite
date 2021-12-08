@@ -19,12 +19,14 @@
             </h3>
 
             <p>
-                Member since
+                Member since {{ user.start_datetime.date() }}
             </p>
 
 {#            {% if current_user.is_administrator() %}#}
 {#            {% endif %}#}
         </div>
+
+
 
         {#    This is an empty div, which is used to clear the float #}
         <div class="empty-for-clear-float"></div>

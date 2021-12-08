@@ -42,7 +42,6 @@ def generate_safe_pic_name(pic_name):
 
 
 @product.route('/upload-product', methods=['GET', 'POST'])
-@permission_required(Permission.UPLOAD_PRODUCT)
 def upload_product():
     form = ProductUploadForm()
 
@@ -131,7 +130,6 @@ def upload_product():
 
 
 @product.route('/remove-product')
-@permission_required(Permission.REMOVE_PRODUCT)
 def remove_product():
     pass
 
@@ -170,7 +168,6 @@ def edit_product():
 
 
 @product.route('/rank/<product_id>-<rank>')
-@permission_required(Permission.GRADE_STARS)
 def rank_product(product_id, rank):
 
     # check if the user logged in

@@ -28,7 +28,7 @@ the retailer users uploaded.
 3. User are able to edit their profiles.
 3. Users who have logged in are able to filter the products by different constrains.
 3. Users who have logged in are able to search for specific products.
-3. Users who have logged in are able to rank the products in the page with different ranking ways.
+3. Users who have logged in are able to sort the products in the page with different sorting ways.
 1. All the users are able to view the details about each specific product.
 1. In the details page of a product, users who have logged in are able to rating the product by giving stars (1 - 5) or 
 just view the rating feedback they have done.

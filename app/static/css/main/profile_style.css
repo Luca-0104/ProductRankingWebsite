@@ -1,3 +1,10 @@
+/* clear the default css in the browser */
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
 /* This is an empty div, which is used to clear the float */
 .empty-for-clear-float{
     clear: both;

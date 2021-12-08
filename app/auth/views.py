@@ -47,6 +47,7 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             # record the user in session
             session["username"] = user.username
+            session["role_id"] = user.role_id
 
             flash("Login success!")
 

@@ -39,8 +39,10 @@
         </li>
 
         <li class="nav-item hover-item">
-            {#            upload product button #}
-            <a href="{{ url_for('product.upload_product') }}">Upload a New Product</a>
+            {#            upload product button only for retailers #}
+            {% if session.get("role_id") == 2 %}
+                <a href="{{ url_for('product.upload_product') }}">Upload a New Product</a>
+            {% endif %}
         </li>
 
         <li class="nav-item hover-item">
@@ -55,9 +57,25 @@
         </li>
     {% endif %}
 
-    {#    <li class="nav-item hover-item">#}
-    {#        <a href="{{ url_for('main.secret') }}">Secret</a>#}
-    {#    </li>#}
+    <li class="nav-item hover-item dropdown-btn">
+        {# a dropdown list of categories #}
+        <a>categories</a>
+        <ul>
+            <li><a href="{{ url_for('main.products_in_category', category_name='sports') }}">sports</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='foods') }}">foods</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='clothes') }}">clothes</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='digital') }}">digital</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='books') }}">books</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='makeup') }}">makeup</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='luxury') }}">luxury</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='daily') }}">daily</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='art') }}">art</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='home') }}">home</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='instruments') }}">instruments</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='others') }}">others</a></li>
+        </ul>
+    </li>
+
 </ul>
 
 {#    for flash #}
