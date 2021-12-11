@@ -3,6 +3,8 @@ html{
     overflow-x: hidden;
 }
 
+
+
 /* the whole nav bar */
 .nav {
     width: auto;
@@ -90,6 +92,20 @@ html{
     transform: translateY(0);       /* put the list down from the navbar */
 }
 
+/* the whole content in the page between the navbar and the footer */
+.block-content{
+    background-color: white;
+}
+
+/* the <a> outers the icon span */
+.title-list-item a{
+    color: black;
+}
+
+/* the outer container of the product box */
+.products-list-item{
+    background-color: white;
+}
 
 /* The footer */
 .footer{
@@ -112,6 +128,11 @@ html{
 /* when hovering the link, or the visited links */
 .footer a:active, .footer a:hover{
     color: #ffffff;
+}
+
+/* The product name */
+.product-info-box .product-name{
+    color: black;
 }
 
 /* every column in the footer, in total there are 4  */

@@ -5,7 +5,9 @@
 
 /* the whole nav bar */
 .nav {
-    background-color: #8d24ff;
+    /*background-color: #8d24ff;*/
+    background-color: #333333;
+
 }
 
 /* word in the nav item */
@@ -16,26 +18,65 @@
 /* when the cursor hovering the nav item */
 .nav .hover-item a:hover {
     background-color: #282525;
+    /*background-color: #E0E0E0;*/
     color: #CC9999;
 }
 
 /* when hovering on each item in the dropdown list */
-.dropdown-btn:hover ul li{
-    background-color: #E0E0E0;
+.dropdown-btn:hover ul li {
+    /*background-color: #E0E0E0;*/
+    background-color: #333333;
+}
+
+/* the whole content in the page between the navbar and the footer */
+.block-content {
+    background-color: #3c3f41;
+}
+
+/* the text of the title */
+.title-list-item .title {
+    color: white;
+}
+
+/* the <a> outers the icon span */
+.title-list-item a {
+    color: black;
+}
+
+/* the outer container of the product box */
+.products-list-item {
+    background-color: #333333;
+}
+
+/* the product name */
+.product-name a {
+    color: white;
+}
+
+/* The product name */
+.product-info-box .product-name {
+    color: white;
 }
 
 /* The footer */
-.footer{
+.footer {
     background: black;
-    color: #CC9999;
+    /*background-color:#f5f5f7;*/
+    /*color: #CC9999;*/
+    color: #ffffff;
+
 }
 
 /* clear the style of the link */
-.footer a:link, .footer a:visited{
-    color: #CC9999;
+.footer a:link, .footer a:visited {
+    /*color: #CC9999;*/
+    color: #ffffff;
+
 }
 
 /* when hovering the link, or the visited links */
-.footer a:active, .footer a:hover{
-    color: #ffffff;
+.footer a:active, .footer a:hover {
+    /*color: #ffffff;*/
+    color: #CC9999;
+
 }
