@@ -1,0 +1,159 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+}
+
+/* the whole content in the page between the navbar and the footer */
+.block-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* let the items inside located vertically */
+    flex-direction: column;
+    background-image: url("../../img/pic1.png");
+    height: 100%;
+    background-size: cover;
+}
+
+/* the outer container, which contains up and down boxes */
+.box-outer {
+    width: 640px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    /* background-color: #abc; */
+}
+
+/* the up box with hint text inside */
+.box-up {
+    background-color: white;
+    height: 20%;
+    position: relative;
+    top: 20px;
+    width: 80%;
+    margin-left: 30px;
+}
+
+/* the text of 'upload your product' in up box */
+.box-up h2 {
+    font: 900 40px '';
+    margin: 5px 40px 40px;
+}
+
+/* other text in up box */
+.box-up span {
+    display: block;
+    color: #999;
+    font-size: 14px;
+    margin: 40px;
+    margin-top: -33px;
+    line-height: 20px;
+}
+
+/* the down box contains a upload form */
+.box-down {
+    background-color: #353a5b;
+    box-shadow: 0 0 40px 16px rgba(0, 0, 0, .2);
+    color: #f1f1f2;
+    width: 100%;
+    margin-left: 6px;
+    z-index: 1;
+    transition: 1s;
+}
+
+/* when hovering on the down box, we let show shadows */
+.box-down:hover{
+    box-shadow: 0 0 30px 20px rgba(255, 255, 255, .2);
+}
+
+/* the upload form inside the down box */
+.upload-form {
+    width: fit-content;
+    margin-top: 47px;
+    margin-left: 190px;
+    /* position: absolute; */
+}
+
+/* the hint labels for the input blanks in the form */
+.hint-label, .choose-pic-label, .choose-cate-label {
+    /* background-color: #fff; */
+    color: #c2c2c5;
+    display: block;
+    font-size: 14px;
+    height: 17px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    position: relative;
+    transition: .3s;
+}
+
+/* when hovering on the hint labels for the input blanks in the form */
+.hint-label:hover, .choose-pic-label:hover{
+    color: #ffffff;
+    letter-spacing: 3px;
+}
+
+/* the input blanks in the form */
+.input-blank {
+    background: transparent;
+    border: 2px solid #9f96ff;
+    color: #f2f2f2f2;
+    font-size: 18px;
+    /*height: 32px;*/
+    line-height: 30px;
+    /*width: 100%;*/
+    /*outline: none !important;*/
+    resize: none;
+    width: 414px;
+    height: 222px;
+    border-radius: 7px;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+/* The category box (contains label and all checkboxes) */
+.cate-box{
+    position: absolute;
+    left: 30%;
+    top: 40%;
+}
+
+/* the submit button */
+#btn-submit {
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    width: 100px;
+    height: 35px;
+    float: right;
+    transition: .3s;
+}
+
+/* when hovering the button */
+#btn-submit:hover {
+    letter-spacing: 2px;
+    color: #000;
+    background-color: #CC9999;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+/* error-message for the input errors */
+.error-message {
+    color: #b888ff;
+    margin-top: -24px;
+    display: inline-block;
+    position: absolute;
+    margin-left: -100px;
+}
+
+/* the error message for the picture file uploading */
+.error-message-choose-pic{
+    margin-left: -30px;
+}

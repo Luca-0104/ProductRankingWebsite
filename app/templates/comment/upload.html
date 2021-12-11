@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}PR Hub - New Comment{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="../../static/css/comment/upload.css">
+{% endblock %}
+
+{% block content %}
+     <div class="block-content">
+
+        <div class="box-outer">
+{#            a box of hint card#}
+            <div class="box-up">
+                <h2>Leave Your Comment</h2>
+                <span>Leave your comment of this product with some pictures, this might be helpful for other customers</span>
+            </div>
+
+{#            a box of product info card #}
+            <div class="box-left">
+                <ul class="product-box">
+                        <!-- picture of the product (clickable) -->
+                        <li class="product-img">
+                            <a href="{{ url_for('product.product_details', product_id=product.id) }}">
+                                {% if product.pictures.count() > 0 %}
+                                    <img src="{{ url_for('static', filename=product.pictures[0].address) }}"
+                                         alt="{{ product.name }}">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='upload/product/default.png') }}"
+                                         alt="{{ product.name }}">
+                                {% endif %}
+                            </a>
+                        </li>
+
+                        <!-- product price -->
+                        <li class="product-price">
+                            <span>￥</span><span>{{ product.price }}</span>
+                        </li>
+
+                        <!-- product name (clickable) -->
+                        <li class="product-name">
+                            <a href="{{ url_for('product.product_details', product_id=product.id) }}">{{ product.name }}</a>
+                        </li>
+
+                        <!-- retailer info (clickable) -->
+                        <li class="product-retailer">
+                            <span>retailer: </span> <i><a
+                                href="{{ url_for('main.user_profile', username=product.seller.username) }}">{{ product.seller.username }}</a></i>
+                        </li>
+                    </ul>
+            </div>
+
+{#        a box of comment form card #}
+            <div class="box-down">
+                <form action="" method="post" enctype="multipart/form-data" class="upload-form" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    {#    the comment body #}
+                    {{ form.text.label(class='hint-label') }}
+                    {{ form.text(class='input-blank') }}
+
+                    {#        adding validation messages #}
+                    {% for error in form.text.errors %}
+                        <span class="error-message">[{{ error }}]</span>
+                    {% endfor %}
+
+                    {#    pictures #}
+                    {{ form.pictures.label(class='choose-pic-label') }}
+                    {{ form.pictures(class='btn-choose-pic') }}
+
+                    {#         adding validation messages#}
+                    {% for error in form.pictures.errors %}
+                        <span class="error-message error-message-choose-pic">[{{ error }}]</span>
+                    {% endfor %}
+
+                    {#                the submit button #}
+                    {{ form.submit(id="btn-submit") }}
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
