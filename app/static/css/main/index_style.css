@@ -11,7 +11,7 @@
 /* the whole content in the page between the navbar and the footer */
 .block-content{
     width: 100%;
-    background-color: white;
+    /*background-color: white;*/
 }
 
 
@@ -122,7 +122,7 @@
     display: inline-block;
     margin: 10px 45%;
     width: 5%;
-    color: black;
+    /*color: black;*/
 }
 /* when hovering on the 'down' icon */
 .title-list-item a:hover{
@@ -153,7 +153,7 @@
     float: left;
     margin-right: 45px;
     margin-bottom: 40px;
-    background-color: white;
+    /*background-color: white;*/
     /*background-color: #d9d9d9;*/
 }
 
@@ -186,7 +186,7 @@
 }
 
 .product-price span{
-    color: #f00;
+    color: #a60101;
 }
 
 /* the product name */
