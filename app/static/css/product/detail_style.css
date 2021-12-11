@@ -164,6 +164,12 @@
  */
 .hovered-star a, .clicked-star a{
     color: #ffec39;
+    cursor: pointer;
+}
+
+.hovered-star, .clicked-star{
+    color: #ffec39;
+    cursor: pointer;
 }
 
 /* The star style for showing the feedback */

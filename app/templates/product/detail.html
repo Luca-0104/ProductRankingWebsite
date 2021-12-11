@@ -50,9 +50,9 @@
 
 
         {#
-        product rank star
-        if the user has not ranked this product, we let him be able to rate.
-        if the user has already rated this product, we just show his rate.
+            product rank star
+            if the user has not ranked this product, we let him be able to rate.
+            if the user has already rated this product, we just show his rate.
         #}
         {% if pu_relation is not none %}
             {# CASE1: The user has logged in and has rated this product #}
@@ -64,21 +64,34 @@
                     {# shows how much stars the user has rated this product #}
                     {% if pu_relation.rank == 1 %}
                         <li class="star already-star">&#9733</li>
+                        <li class="star">&#9733</li>
+                        <li class="star">&#9733</li>
+                        <li class="star">&#9733</li>
+                        <li class="star">&#9733</li>
 
                     {% elif pu_relation.rank == 2 %}
                         <li class="star already-star">&#9733</li>
                         <li class="star already-star">&#9733</li>
+                        <li class="star">&#9733</li>
+                        <li class="star">&#9733</li>
+                        <li class="star">&#9733</li>
+
 
                     {% elif pu_relation.rank == 3 %}
                         <li class="star already-star">&#9733</li>
                         <li class="star already-star">&#9733</li>
                         <li class="star already-star">&#9733</li>
+                        <li class="star">&#9733</li>
+                        <li class="star">&#9733</li>
+
 
                     {% elif pu_relation.rank == 4 %}
                         <li class="star already-star">&#9733</li>
                         <li class="star already-star">&#9733</li>
                         <li class="star already-star">&#9733</li>
                         <li class="star already-star">&#9733</li>
+                        <li class="star">&#9733</li>
+
 
                     {% elif pu_relation.rank == 5 %}
                         <li class="star already-star">&#9733</li>
@@ -90,25 +103,52 @@
                     {% endif %}
                 </ul>
             </div>
-
-        {% elif is_anonymous_user or (pu_relation is none and not is_anonymous_user) %}
+        {% elif is_anonymous_user %}
             {# CASE2: The user is anonynous #}
-            {# CASE3: The user has logged in but has not rated this product #}
             <div class="rank-box">
                 {#   the hint to rank  #}
                 <span class="rank-hint">Click to Rate</span>
                 {#   the list of stars #}
                 <ul class="rank-stars">
-                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=1) }}">&#9733</a>
+                    <li class="star"><a href="{{ url_for('auth.login') }}">&#9733</a>
                     </li>
-                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=2) }}">&#9733</a>
+                    <li class="star"><a href="{{ url_for('auth.login') }}">&#9733</a>
                     </li>
-                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=3) }}">&#9733</a>
+                    <li class="star"><a href="{{ url_for('auth.login') }}">&#9733</a>
                     </li>
-                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=4) }}">&#9733</a>
+                    <li class="star"><a href="{{ url_for('auth.login') }}">&#9733</a>
                     </li>
-                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=5) }}">&#9733</a>
+                    <li class="star"><a href="{{ url_for('auth.login') }}">&#9733</a>
                     </li>
+                </ul>
+            </div>
+
+        {% elif (pu_relation is none and not is_anonymous_user) %}
+            {# CASE3: The user has logged in but has not rated this product #}
+            <div class="rank-box">
+                {#   the hint to rank  #}
+                <span class="rank-hint">Click to Rate</span>
+                {#   the list of stars #}
+{#                <ul class="rank-stars">#}
+{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=1) }}">&#9733</a>#}
+{#                    </li>#}
+{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=2) }}">&#9733</a>#}
+{#                    </li>#}
+{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=3) }}">&#9733</a>#}
+{#                    </li>#}
+{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=4) }}">&#9733</a>#}
+{#                    </li>#}
+{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=5) }}">&#9733</a>#}
+{#                    </li>#}
+{#                </ul>#}
+
+                {#   the list of stars using Ajax, pass the product id to js#}
+                <ul class="rank-stars" product_id="{{ product.id }}">
+                    <li class="star" id="star1">&#9733</li>
+                    <li class="star" id="star2">&#9733</li>
+                    <li class="star" id="star3">&#9733</li>
+                    <li class="star" id="star4">&#9733</li>
+                    <li class="star" id="star5">&#9733</li>
                 </ul>
             </div>
 

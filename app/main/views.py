@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, session
+from flask import render_template, redirect, url_for, session, request, jsonify
 
 from . import main
 from .. import db
@@ -57,4 +57,35 @@ def products_in_category(category_name):
     else:
         return redirect(url_for('auth.login'))
 
+
+# ------------------------------ BACK-END Server (using Ajax) ----------------------------------
+@main.route('/api/change-theme', methods=['POST'])
+def change_theme():
+    if request.method == "POST":
+        # get the target them from the request
+        target_theme = request.form["target_theme"]
+
+        # if the target theme is gotten
+        if target_theme:
+            # if the user has logged in, we change the theme of this user in database and session
+            if session.get("username"):
+                # get the user instance
+                current_user = get_user_by_name(session.get("username"))
+
+                # update the theme in database
+                current_user.theme = target_theme
+                db.session.commit()
+                # update the them in session
+                session["theme"] = target_theme
+
+            # if the user not logged in, we change the theme in the session
+            else:
+                # update the them in session
+                session["theme"] = target_theme
+
+            return jsonify({'returnValue': 0})
+
+        else:
+            return jsonify({'returnValue': 1})
+    return jsonify({'returnValue': 1})
 

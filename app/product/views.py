@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 import random
 
-from flask import request, url_for, redirect, flash, render_template, session
+from flask import request, url_for, redirect, flash, render_template, session, jsonify
 from sqlalchemy import and_
 from werkzeug.utils import secure_filename
 
@@ -10,8 +10,9 @@ from app import db
 from config import Config
 from . import product
 from app.product.forms import ProductUploadForm
+from ..auth.forms import LoginForm
 from ..decorators import permission_required
-from ..models import Permission, Product, ProductPic, UserProductRank
+from ..models import Permission, Product, ProductPic, UserProductRank, User, Category
 from .forms import ProductUploadForm
 from ..public_tools import get_user_by_name
 
@@ -50,7 +51,13 @@ def upload_product():
 
         current_user = get_user_by_name(session.get("username"))
 
+        # get all the categories from database
+        all_cate_list = Category.query.all()
+
         if form.validate_on_submit():
+
+            # get a list of categories of this product
+            cate_lst = request.values.getlist('categories[]')
 
             """
                 store the product object into the database
@@ -62,6 +69,17 @@ def upload_product():
 
             db.session.add(product)
             db.session.commit()
+
+            # append the selected categories to this product
+            for cate_id in cate_lst:
+                product.categories.append(Category.query.get(cate_id))
+
+            # if no selected categories, we will give it a default one -- "others"
+            if len(cate_lst) == 0:
+                product.categories.append(Category.query.get(12))
+
+            db.session.commit()
+
 
             flash("Product uploaded successfully!")
 
@@ -119,14 +137,11 @@ def upload_product():
 
             return redirect(url_for('main.index'))
 
-        return render_template('product/upload.html', form=form)
+        return render_template('product/upload.html', form=form, allCategories=all_cate_list)
 
     # for the anonymous users
     else:
         return redirect(url_for('auth.login'))
-
-
-
 
 
 @product.route('/remove-product')
@@ -159,7 +174,8 @@ def product_details(product_id):
         pu_relation = None
         is_anonymous_user = True
 
-    return render_template('product/detail.html', product=product, pu_relation=pu_relation, is_anonymous_user=is_anonymous_user)
+    return render_template('product/detail.html', product=product, pu_relation=pu_relation,
+                           is_anonymous_user=is_anonymous_user)
 
 
 @product.route('/edit-product')
@@ -169,7 +185,7 @@ def edit_product():
 
 @product.route('/rank/<product_id>-<rank>')
 def rank_product(product_id, rank):
-
+    """ This route is Abandoned """
     # check if the user logged in
     if session.get("username"):
         # get the user object
@@ -190,8 +206,8 @@ def rank_product(product_id, rank):
         db.session.add(pu_relation)
 
         '''
-            calculate the average rank, 
-            (current total rank + this rank) / (current rank times + 1)
+            calculate the average rate, 
+            (current total rate + this rate) / (current rate times + 1)
         '''
         product.rank = ((product.rank * product.rank_count) + rank) / (product.rank_count + 1)
         product.rank_count += 1
@@ -209,7 +225,95 @@ def rank_product(product_id, rank):
         return redirect(url_for('auth.login'))
 
 
+# ------------------------------ BACK-END Server (using Ajax) ----------------------------------
+@product.route('/api/product/stars', methods=['POST'])
+def get_stars():
+    # get the star number from the db
+    # return the star number of specific product
+
+    if request.method == "POST":
+        product_id = request.form["product_id"]
+        product = Product.query.get(product_id)
+
+        if product:
+            current_user = get_user_by_name(session.get("username"))
+            # filter out the ranking relation be tween user and product
+            pu_relation = current_user.ranked_product_relations.filter(
+                and_(UserProductRank.user == current_user, UserProductRank.product == product)).first()
+            return jsonify({'returnValue': 0, "star_num": pu_relation.rank})
+
+        else:
+            return jsonify({'returnValue': 1})
+    return jsonify({'returnValue': 1})
 
 
+@product.route('/api/product/stars/rate', methods=['POST'])
+def rate_product():
+    # get the product id and start id from request
+    # rate the product for user logged in
+    # return returnValue 0 in json format if successful.
 
 
+    if request.method == "POST":
+        product_id = request.form["product_id"]
+        star_id = request.form["star_id"]
+
+        if product_id and star_id:
+
+            # check if the user logged in
+            if session.get("username"):
+                # get the user object
+                current_user = get_user_by_name(session.get("username"))
+
+                # convert star id to according number (rate)
+                if star_id == "star1":
+                    rate = 1
+                elif star_id == "star2":
+                    rate = 2
+                elif star_id == "star3":
+                    rate = 3
+                elif star_id == "star4":
+                    rate = 4
+                elif star_id == "star5":
+                    rate = 5
+                else:
+                    return jsonify({'returnValue': 1})
+
+                # cast the rate from str to float, so that it can be calculated
+                rate = float(rate)
+
+                # find the product by id
+                product = Product.query.get(product_id)
+
+                '''
+                    record the n to n relationship between user and the product rank
+                    record the current product is ranked by current user
+                    ! Also record the rate that this user ranked this product
+                '''
+                pu_relation = UserProductRank(user=current_user, product=product, rank=rate)
+                db.session.add(pu_relation)
+
+                '''
+                    calculate the average rank, 
+                    (current total rank + this rank) / (current rank times + 1)
+                '''
+                product.rank = ((product.rank * product.rank_count) + rate) / (product.rank_count + 1)
+                product.rank_count += 1
+
+                db.session.add(product)
+                db.session.commit()
+
+                flash("Submitted! Thanks for your feedback!")
+
+                return jsonify({'returnValue': 0})
+
+
+            # for the anonymous users
+            else:
+                print("user not log in")
+                return redirect(url_for('auth.login'))
+                # return redirect(url_for('product.upload_product'))
+
+        else:
+            return jsonify({'returnValue': 1})
+    return jsonify({'returnValue': 1})

@@ -7,20 +7,41 @@
         {% block title %}PR Hub{% endblock %}
     </title>
 
+    {# reset the default style of the broswer (This MUST be the first!!!) #}
     <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/base_style.css">
+
+    {#
+        choose different css file for different themes
+    #}
+    {% if session.get("theme") %}
+        {# CASE1: there is a theme in sesssion #}
+        {% if session.get("theme") == "light" %}
+            <link id="css-theme" rel="stylesheet" href="../static/css/base_style_light.css">
+        {% elif session.get("theme") == "dark" %}
+            <link id="css-theme" rel="stylesheet" href="../static/css/base_style_dark.css">
+        {% else %}
+            <link id="css-theme" rel="stylesheet" href="../static/css/base_style_light.css">{# light theme is default #}
+        {% endif %}
+    {% else %}
+        {# CASE2: there is not theme in session (when the user first here and didn't log in), we will give the light one as default#}
+        <link id="css-theme" rel="stylesheet" href="../static/css/base_style_light.css">{# light theme is default #}
+    {% endif %}
+
     {#  for links to css #}
     {% block style %}{% endblock %}
 
+
     {# import the jQuery #}
     <script type="text/javascript" src="../static/script/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../static/script/base.js"></script>
     {#  for scripts of javascript #}
     {% block scripts %}{% endblock %}
 
 </head>
 <body>
-
+{# The top navbar #}
 <ul class="nav">
+
     <li class="nav-item" id="web-name">
         <a href="{{ url_for('main.index') }}">PR Hub</a>
     </li>
@@ -57,22 +78,42 @@
         </li>
     {% endif %}
 
+    {# a dropdown list of categories #}
     <li class="nav-item hover-item dropdown-btn">
-        {# a dropdown list of categories #}
         <a>categories</a>
         <ul>
-            <li><a href="{{ url_for('main.products_in_category', category_name='sports') }}">sports</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='foods') }}">foods</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='clothes') }}">clothes</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='digital') }}">digital</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='books') }}">books</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='makeup') }}">makeup</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='luxury') }}">luxury</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='daily') }}">daily</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='art') }}">art</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='home') }}">home</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='instruments') }}">instruments</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='others') }}">others</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='sports') }}"
+                   class="cate-link">sports</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='foods') }}" class="cate-link">foods</a>
+            </li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='clothes') }}"
+                   class="cate-link">clothes</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='digital') }}"
+                   class="cate-link">digital</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='books') }}" class="cate-link">books</a>
+            </li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='makeup') }}"
+                   class="cate-link">makeup</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='luxury') }}"
+                   class="cate-link">luxury</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='daily') }}" class="cate-link">daily</a>
+            </li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='art') }}" class="cate-link">art</a></li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='home') }}" class="cate-link">home</a>
+            </li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='instruments') }}" class="cate-link">instruments</a>
+            </li>
+            <li><a href="{{ url_for('main.products_in_category', category_name='others') }}"
+                   class="cate-link">others</a></li>
+        </ul>
+    </li>
+
+    {#    a drop down list for selecting themes #}
+    <li class="nav-item hover-item dropdown-btn" id="btn-theme">
+        <a>Theme</a>
+        <ul>
+            <li id="theme-item-light"><a class="theme-item">Light</a></li>
+            <li id="theme-item-dark"><a class="theme-item">Dark</a></li>
         </ul>
     </li>
 

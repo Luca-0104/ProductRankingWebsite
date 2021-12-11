@@ -91,6 +91,11 @@ body {
     transition: .3s;
 }
 
+/* the class for the label when there are errors in this input */
+.hint-label-error{
+    color: red;
+}
+
 /* when hovering the labels */
 .hint-label:hover{
     color: #ffffff;

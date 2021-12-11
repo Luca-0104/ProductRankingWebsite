@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, MultipleFileField, FloatField
+from wtforms import StringField, SubmitField, IntegerField, MultipleFileField, FloatField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired, Length, number_range, ValidationError
 
 
@@ -9,6 +9,7 @@ class ProductUploadForm(FlaskForm):
     price = FloatField('Set the Price', validators=[DataRequired(), number_range(0, 99999999)])
     pictures = MultipleFileField('Upload pictures for exhibition', validators=[DataRequired(), Length(2, 5, 'You must give 2-5 pictures')])
     submit = SubmitField('Confirm')
+
 
     def validate_pictures(self, field):
         """
@@ -20,7 +21,3 @@ class ProductUploadForm(FlaskForm):
         for pic in self.pictures.data:
             if len(pic.filename) > 214:
                 raise ValidationError('Picture name cannot longer than 216 chars!')
-
-
-
-

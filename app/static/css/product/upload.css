@@ -79,7 +79,7 @@ body{
 }
 
 /* the hint labels for the input blanks in the form */
-.hint-label, .choose-pic-label {
+.hint-label, .choose-pic-label, .choose-cate-label {
     /* background-color: #fff; */
     color: #c2c2c5;
     display: block;
@@ -118,6 +118,13 @@ body{
     width: 100%;
     height: 3px;
     background-image: linear-gradient(to right, #5044ff, #ff8bc7);
+}
+
+/* The category box (contains label and all checkboxes) */
+.cate-box{
+    position: absolute;
+    left: 30%;
+    top: 40%;
 }
 
 /* the submit button */

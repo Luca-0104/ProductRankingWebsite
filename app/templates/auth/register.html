@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="../../static/css/auth/registerStyle.css">
 {% endblock %}
 
+{% block scripts %}
+    <script type="text/javascript" src="../../static/script/register.js"></script>
+{% endblock %}
+
 {% block content %}
 
     <div class="block-content">
@@ -18,47 +22,47 @@
                     {{ form.hidden_tag() }}
 
 
-                    {{ form.username.label(class="label-input-blank") }}
+                    {{ form.username.label(class="label-input-blank label-input-blank-username") }}
                     {{ form.username(size=32, class=("input-blank")) }}
 
 {#                                                    adding validation messages #}
                     {% for error in form.username.errors %}
-                        <div class="error-message">[{{ error }}]</div>
+                        <div class="error-message error-message-username">[{{ error }}]</div>
                     {% endfor %}
 
 
-                    {{ form.email.label(class="label-input-blank") }}
+                    {{ form.email.label(class="label-input-blank label-input-blank-email") }}
                     {{ form.email(size=32, class="input-blank") }}
 
 {#                            adding validation messages #}
                     {% for error in form.email.errors %}
-                        <div class="error-message">[{{ error }}]</div>
+                        <div class="error-message error-message-email">[{{ error }}]</div>
                     {% endfor %}
 
 
-                    {{ form.password1.label(class="label-input-blank") }}
+                    {{ form.password1.label(class="label-input-blank label-input-blank-password1") }}
                     {{ form.password1(size=32, class="input-blank") }}
 
 {#                             adding validation messages#}
                     {% for error in form.password1.errors %}
-                        <div class="error-message">[{{ error }}]</div>
+                        <div class="error-message error-message-password1">[{{ error }}]</div>
                     {% endfor %}
 
 
-                    {{ form.password2.label(class="label-input-blank") }}
+                    {{ form.password2.label(class="label-input-blank label-input-blank-password2") }}
                     {{ form.password2(size=32, class="input-blank") }}
 
 {#                             adding validation messages#}
                     {% for error in form.password2.errors %}
-                        <div class="error-message">[{{ error }}]</div>
+                        <div class="error-message error-message-password2">[{{ error }}]</div>
                     {% endfor %}
 
-                    {{ form.role.label(class="label-radio-group") }}
+                    {{ form.role.label(class="label-radio-group label-radio-group-role") }}
                     {{ form.role }}
 
 {#                             adding validation messages#}
                     {% for error in form.role.errors %}
-                        <div class="error-message">[{{ error }}]</div>
+                        <div class="error-message error-message-role">[{{ error }}]</div>
                     {% endfor %}
 
                     {{ form.submit(id="submit") }}

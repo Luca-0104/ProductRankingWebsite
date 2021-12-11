@@ -349,6 +349,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     start_datetime = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar = db.Column(db.String(256), default='upload/avatar/default__0__.jpg')  # The avatar
+    theme = db.Column(db.String(16), default='light')   # the user preferred theme of our website
     is_deleted = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))  # 1 role --> n users
     released_products = db.relationship('Product', backref='seller', lazy='dynamic')  # 1 user --> n products

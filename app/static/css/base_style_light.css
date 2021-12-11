@@ -65,6 +65,23 @@ html{
     transform: translateY(-57px);   /* make the collapsed list items locate at the navbar */
 }
 
+/* <a> tags of those categories in the dropdown list */
+.dropdown-btn ul li .cate-link{
+    font-size: 17px;
+}
+
+/* <a> tags of themes in the dropdown list */
+#btn-theme .theme-item{
+    font-size: 17px;
+    width: 68px;
+}
+
+/* dropdown list button and <a> tags in dropdown lists */
+.dropdown-btn:hover, .dropdown-btn a{
+    cursor: pointer;
+}
+
+
 /* when hovering on each item in the dropdown list */
 .dropdown-btn:hover ul li{
     height: 57px;                   /* open the list (cancel the collapsing) */

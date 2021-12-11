@@ -1,0 +1,41 @@
+/* import all the css in light model */
+@import "base_style_light.css";
+
+/* only change colors in this dark model */
+
+/* the whole nav bar */
+.nav {
+    background-color: #8d24ff;
+}
+
+/* word in the nav item */
+.nav .nav-item a {
+    color: #ffffff;
+}
+
+/* when the cursor hovering the nav item */
+.nav .hover-item a:hover {
+    background-color: #282525;
+    color: #CC9999;
+}
+
+/* when hovering on each item in the dropdown list */
+.dropdown-btn:hover ul li{
+    background-color: #E0E0E0;
+}
+
+/* The footer */
+.footer{
+    background: black;
+    color: #CC9999;
+}
+
+/* clear the style of the link */
+.footer a:link, .footer a:visited{
+    color: #CC9999;
+}
+
+/* when hovering the link, or the visited links */
+.footer a:active, .footer a:hover{
+    color: #ffffff;
+}

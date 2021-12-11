@@ -123,6 +123,11 @@ body{
     background-image: linear-gradient(to right, #5044ff, #ff8bc7);
 }
 
+/* When there are errors in this input */
+.label-input-blank-error{
+    color: red;
+}
+
 /* The 'register' button */
 #submit {
     color: #fff;

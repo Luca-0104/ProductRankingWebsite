@@ -13,6 +13,8 @@ def logout():
     :return: redirect back to the home page
     """
     session.pop("username", None)
+    session.pop("role_id", None)
+    session.pop("theme", None)
     flash('You have been logged out')
     return redirect(url_for("main.index"))
 
@@ -38,6 +40,7 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    print("here in login")
     form = LoginForm()
 
     # when the form is submitted legally (POST method)
@@ -45,9 +48,10 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user is not None and user.verify_password(form.password.data):
-            # record the user in session
+            # record the user in session, init the info in the session
             session["username"] = user.username
             session["role_id"] = user.role_id
+            session["theme"] = user.theme
 
             flash("Login success!")
 

@@ -56,6 +56,25 @@
                         <span class="error-message error-message-choose-pic">[{{ error }}]</span>
                     {% endfor %}
 
+                    {# choose multiple categories #}
+                    <div class="cate-box">
+                        <label class="choose-cate-label" for="categories">Choose the categories</label>
+                        <table id="categories">
+                            {% for cate in allCategories %}
+                                <tr>
+                                    <td>
+                                        <label>{{ cate.name }}</label>
+                                    </td>
+                                    <td>
+                                        {#    name should be in an array to pass to the server (backend)#}
+                                        <input name="categories[]" type="checkbox" value="{{ cate.id }}">
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+                    {#                the submit button #}
                     {{ form.submit(id="btn-submit") }}
                 </form>
             </div>
