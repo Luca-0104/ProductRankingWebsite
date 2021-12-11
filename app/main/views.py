@@ -1,8 +1,13 @@
-from flask import render_template, redirect, url_for, session, request, jsonify
+import os
 
+from flask import render_template, redirect, url_for, session, request, jsonify, flash
+
+from config import Config
 from . import main
+from .forms import UserForm
 from .. import db
 from ..models import Product, Permission, User, Category
+from ..product.views import generate_safe_pic_name
 from ..public_tools import get_user_by_name
 
 
@@ -14,6 +19,7 @@ def index():
     """
     # check if the user logged in
     if session.get("username"):
+        print(session.get("username"))
         current_user = get_user_by_name(session.get("username"))
         if current_user.can(Permission.VIEW_ALL_PRODUCT):
             # for users who logged in
@@ -37,6 +43,77 @@ def user_profile(username):
     # query the user object by using the username, which is got from the frontend
     user = get_user_by_name(username)
     return render_template('main/user.html', user=user)
+
+
+@main.route('/edit-profile', methods=['GET', 'POST'])
+def edit_profile():
+    """
+    For edit the user profile
+    """
+
+    current_user = get_user_by_name(session.get("username"))
+    form = UserForm(username=current_user.username, email=current_user.email)
+
+    # when the form is submitted legally (POST method)
+    if form.validate_on_submit():
+        # get the current username
+
+
+        # user = User.query.filter(User.username == current_user).first()
+
+        # get a list of file objects from the user upload
+        pic = form.pictures.data
+        print(pic)
+        if pic.filename != "":
+
+            # get the name of the picture
+            pic_name = pic.filename
+            pic_name_origin = pic_name
+            # get the suffix of the picture
+            suffix = pic_name.rsplit('.')[-1]
+
+            if suffix in Config.ALLOWED_PIC_SUFFIXES:
+
+                path = 'upload/avatar'
+
+                # make sure the name of picture is safe
+                pic_name = generate_safe_pic_name(pic_name)
+
+                """
+                save the picture in the local directory
+                """
+                # get the path to store the picture (dir + pic_name)
+                file_path = os.path.join(Config.product_dir, pic_name).replace('\\', '/')
+
+                # save the picture
+                pic.save(file_path)
+
+                """
+                   save the picture in the database
+                """
+                pic_address = os.path.join(path, pic_name).replace('\\', '/')
+                current_user.avatar = pic_address
+
+                current_user.username = form.username.data
+                current_user.email = form.email.data
+
+                db.session.commit()
+
+                flash('Picture "' + pic_name_origin + '" uploaded successfully!')
+
+            else:
+                flash(
+                    "Fail to uploaded picture, the suffix should be only 'jpg', 'png', 'gif', 'bmp', 'webp', 'pcx', 'tif', 'jpeg', 'tga', 'exif', 'fpx', 'svg', 'psd', 'cdr', 'pcd', 'dxf', 'ufo', 'eps', 'al', 'hdri', 'raw', 'wmf', 'flic', 'emf', 'ico', 'avif', 'apng'")
+
+        else:
+            flash("No pictures uploaded!")
+        flash("Changed Successfully!")
+        session['username'] = form.username.data
+
+        return redirect(url_for('main.user_profile', username=form.username.data))
+
+    # (GET method)
+    return render_template('main/user_edit.html', form=form)
 
 
 @main.route('/products-in-category/<category_name>')
@@ -88,4 +165,3 @@ def change_theme():
         else:
             return jsonify({'returnValue': 1})
     return jsonify({'returnValue': 1})
-

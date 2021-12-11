@@ -1,0 +1,182 @@
+/*
+The main aesthetics conceptions are partially learned from the internet
+@bilibili
+*/
+
+/* clear the default style in the browsers */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+}
+
+/* the hole background container */
+/* the whole content in the page between the navbar and the footer */
+.block-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* let the items inside located vertically */
+    flex-direction: column;
+    /*background-image: linear-gradient(to bottom right, #dbdcff, #a283ff);*/
+    background-image: url("../../img/pic1.png");
+    height: 100%;
+    background-size: cover;
+}
+
+/* a box contains both the left box and the right box */
+.outer-box {
+    width: 870px;
+    height: 530px;
+    display: flex;
+    /* background-color: #abc; */
+}
+
+/* the inner box contains text of 'Registration' */
+.box-right {
+    background-color: white;
+    height: 280px;
+    position: relative;
+    top: 20px;
+    width: 50%;
+}
+
+/* text of 'Registration' */
+.box-right h2 {
+    font: 900 50px '';
+    margin: 50px 40px 40px;
+}
+
+/* the explanation text below the word 'Registration' */
+.box-right span {
+    display: block;
+    color: #999;
+    font-size: 14px;
+    margin: 40px;
+    line-height: 25px;
+}
+
+/* The inner box at the left side, which contains the form */
+.box-left {
+    background-color: #353a5b;
+    color: #f1f1f2;
+    width: 50%;
+    transition: 1s;
+}
+
+.box-left:hover{
+    box-shadow: 0 0 30px 20px rgba(255, 255, 255, .2);
+}
+
+/* the registration form */
+.edit-form {
+    width: 340px;
+    margin-top: 50px;
+    margin-left: 50px;
+    position: absolute;
+    /* background-color: #bfa; */
+}
+
+/* labels in the form */
+.edit-form .label-input-blank, .label-radio-group {
+    /* background-color: #fff; */
+    color: #c2c2c5;
+    display: block;
+    font-size: 14px;
+    height: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    position: relative;
+    transition: .3s;
+}
+
+/* when hovering on the labels in the form */
+.label-input-blank:hover, .label-radio-group:hover{
+    color: #ffffff;
+    letter-spacing: 3px;
+}
+
+/* Every input in the form, expect the radio button */
+.input-blank {
+    background: transparent;
+    font-size: 18px;
+    border: 0;
+    color: #f2f2f2f2;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    outline: none !important;
+}
+
+/* use a solid item to replace the border of each input blank */
+.label-input-blank::before {
+    /* content: 'asd'; */
+    content: '';
+    display: block;
+    position: absolute;
+    top: 52px;
+    width: 100%;
+    height: 3px;
+    background-image: linear-gradient(to right, #5044ff, #ff8bc7);
+}
+
+/* the hint labels for the input blanks in the form */
+.hint-label, .choose-pic-label, .choose-cate-label {
+    /* background-color: #fff; */
+    color: #c2c2c5;
+    display: block;
+    font-size: 14px;
+    height: 17px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    position: relative;
+    transition: .3s;
+}
+
+/* when hovering on the hint labels for the input blanks in the form */
+.hint-label:hover, .choose-pic-label:hover{
+    color: #ffffff;
+    letter-spacing: 3px;
+}
+
+/* When there are errors in this input */
+.label-input-blank-error{
+    color: red;
+}
+
+/* the error message for the picture file uploading */
+.error-message-choose-pic{
+    margin-left: -30px;
+}
+
+/* The 'register' button */
+#submit {
+    color: #fff;
+    margin-top: 40px;
+    background-color: rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    width: 100px;
+    height: 35px;
+    float: right;
+    transition: .3s;
+}
+
+#submit:hover {
+    letter-spacing: 2px;
+    color: #000;
+    background-color: #CC9999;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* error-message for the input errors */
+.error-message {
+    color: #b888ff;
+    margin-top: -24px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
