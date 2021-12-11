@@ -20,6 +20,7 @@
 
             <p>
                 Member since {{ user.start_datetime.date() }}
+                <a href="{{ url_for('main.edit_profile') }}">Click me for edit</a>
             </p>
 
 {#            {% if current_user.is_administrator() %}#}
