@@ -40,7 +40,6 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    print("here in login")
     form = LoginForm()
 
     # when the form is submitted legally (POST method)

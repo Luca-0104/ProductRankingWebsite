@@ -131,6 +131,7 @@ class Comment(db.Model):
     pictures = db.relationship('CommentPic', backref='comment', lazy='dynamic')  # 1 comment --> n pictures
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)  # 1 product --> n comment
     auth_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # 1 user --> n comment
+    star_num = db.Column(db.Integer, nullable=False)    # this records the star that the user rated this product, -1 means the user has not rate this product yet
     replies = db.relationship('ReplyComment', backref='comment')  # 1 comment --> n replies
     is_deleted = db.Column(db.Boolean, default=False)
 
@@ -149,6 +150,12 @@ class CommentPic(db.Model):
 
     def __repr__(self):
         return '<CommentPic %r>' % self.address
+
+    # @staticmethod
+    # def insert_comment():
+    #     """
+    #         This method is used to insert some comments for every product
+    #     """
 
 
 class ProductPic(db.Model):
@@ -266,6 +273,20 @@ class Product(db.Model):
                 new_product.categories.append(cate)
 
                 db.session.add(new_product)
+
+            '''
+                add some test comments for this product
+            '''
+            comment_text = "This is the best combination of light and functionality I've ever used.It feels really light in the hand, and it's easy to pick it up between two fingers.Most of all, the EVO -certified 11 Core delivers maximum performance while being light, which is perfect for a traveler like me.My purpose is very clear: suitable for business trip, light office, as for games and entertainment, I don't care.However, the laptop display effect is good, and dolby vision and Dolby sound, occasionally entertainment or can be satisfied.In conclusion, fit is best."
+
+            # select all users
+            user_lst = User.query.all()
+
+            # assume all the users have commented this product
+            for user in user_lst:
+                new_comment = Comment(content=comment_text, product_id=new_product.id, auth_id=user.id, star_num=int(1+random.random() * 5))
+                db.session.add(new_comment)
+            db.session.commit()
 
         db.session.commit()
 

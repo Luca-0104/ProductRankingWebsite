@@ -1,5 +1,5 @@
 /* clear the default style in the browsers */
-*{
+* {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -9,13 +9,16 @@
 }
 
 /* the whole content in the page between the navbar and the footer */
-.block-content{
-    display: flex;
-    /* let the children lined vertically */
-    flex-direction: column;
-    /* get to the center horizontally */
-    align-items: center;
-    height: 2000px;
+.block-content {
+    /*display: flex;*/
+    /*!* let the children lined vertically *!*/
+    /*flex-direction: column;*/
+    /*!* get to the center horizontally *!*/
+    /*align-items: center;*/
+    /*height: 2000px;*/
+
+    width: 100%;
+
 }
 
 
@@ -23,15 +26,16 @@
        The basic information of the product
        (name + price + description)
 */
-.product-info-box{
-    width: 900px;
+.product-info-box {
+    width: 63%;
+    margin: auto;
     height: auto;
     padding: 10px;
     /*background: #bfa;*/
 }
 
 /* The product name */
-.product-info-box .product-name{
+.product-info-box .product-name {
     text-align: center;
     font-size: 50px;
     font-weight: bold;
@@ -41,7 +45,7 @@
 }
 
 /* The product price */
-.price-box{
+.price-box {
     text-align: left;
     font-size: 30px;
     padding-left: 40px;
@@ -49,13 +53,12 @@
 }
 
 /* The product description */
-.product-info-box .product-desc{
+.product-info-box .product-desc {
     font-size: 30px;
     color: rgb(118, 118, 118);
     margin: 40px;
     line-height: 47px;
 }
-
 
 
 /*
@@ -64,9 +67,10 @@
  */
 
 /* the container of the pictures slide panel */
-.picture-panel-box{
+.picture-panel-box {
     width: 900px;
     height: 680px;
+    margin: auto;
     position: relative;
     overflow: hidden;
     border: 10px solid #a3e5ff;
@@ -75,9 +79,9 @@
 }
 
 /* The picture list */
-.pic-container{
+.pic-container {
     width: 100%;
-    height:100%;
+    height: 100%;
     display: flex;
     position: absolute;
     left: 0;
@@ -85,7 +89,7 @@
 }
 
 /* each single picture in the picture list */
-.pic-container .pic img{
+.pic-container .pic img {
     /* size should be same as the picture-panel-box */
     width: 900px;
     height: 680px;
@@ -93,7 +97,7 @@
 }
 
 /* the outer box contains 'left' and 'right' button */
-.btn{
+.btn {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -104,7 +108,7 @@
 }
 
 /* the buttons inside the box */
-.btn-left, .btn-right{
+.btn-left, .btn-right {
     font-size: 0;
     padding: 0 20px;
     /* the parent has the height of 500px, so that set line-height same as parent's height to locate at the center vertically  */
@@ -113,7 +117,7 @@
 }
 
 /* when hovering the picture, we will show the buttons */
-.btn:hover .btn-left, .btn:hover .btn-right{
+.btn:hover .btn-left, .btn:hover .btn-right {
     color: white;
     background-color: rgba(0, 0, 0, 0.4);
     font-size: 50px;
@@ -125,28 +129,30 @@
 */
 
 /* an outer container contains hint and a list of stars*/
-.rank-box{
-    padding: 10px;
+.rank-box {
+    padding: 5%;
     font-size: 30px;
+    width: 30%;
+    margin: auto;
     margin-top: 40px;
-    height: 60px;
+    height: 70px;
 }
 
 /* the hint to rank */
-.rank-hint{
+.rank-hint {
     float: left;
     line-height: 60px;
 }
 
 /* the list of stars */
-.rank-stars{
+.rank-stars {
     float: left;
     line-height: 60px;
     margin-left: 20px;
 }
 
 /* the single star in the list */
-.star{
+.star {
     float: left;
     font-size: 50px;
     margin-left: 5px;
@@ -154,7 +160,7 @@
 }
 
 /* the link of the star */
-.star a{
+.star a {
     color: #9c9c9c;
 }
 
@@ -162,20 +168,93 @@
     we will use javascript to add the following
     classes to the star
  */
-.hovered-star a, .clicked-star a{
+.hovered-star a, .clicked-star a {
     color: #ffec39;
     cursor: pointer;
 }
 
-.hovered-star, .clicked-star{
+.hovered-star, .clicked-star {
     color: #ffec39;
     cursor: pointer;
 }
 
 /* The star style for showing the feedback */
-.already-star{
+.already-star {
     color: #ffec39;
 }
+
+/*
+    product comments---------------------------------------------------------------------------------------------
+ */
+
+/* outer box contains all the comments of this product */
+.product-comment-box {
+    background-color: #bfa;
+    padding: 1%;
+}
+
+/* the title "Customer Review" */
+.product-comment-box h2 {
+    width: 31%;
+    margin: auto;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 45px;
+}
+
+/* the list item, which is a single comment */
+.comment-item {
+    border-bottom: 2px solid #000000;
+    padding: 2% 6% 2% 6%;
+}
+
+/* author info */
+.comment-item .comment-user{
+    /*padding: 10px;*/
+}
+
+/* author avatar */
+.comment-item .comment-user img {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+}
+
+/* author's username */
+.comment-item .comment-user .comment-user-username{
+    font-size: 20px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+/* the star list in comment */
+.comment-item .comment-star{
+    margin-top: -45px;
+    margin-left: 20px;
+}
+
+/* each star in the comment */
+.comment-item .comment-star .star-in-comment {
+    float: left;
+    font-size: 30px;
+    margin-left: 5px;
+}
+
+/* the text content of the comment */
+.comment-item .comment-text{
+    line-height: 30px;
+    margin-bottom: 25px;
+    margin-left: 30px;
+}
+
+/* the date of the comment */
+.comment-item .comment-date{
+    margin-left: 30px;
+}
+
+
+
 
 
 

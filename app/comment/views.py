@@ -1,12 +1,13 @@
 import os
 
 from flask import session, redirect, url_for, flash, render_template
+from sqlalchemy import and_
 
 from app import db
 from app.comment import comment
 from app.comment.forms import CommentForm
 from app.decorators import permission_required
-from app.models import Permission, Comment, CommentPic, Product
+from app.models import Permission, Comment, CommentPic, Product, UserProductRank
 from app.product.views import generate_safe_pic_name
 from app.public_tools import get_user_by_name
 from config import Config
@@ -29,8 +30,21 @@ def upload_comment(product_id):
         current_product = Product.query.get(product_id)
 
         if form.validate_on_submit():
+            # filter out the rating relation be tween user and product
+            pu_relation = UserProductRank.query.filter(
+                and_(UserProductRank.user == current_user, UserProductRank.product == current_product)).first()
+
+            # if no rating relation
+            if pu_relation is None:
+                star_num = -1   # default is -1, which means does not rate this product yet
+
+            # if there is a rating relation
+            else:
+                # query the star number this user have given to this product
+                star_num = int(pu_relation.rank)
+
             # create a new comment and add it into the database
-            new_comment = Comment(content=form.text.data, product_id=product_id, auth_id=current_user.id)
+            new_comment = Comment(content=form.text.data, product_id=product_id, auth_id=current_user.id, star_num=star_num)
             db.session.add(new_comment)
             db.session.commit()
 

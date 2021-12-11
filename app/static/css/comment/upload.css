@@ -21,11 +21,11 @@ body{
 
 /* the outer container, which contains up and down boxes */
 .box-outer {
-    width: 640px;
+    width: 100%;
     height: 650px;
     display: flex;
     flex-direction: column;
-    /* background-color: #abc; */
+    /*background-color: #abc;*/
 }
 
 /* the up box with hint text inside */
@@ -33,9 +33,9 @@ body{
     background-color: white;
     height: 20%;
     position: relative;
+    left: 47%;
     top: 20px;
-    width: 80%;
-    margin-left: 30px;
+    width: 34%;
 }
 
 /* the text of 'upload your product' in up box */
@@ -59,8 +59,12 @@ body{
     background-color: #353a5b;
     box-shadow: 0 0 40px 16px rgba(0, 0, 0, .2);
     color: #f1f1f2;
-    width: 100%;
-    margin-left: 6px;
+    position: relative;
+    width: 45%;
+    height: 65%;
+    left: 38%;
+    top: -60%;
+    /* margin-left: 6px; */
     z-index: 1;
     transition: 1s;
 }
@@ -157,3 +161,69 @@ body{
 .error-message-choose-pic{
     margin-left: -30px;
 }
+
+/*
+    ----------------------------------css for the product info box -------------------------------------
+*/
+
+.box-left{
+    background-color: white;
+    height: 72%;
+    position: relative;
+    left: 18%;
+    top: 26px;
+    width: 27%;
+}
+
+/* the outer box of the product card */
+.product-box{
+    width: 300px;
+    height: 391px;
+
+    /*background-color: #bfa;*/
+
+}
+
+.product-box:hover{
+    /* making the shadow when hovering over the hole box */
+    box-shadow: 0 0 10px 10px #999;
+}
+
+/* the product image */
+.product-img img{
+    width: 100%;
+    height: 300px;
+}
+
+/* the product price */
+.product-price{
+    width: 100%;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 5px;
+}
+
+.product-price span{
+    color: #a60101;
+}
+
+/* the product name */
+.product-name{
+    width: 100%;
+    text-align: center;
+    font: 900 1rem '';
+
+    /* we will only show 1 line of name */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.product-name a:hover{
+    /*color: #fff;*/
+    color: red;
+}
+
+
+

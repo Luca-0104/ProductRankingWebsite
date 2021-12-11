@@ -129,18 +129,18 @@
                 {#   the hint to rank  #}
                 <span class="rank-hint">Click to Rate</span>
                 {#   the list of stars #}
-{#                <ul class="rank-stars">#}
-{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=1) }}">&#9733</a>#}
-{#                    </li>#}
-{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=2) }}">&#9733</a>#}
-{#                    </li>#}
-{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=3) }}">&#9733</a>#}
-{#                    </li>#}
-{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=4) }}">&#9733</a>#}
-{#                    </li>#}
-{#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=5) }}">&#9733</a>#}
-{#                    </li>#}
-{#                </ul>#}
+                {#                <ul class="rank-stars">#}
+                {#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=1) }}">&#9733</a>#}
+                {#                    </li>#}
+                {#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=2) }}">&#9733</a>#}
+                {#                    </li>#}
+                {#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=3) }}">&#9733</a>#}
+                {#                    </li>#}
+                {#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=4) }}">&#9733</a>#}
+                {#                    </li>#}
+                {#                    <li class="star"><a href="{{ url_for('product.rank_product', product_id=product.id, rank=5) }}">&#9733</a>#}
+                {#                    </li>#}
+                {#                </ul>#}
 
                 {#   the list of stars using Ajax, pass the product id to js#}
                 <ul class="rank-stars" product_id="{{ product.id }}">
@@ -155,6 +155,107 @@
         {% endif %}
 
         {#    product comments#}
+        <div class="product-comment-box">
+
+            {#        a title#}
+            <h2>Customer Reviews</h2>
+
+            {#    comment list #}
+            <ul>
+                {% for comment in product.comments %}
+                    <li class="comment-item">
+                        <table>
+                            <tr>
+                                {#                                user info #}
+                                <td rowspan="5">
+                                    <div class="comment-user">
+                                        <img src="{{ url_for('static', filename=comment.author.avatar) }}">
+                                        <span class="comment-user-username">{{ comment.author.username }}</span>
+                                    </div>
+                                </td>
+                                {#  the rating stars #}
+                                <td>
+                                    {% if comment.star_num == -1 %}
+                                        <p>This user did not rate this product</p>
+
+                                    {% else %}
+
+                                        <ul class="comment-star">
+                                            {# shows how much stars the author has rated this product #}
+                                            {% if comment.star_num == 1 %}
+
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+
+                                            {% elif comment.star_num == 2 %}
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+
+                                            {% elif comment.star_num == 3 %}
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+
+                                            {% elif comment.star_num == 4 %}
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment">&#9733</li>
+
+                                            {% elif comment.star_num == 5 %}
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+                                                <li class="star-in-comment already-star">&#9733</li>
+
+                                            {% endif %}
+                                        </ul>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                {#                                the text comment #}
+                                <td>
+                                    <p class="comment-text">{{ comment.content }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                {#                                the picture list #}
+                                <td>
+                                    <ul class="comment-pic-list">
+                                        {% for pic in comment.pictures %}
+                                            <li class="comment-pic">
+                                                <img src="{{ url_for('static', filename=pic.address) }}">
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                {#                                comment date#}
+                                <td><p class="comment-date">{{ comment.timestamp.date() }}</p></td>
+                            </tr>
+                            <tr>
+                                {#                                some buttons (reply...)#}
+                                <td></td>
+                            </tr>
+                        </table>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
 
         {#    page bottom #}
         <div class="page-bottom"></div>

@@ -12,7 +12,7 @@ from . import product
 from app.product.forms import ProductUploadForm
 from ..auth.forms import LoginForm
 from ..decorators import permission_required
-from ..models import Permission, Product, ProductPic, UserProductRank, User, Category
+from ..models import Permission, Product, ProductPic, UserProductRank, User, Category, Comment
 from .forms import ProductUploadForm
 from ..public_tools import get_user_by_name
 
@@ -164,7 +164,7 @@ def product_details(product_id):
         # get the user object
         current_user = get_user_by_name(session.get("username"))
 
-        # filter out the ranking relation be tween user and product
+        # filter out the rating relation be tween user and product
         pu_relation = current_user.ranked_product_relations.filter(
             and_(UserProductRank.user == current_user, UserProductRank.product == product)).first()
         is_anonymous_user = False
@@ -302,6 +302,15 @@ def rate_product():
 
                 db.session.add(product)
                 db.session.commit()
+
+                '''
+                    If there exist the comment of this user with this product, 
+                    we have to update the star_num this this comment
+                '''
+                comment = Comment.query.filter(and_(Comment.author == current_user, Comment.product == product)).first()
+                if comment:
+                    comment.star_num = int(rate)
+                    db.session.commit()
 
                 flash("Submitted! Thanks for your feedback!")
 
