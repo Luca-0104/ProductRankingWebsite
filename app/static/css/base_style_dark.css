@@ -45,6 +45,8 @@
 }
 
 
+
+
 /* the outer container of the product box */
 .products-list-item {
     background-color: #333333;
@@ -64,6 +66,10 @@
 .profile-text p {
     color: white;
 }
+
+/*
+          the dark mode for the cart page
+*/
 
 /* the shopping cart title in dark*/
 #shopping-cart-title {

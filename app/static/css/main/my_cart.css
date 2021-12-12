@@ -15,7 +15,7 @@
 }
 
 /*the position of the table*/
-.cart-table{
+#cart-table{
     position: relative;
     /*the relative position use to change table's position*/
     left: 130px;
@@ -44,7 +44,7 @@
 }
 
 /*the position of the checkbox */
-.checkbox {
+.cart-checkbox {
     margin-top: 10px;
     margin-right: 20px;
     height: 17px;
