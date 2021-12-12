@@ -30,7 +30,8 @@
 
 /* the whole content in the page between the navbar and the footer */
 .block-content {
-    background-color: #3c3f41;
+    /*background-color: #3c3f41;*/
+    background-color: #242424;
 }
 
 /* the text of the title */
@@ -55,6 +56,11 @@
 
 /* The product name */
 .product-info-box .product-name {
+    color: white;
+}
+
+/*the profile information in dark*/
+.profile-text p {
     color: white;
 }
 

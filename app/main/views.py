@@ -82,7 +82,7 @@ def edit_profile():
                 save the picture in the local directory
                 """
                 # get the path to store the picture (dir + pic_name)
-                file_path = os.path.join(Config.product_dir, pic_name).replace('\\', '/')
+                file_path = os.path.join(Config.avatar_dir, pic_name).replace('\\', '/')
 
                 # save the picture
                 pic.save(file_path)
