@@ -6,7 +6,7 @@ from config import Config
 from . import main
 from .forms import UserForm
 from .. import db
-from ..models import Product, Permission, User, Category
+from ..models import Product, Permission, Category
 from ..product.views import generate_safe_pic_name
 from ..public_tools import get_user_by_name
 
@@ -58,7 +58,6 @@ def edit_profile():
     if form.validate_on_submit():
         # get the current username
 
-
         # user = User.query.filter(User.username == current_user).first()
 
         # get a list of file objects from the user upload
@@ -83,7 +82,7 @@ def edit_profile():
                 save the picture in the local directory
                 """
                 # get the path to store the picture (dir + pic_name)
-                file_path = os.path.join(Config.product_dir, pic_name).replace('\\', '/')
+                file_path = os.path.join(Config.avatar_dir, pic_name).replace('\\', '/')
 
                 # save the picture
                 pic.save(file_path)

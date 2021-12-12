@@ -1,16 +1,107 @@
 /* clear the default css in the browser */
-*{
+* {
     margin: 0;
     padding: 0;
     text-decoration: none;
 }
 
 /* This is an empty div, which is used to clear the float */
-.empty-for-clear-float{
+.empty-for-clear-float {
     clear: both;
 }
 
 /* the whole content in the page between the navbar and the footer */
-.block-content{
-    margin-bottom: 350px;
+.block-content {
+    padding-bottom: 400px;
+    padding-top: 60px;
+    padding-left: 60px;
+}
+
+/* the box of the whole profile information */
+.profile-box {
+    border-radius: 25px;
+    border: 7px solid #CC9999;
+    padding: 20px;
+    width: 1300px;
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+/*avatar box*/
+.avatar-box {
+    height: 200px;
+    width: 135px;
+}
+
+/*avatar image*/
+.avatar-box img {
+    height: 200px;
+    width: 200px;
+    margin: 0 15px 15px 15px;
+}
+
+/*profile information text box*/
+.profile-info {
+    margin-left: 60px;
+    /*margin-top: 10px;*/
+}
+
+/*profile information text*/
+.profile-text p {
+    padding: 8px;
+    font-family: "Lucida Bright", serif;
+}
+
+/*the user name*/
+.username {
+    font-size: 40px;
+    font-weight: 800;
+}
+
+/*the account type*/
+.account {
+    font-weight: 500;
+    font-size: 20px;
+
+}
+
+/*the join date*/
+.date {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+/*the user email*/
+.email {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/*the edit button*/
+.edit {
+    background-color: #999999;
+    width: 65px;
+    height: 28px;
+    padding: 3px;
+}
+
+/*the edit button text*/
+.edit a {
+    color: black;
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+/*the edit button when hover*/
+.edit:hover{
+    background-color: black;
+}
+
+/*the edit button text when hover*/
+.edit:hover a{
+    color: #CC9999;
 }
