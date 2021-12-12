@@ -10,7 +10,9 @@
 /* the block-content inherited from the base */
 /* the whole content in the page between the navbar and the footer */
 .block-content{
-    width: 100%;
+  padding-bottom: 50px;
+    padding-top: 1px;
+
     /*background-color: white;*/
 }
 

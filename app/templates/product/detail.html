@@ -37,7 +37,7 @@
                 {# loop through all the pictures to make each of them in an list item #}
                 {% for picture in product.pictures %}
                     <li class="pic">
-                        <img src="{{ url_for('static', filename=picture.address) }}">
+                        <img src="{{ url_for('static', filename=picture.address) }}" alt="product-picture">
                     </li>
                 {% endfor %}
             </ul>
@@ -167,16 +167,21 @@
                 <button id="btn-cart-inc">+</button>
             </div>
 
-            {#            a button for adding to the cart#}
-            {% if session.get("username") %}
-                {#            for the users logged in #}
-                <span id="btn-add-cart">Add to Cart</span>
+            <div id="cart-button-box">
+                {#            a button for adding to the cart#}
+                {% if session.get("username") %}
+                    {#            for the users logged in #}
+                    <span id="btn-add-cart">Add to Cart</span>
 
-            {% else %}
-                {#                for the user not log in#}
-                <span id="btn-add-cart"><a href="{{ url_for('auth.login') }}">Add to Cart</a></span>
+                {% else %}
+                    {#                for the user not log in#}
+                    <span id="btn-add-cart"><a href="{{ url_for('auth.login') }}">Add to Cart</a></span>
 
-            {% endif %}
+                {% endif %}
+
+            </div>
+
+
         </div>
 
 
@@ -195,7 +200,7 @@
                                 {#                                user info #}
                                 <td rowspan="5">
                                     <div class="comment-user">
-                                        <img src="{{ url_for('static', filename=comment.author.avatar) }}">
+                                        <img src="{{ url_for('static', filename=comment.author.avatar) }}" alt="user-avatar">
                                         <span class="comment-user-username">{{ comment.author.username }}</span>
                                     </div>
                                 </td>
@@ -261,7 +266,7 @@
                                     <ul class="comment-pic-list">
                                         {% for pic in comment.pictures %}
                                             <li class="comment-pic">
-                                                <img src="{{ url_for('static', filename=pic.address) }}">
+                                                <img src="{{ url_for('static', filename=pic.address) }}" alt="comment-picture">
                                             </li>
                                         {% endfor %}
                                     </ul>
