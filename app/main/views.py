@@ -163,6 +163,10 @@ def my_cart():
         # get a list of cart relations of this user (with all the products in his cart)
         cart_relation_list = current_user.cart_relations.all()
 
+        if len(cart_relation_list) < 1:
+            # logger
+            current_app.logger.warning("in /my-cart - no product found in cart")
+
         return render_template('main/my_cart.html', user=current_user, cart_relation_list=cart_relation_list)
 
     # if the user has not logged in
@@ -184,7 +188,14 @@ def shopping_history():
         # get the instance of the current user
         current_user = get_user_by_name(session.get("username"))
 
-        return render_template('main/shopping_history.html', user=current_user)
+        # query all the shopping history of this user
+        history_list = current_user.history_relations.all()
+
+        if len(history_list) < 1:
+            # logger
+            current_app.logger.warning("in /shopping-history - no history found")
+
+        return render_template('main/shopping_history.html', user=current_user, history_list=history_list)
 
     # if the user has not logged in
     else:

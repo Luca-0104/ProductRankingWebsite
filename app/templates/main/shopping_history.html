@@ -11,12 +11,48 @@
 
         <h1>My Shopping History</h1>
 
+        <table>
+            {#  loop through all the history relations in of this user (all the products have bought)#}
+            {% for history in history_list %}
+                <tr class="history-product-row" id="row-{{ history.id }}">
 
+                    {#                picture #}
+                    <td class="product-img">
+                        <img src="{{ url_for('static', filename=history.product.pictures.all()[0].address) }}">
+                    </td>
 
+                    {#                name #}
+                    <td class="product-name">
+                        <p>{{ history.product.name }}</p>
+                    </td>
 
+                    {#                unit price #}
+                    <td class="product-price" id="product-price-{{ history.id }}" price="{{ history.product.price }}">
+                        <span>￥ {{ history.product.price }}</span>
+                    </td>
 
+                    {#                count #}
+                    <td>
+                        <p id="history-product-count-{{ history.id }}" product_id="{{ history.product.id }}">
+                            Count: {{ history.product_count }}
+                        </p>
+                    </td>
 
+                    {#                date#}
+                    <td>
+                        <p id="history-date-{{ history.id }}">
+                            {{ history.timestamp.date() }}
+                        </p>
+                    </td>
 
+                    {#                comment button#}
+                    <td>
+                        <span id="history-comment-btn-{{ history.id }}"><a href="{{ url_for('comment.upload_comment', product_id=history.product.id) }}">Comment</a></span>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </table>
 
 
         {#    This is an empty div, which is used to clear the float #}
