@@ -30,7 +30,9 @@
 
                     {#  product picture#}
                     <td class="product-img">
-                        <img src="{{ url_for('static', filename=cart_relation.product.pictures.all()[0].address) }}">
+                        <a href="{{ url_for('product.product_details', product_id=cart_relation.product.id) }}">
+                            <img src="{{ url_for('static', filename=cart_relation.product.pictures.all()[0].address) }}">
+                        </a>
                     </td>
 
                     {#  product name#}
