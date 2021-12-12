@@ -44,6 +44,25 @@
     color: black;
 }
 
+.rank-hint {
+    color: white;
+}
+
+#review-title{
+    color: white;
+}
+
+.comment-user-username{
+    color: white;
+}
+
+.hint-no-star{
+    color: white;
+}
+
+.comment-text{
+    color: white;
+}
 
 
 
@@ -68,7 +87,7 @@
 }
 
 /*
-          the dark mode for the cart page
+          the dark mode for the cart and history page
 */
 
 /* the shopping cart title in dark*/
@@ -88,6 +107,23 @@
 
 /*the total price in dark*/
 .purchase span {
+    color: white;
+}
+
+/*
+   the dark mode for the history page
+*/
+
+#shopping-history-title{
+    color: white;
+}
+
+.product-count p{
+    color: white;
+}
+
+/**/
+.history-date p{
     color: white;
 }
 

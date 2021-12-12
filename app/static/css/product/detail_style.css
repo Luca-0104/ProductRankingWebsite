@@ -266,7 +266,7 @@
 
 /* outer box contains all the comments of this product */
 .product-comment-box {
-    background-color: #bfa;
+    /*background-color: #bfa;*/
     padding: 1%;
 }
 
