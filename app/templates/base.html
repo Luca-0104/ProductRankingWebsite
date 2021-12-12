@@ -71,15 +71,17 @@
 {#            <a href="{{ url_for('main.user_profile', username=session.get("username")) }}">My Profile</a>#}
 {#        </li>#}
 
-        <li class="nav-item hover-item avatar dropdown-btn">
-            {#            profile button (give the user name to the backend) #}
-            <a href="{{ url_for('main.user_profile', username=session.get("username")) }}"><img src="{{ url_for('static', filename=session.get("avatar")) }}"></a>
-            <ul class="avatar-menu">
-                <li class="avatar-menu-item"><a href="{{ url_for('main.user_profile', username=session.get("username")) }}" class="user-link">My Profile</a></li>
-                <li class="avatar-menu-item"><a href="{{ url_for('main.my_cart') }}" class="user-link">My Cart</a></li>
-                <li class="avatar-menu-item"><a href="{{ url_for('main.shopping_history') }}" class="user-link">Shopping History</a></li>
-            </ul>
-        </li>
+        {% if not is_in_product_detail %}
+            <li class="nav-item hover-item avatar dropdown-btn">
+                {#            profile button (give the user name to the backend) #}
+                <a href="{{ url_for('main.user_profile', username=session.get("username")) }}"><img src="{{ url_for('static', filename=session.get("avatar")) }}"></a>
+                <ul class="avatar-menu">
+                    <li class="avatar-menu-item"><a href="{{ url_for('main.user_profile', username=session.get("username")) }}" class="user-link">My Profile</a></li>
+                    <li class="avatar-menu-item"><a href="{{ url_for('main.my_cart') }}" class="user-link">My Cart</a></li>
+                    <li class="avatar-menu-item"><a href="{{ url_for('main.shopping_history') }}" class="user-link">Shopping History</a></li>
+                </ul>
+            </li>
+        {% endif %}
 
 
     {% else %}
@@ -88,44 +90,48 @@
         </li>
     {% endif %}
 
-    {# a dropdown list of categories #}
-    <li class="nav-item hover-item dropdown-btn">
-        <a>categories</a>
-        <ul>
-            <li><a href="{{ url_for('main.products_in_category', category_name='sports') }}"
-                   class="cate-link">sports</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='foods') }}" class="cate-link">foods</a>
-            </li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='clothes') }}"
-                   class="cate-link">clothes</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='digital') }}"
-                   class="cate-link">digital</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='books') }}" class="cate-link">books</a>
-            </li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='makeup') }}"
-                   class="cate-link">makeup</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='luxury') }}"
-                   class="cate-link">luxury</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='daily') }}" class="cate-link">daily</a>
-            </li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='art') }}" class="cate-link">art</a></li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='home') }}" class="cate-link">home</a>
-            </li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='instruments') }}" class="cate-link">instruments</a>
-            </li>
-            <li><a href="{{ url_for('main.products_in_category', category_name='others') }}"
-                   class="cate-link">others</a></li>
-        </ul>
-    </li>
+    {% if not is_in_product_detail %}
+        {# a dropdown list of categories #}
+        <li class="nav-item hover-item dropdown-btn">
+            <a>categories</a>
+            <ul>
+                <li><a href="{{ url_for('main.products_in_category', category_name='sports') }}"
+                       class="cate-link">sports</a></li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='foods') }}" class="cate-link">foods</a>
+                </li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='clothes') }}"
+                       class="cate-link">clothes</a></li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='digital') }}"
+                       class="cate-link">digital</a></li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='books') }}" class="cate-link">books</a>
+                </li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='makeup') }}"
+                       class="cate-link">makeup</a></li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='luxury') }}"
+                       class="cate-link">luxury</a></li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='daily') }}" class="cate-link">daily</a>
+                </li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='art') }}" class="cate-link">art</a></li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='home') }}" class="cate-link">home</a>
+                </li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='instruments') }}" class="cate-link">instruments</a>
+                </li>
+                <li><a href="{{ url_for('main.products_in_category', category_name='others') }}"
+                       class="cate-link">others</a></li>
+            </ul>
+        </li>
+    {% endif %}
 
-    {#    a drop down list for selecting themes #}
-    <li class="nav-item hover-item dropdown-btn" id="btn-theme">
-        <a>Theme</a>
-        <ul>
-            <li id="theme-item-light"><a class="theme-item">Light</a></li>
-            <li id="theme-item-dark"><a class="theme-item">Dark</a></li>
-        </ul>
-    </li>
+    {% if not is_in_product_detail %}
+        {#    a drop down list for selecting themes #}
+        <li class="nav-item hover-item dropdown-btn" id="btn-theme">
+            <a>Theme</a>
+            <ul>
+                <li id="theme-item-light"><a class="theme-item">Light</a></li>
+                <li id="theme-item-dark"><a class="theme-item">Dark</a></li>
+            </ul>
+        </li>
+    {% endif %}
 
 </ul>
 

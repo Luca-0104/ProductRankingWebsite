@@ -1,6 +1,6 @@
 import os
 
-from flask import session, redirect, url_for, flash, render_template
+from flask import session, redirect, url_for, flash, render_template, current_app
 from sqlalchemy import and_
 
 from app import db
@@ -20,6 +20,9 @@ def upload_comment(product_id):
     function for a user to comment a product
     :param product_id: the id of the product
     """
+    # logger
+    current_app.logger.info("come in /upload-comment/<int:product_id>")
+
     form = CommentForm()
 
     # check if the user logged in
@@ -109,17 +112,17 @@ def upload_comment(product_id):
         return redirect(url_for('auth.login'))
 
 
-@comment.route('/view-all-comments')
-@permission_required(Permission.VIEW_ALL_COMMENTS)
-def view_all():
-    pass
-
-
-@comment.route('/comment-detail')
-def view_detail():
-    pass
-
-
-@comment.route('/reply-comment', methods=['GET', 'POST'])
-def reply_comment():
-    pass
+# @comment.route('/view-all-comments')
+# @permission_required(Permission.VIEW_ALL_COMMENTS)
+# def view_all():
+#     pass
+#
+#
+# @comment.route('/comment-detail')
+# def view_detail():
+#     pass
+#
+#
+# @comment.route('/reply-comment', methods=['GET', 'POST'])
+# def reply_comment():
+#     pass

@@ -1,12 +1,13 @@
+import json
 import os
 
-from flask import render_template, redirect, url_for, session, request, jsonify, flash
+from flask import render_template, redirect, url_for, session, request, jsonify, flash, current_app
 
 from config import Config
 from . import main
 from .forms import UserForm
 from .. import db
-from ..models import Product, Permission, User, Category, Cart
+from ..models import Product, Permission, User, Category, Cart, History
 from ..product.views import generate_safe_pic_name
 from ..public_tools import get_user_by_name
 
@@ -17,9 +18,12 @@ def index():
     """
         The function for rendering the main page
     """
+    # logger
+    current_app.logger.info("come in /index")
+
     # check if the user logged in
     if session.get("username"):
-        print(session.get("username"))
+
         current_user = get_user_by_name(session.get("username"))
         if current_user.can(Permission.VIEW_ALL_PRODUCT):
             # for users who logged in
@@ -40,6 +44,9 @@ def user_profile(username):
     For showing the user profile
     :param username: the username the get from the frontend
     """
+    # logger
+    current_app.logger.info("come in /user_profile/<username>")
+
     # query the user object by using the username, which is got from the frontend
     user = get_user_by_name(username)
     return render_template('main/user.html', user=user)
@@ -50,6 +57,8 @@ def edit_profile():
     """
     For edit the user profile
     """
+    # logger
+    current_app.logger.info("come in /edit-profile")
 
     current_user = get_user_by_name(session.get("username"))
     form = UserForm(username=current_user.username, email=current_user.email)
@@ -121,6 +130,9 @@ def products_in_category(category_name):
     For showing the products in a specific category
     :param category_name:   the name of the category we will show
     """
+    # logger
+    current_app.logger.info("come in /products-in-category/<category_name>")
+
     # if the user has logged in
     if session.get("username"):
         # find out the category object by using the category_name
@@ -139,6 +151,9 @@ def my_cart():
     """
         showing the page of "my shopping cart" of current user
     """
+    # logger
+    current_app.logger.info("come in /my-cart")
+
     # if the user has logged in
     if session.get("username"):
 
@@ -160,6 +175,9 @@ def shopping_history():
     """
         showing the page of "my shopping history" of current user
     """
+    # logger
+    current_app.logger.info("come in /shopping-history")
+
     # if the user has logged in
     if session.get("username"):
 
@@ -177,6 +195,9 @@ def shopping_history():
 @main.route('/api/change-theme', methods=['POST'])
 def change_theme():
     if request.method == "POST":
+        # logger
+        current_app.logger.info("post request from ajax /api/change-theme")
+
         # get the target them from the request
         target_theme = request.form["target_theme"]
 
@@ -201,6 +222,8 @@ def change_theme():
             return jsonify({'returnValue': 0})
 
         else:
+            # logger
+            current_app.logger.error("post request from ajax /api/change-theme - no target theme")
             return jsonify({'returnValue': 1})
     return jsonify({'returnValue': 1})
 
@@ -213,6 +236,9 @@ def update_product_count():
     """
 
     if request.method == "POST":
+        # logger
+        current_app.logger.info("post request from ajax /api/cart/update-product-count")
+
         product_id = request.form["product_id"]
         new_count = request.form["new_count"]
 
@@ -229,9 +255,89 @@ def update_product_count():
                 cart_relation.product_count = new_count
                 db.session.commit()
             else:
+                # logger
+                current_app.logger.error("post request from ajax /api/cart/update-product-count - product in cart is not found")
                 return jsonify({'returnValue': 1})
 
         return jsonify({'returnValue': 0})
 
     return jsonify({'returnValue': 1})
+
+
+@main.route('/api/cart/remove-cart-relation', methods=['POST'])
+def remove_cart_relation():
+    """
+        remove a specific cart relation according to the cart_id
+    """
+    if request.method == "POST":
+        # logger
+        current_app.logger.info("post request from ajax /api/cart/remove-cart-relation")
+
+        # get the cart_id from ajax
+        cart_id = request.form["cart_id"]
+
+        # query the cart relation from database
+        cart = Cart.query.get(cart_id)
+
+        if cart:
+            # logger
+            current_app.logger.warning("post request from ajax /api/cart/remove-cart-relation - a product is being removed from user cart database")
+
+            # remove it from database
+            db.session.delete(cart)
+            db.session.commit()
+
+        return jsonify({'returnValue': 0})
+
+    # logger
+    current_app.logger.error("post request from ajax /api/cart/remove-cart-relation - NOT a POST request")
+    return jsonify({'returnValue': 1})
+
+
+@main.route('/api/cart/purchase', methods=['POST'])
+def purchase():
+    """
+        get a list of id of cart relations that should be purchased.
+        we should remove them from database - Cart table and add the records
+        into the History table.
+    """
+    if request.method == "POST":
+        # logger
+        current_app.logger.info("post request from ajax /api/cart/purchase")
+
+        # get the cart_id_list from ajax
+        list_json = request.form["JSON_cart_list"]
+
+
+        if list_json:
+            # unpack json back to list
+            cart_id_list = json.loads(list_json)
+
+            # get the instance of current user
+            current_user = get_user_by_name(session.get("username"))
+
+            # record these cart relations into History table
+            for cart_id in cart_id_list:
+                cart = Cart.query.get(cart_id)
+                new_history = History(user=current_user, product=cart.product, product_count=cart.product_count)
+                db.session.add(new_history)
+            db.session.commit()
+
+            # delete those cart relations in Cart table
+            for cart_id in cart_id_list:
+                cart = Cart.query.get(cart_id)
+                db.session.delete(cart)
+            db.session.commit()
+
+            return jsonify({'returnValue': 0})
+
+        else:
+            # logger
+            current_app.logger.error("post request from /api/cart/purchase - JSON transform failed")
+
+            return jsonify({'returnValue': 1})
+    return jsonify({'returnValue': 1})
+
+
+
 

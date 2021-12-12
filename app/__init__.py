@@ -6,6 +6,8 @@
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from config import config
+import logging
+from logging.handlers import RotatingFileHandler
 
 # load the extensions we need
 db = SQLAlchemy()
@@ -20,6 +22,9 @@ def create_app(config_name):
 
     # initialize the extensions we need
     db.init_app(app)
+
+    # register the logger
+    register_logger(app)
 
     # register blueprint - main
     from .main import main as main_blueprint
@@ -39,3 +44,17 @@ def create_app(config_name):
 
     return app
 
+
+def register_logger(app):
+    """
+    Define the configure of the logger file
+    """
+    app.logger.setLevel(logging.INFO)
+    formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s", "%Y%b%d-%H:%M:%S")
+
+    file_handler = RotatingFileHandler('logs/prweb.log', maxBytes=10 * 1024, backupCount=10)
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.INFO)
+
+    # if not app.debug:
+    app.logger.addHandler(file_handler)

@@ -1,4 +1,4 @@
-from flask import request, url_for, redirect, flash, render_template, session
+from flask import request, url_for, redirect, flash, render_template, session, current_app
 
 from app import db
 from . import auth
@@ -17,11 +17,18 @@ def logout():
     session.pop("avatar", None)
     session.pop("theme", None)
     flash('You have been logged out')
+
+    # logger
+    current_app.logger.info("user logged out")
+
     return redirect(url_for("main.index"))
 
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    # logger
+    current_app.logger.info("come in /register")
+
     form = RegisterForm()
 
     # when the form is submitted legally (POST method)
@@ -33,6 +40,9 @@ def register():
         db.session.commit()
         flash("Register Successfully! You can go for login now!")
 
+        # logger
+        current_app.logger.info("a new user registered")
+
         return redirect(url_for('auth.login'))
 
     # (GET method)
@@ -41,6 +51,9 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    # logger
+    current_app.logger.info("come in /login")
+
     form = LoginForm()
 
     # when the form is submitted legally (POST method)
@@ -56,8 +69,14 @@ def login():
 
             flash("Login success!")
 
+            # logger
+            current_app.logger.info("a user logs in successfully")
+
             # redirect back to the original url or the index page
             return redirect(url_for('main.index'))
+
+        # logger
+        current_app.logger.info("a user logs in failed")
 
         # if we get here, this means the user give the wrong data and login failed
         flash("Login Failed! Check your username or password.")
