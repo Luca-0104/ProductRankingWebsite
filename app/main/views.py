@@ -7,7 +7,8 @@ from config import Config
 from . import main
 from .forms import UserForm
 from .. import db
-from ..models import Product, Permission, User, Category, Cart, History
+from ..models import Product, Permission, User, Category, Cart, History, CommentPic, Comment, ProductPic, \
+    UserProductRank, Role
 from ..product.views import generate_safe_pic_name
 from ..public_tools import get_user_by_name
 
@@ -236,6 +237,47 @@ def change_theme():
             # logger
             current_app.logger.error("post request from ajax /api/change-theme - no target theme")
             return jsonify({'returnValue': 1})
+    return jsonify({'returnValue': 1})
+
+
+@main.route('/api/admin-delete-data', methods=['POST'])
+def admin_delete_data():
+    """
+    This function is for administrator to delete the data in database.
+    There are 3 types of deletion: products, and all
+    We cannot just delete all users and do not delete all products,
+    this is because, every product has a retailer user, so that
+    if the users gone, products should be deleted as well.
+    """
+    if request.method == "POST":
+        # logger
+        current_app.logger.info("post request from ajax /api/admin-delete-data")
+
+        delete_type = request.form["type"]
+
+        print("delete_type")
+        print(delete_type)
+
+        # we only accept the type of "all"
+        if delete_type == "all":
+            # delete all the data in the database
+            db.drop_all()
+            db.create_all()
+
+            # insert back these two tables
+            Role.insert_roles()
+            Category.insert_categories()
+
+            # insert the admin users back to the database
+            User.insert_only_admin_users()
+
+            return jsonify({'returnValue': 0})
+
+        else:
+            # logger
+            current_app.logger.error("post request from ajax /api/admin-delete-data - delete type error")
+            return jsonify({'returnValue': 1})
+
     return jsonify({'returnValue': 1})
 
 

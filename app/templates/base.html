@@ -133,6 +133,17 @@
         </li>
     {% endif %}
 
+
+    {#            a drop down list for administrator to delete the things in database #}
+    {% if not is_in_product_detail and session.get("role_id") == 3 %}
+        <li class="nav-item hover-item dropdown-btn" id="btn-theme">
+            <a>DELETE</a>
+            <ul>
+                <li id="admin-item-delete-all"><a class="theme-item">ALL</a></li>
+            </ul>
+        </li>
+    {% endif %}
+
 </ul>
 
 {#    for flash #}

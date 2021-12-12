@@ -4,7 +4,8 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
-from app.tableInfo import user_list, product_list, product_category_list, category_list, product_picture_list
+from app.tableInfo import user_list, product_list, product_category_list, category_list, product_picture_list, \
+    admin_list
 
 import random
 
@@ -440,7 +441,24 @@ class User(db.Model):
             new_user = User(email=email, username=username, password=password, role_id=role_id)
 
             db.session.add(new_user)
-            db.session.commit()
+        db.session.commit()
+
+    @staticmethod
+    def insert_only_admin_users():
+        """
+            This is function is used to insert only the administrator users
+        """
+        for user_info in admin_list:
+            email = user_info[0]
+            username = user_info[1]
+            password = user_info[2]
+            role_id = user_info[3]
+
+            new_user = User(email=email, username=username, password=password, role_id=role_id)
+
+            db.session.add(new_user)
+        db.session.commit()
+
 
     # ----- use Werkzeug to generate and check the password hash of the user password (learned from the book) -----
     # book: 'Flask Web Development: Developing Web Applications with Python, Second Edition'

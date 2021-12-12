@@ -26,6 +26,13 @@ user_list = [
     ['Retailer9@163.com', 'Retailer9', '123', 2],
     ['Retailer10@163.com', 'Retailer10', '123', 2],
     ['Retailer11@163.com', 'Retailer11', '123', 2],
+    ['Admin1@163.com', 'Admin1', '123', 3],
+    ['Admin2@163.com', 'Admin2', '123', 3]
+]
+
+admin_list = [
+    ['Admin1@163.com', 'Admin1', '123', 3],
+    ['Admin2@163.com', 'Admin2', '123', 3]
 ]
 
 category_list = [
