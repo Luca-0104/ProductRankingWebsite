@@ -8,6 +8,7 @@
 
 {% block scripts_after_body %}
     <script type="text/javascript" src="../../static/script/product_detail_pic.js"></script>
+    <script type="text/javascript" src="../../static/script/product_detail_cart.js"></script>
 {% endblock %}
 
 {% block scripts %}
@@ -154,6 +155,31 @@
 
         {% endif %}
 
+
+
+        {#    the box of the module of "add to cart", which contains a add button and a input to select product_count (how many) #}
+        <div id="cart-box">
+            {#            the box of the module to set the product count#}
+            <div id="cart-num-box">
+                <button id="btn-cart-dec">-</button>
+                <input type="number" id="cart-product-count" min="1" max="100" value="1" readonly="readonly"
+                       product_id="{{ product.id }}">
+                <button id="btn-cart-inc">+</button>
+            </div>
+
+            {#            a button for adding to the cart#}
+            {% if session.get("username") %}
+                {#            for the users logged in #}
+                <span id="btn-add-cart">Add to Cart</span>
+
+            {% else %}
+                {#                for the user not log in#}
+                <span id="btn-add-cart"><a href="{{ url_for('auth.login') }}">Add to Cart</a></span>
+
+            {% endif %}
+        </div>
+
+
         {#    product comments#}
         <div class="product-comment-box">
 
@@ -176,7 +202,7 @@
                                 {#  the rating stars #}
                                 <td>
                                     {% if comment.star_num == -1 %}
-                                        <p>This user did not rate this product</p>
+                                        <p class="hint-no-star">This user has not rated this product yet.</p>
 
                                     {% else %}
 

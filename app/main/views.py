@@ -6,7 +6,7 @@ from config import Config
 from . import main
 from .forms import UserForm
 from .. import db
-from ..models import Product, Permission, User, Category
+from ..models import Product, Permission, User, Category, Cart
 from ..product.views import generate_safe_pic_name
 from ..public_tools import get_user_by_name
 
@@ -57,7 +57,6 @@ def edit_profile():
     # when the form is submitted legally (POST method)
     if form.validate_on_submit():
         # get the current username
-
 
         # user = User.query.filter(User.username == current_user).first()
 
@@ -135,6 +134,45 @@ def products_in_category(category_name):
         return redirect(url_for('auth.login'))
 
 
+@main.route('/my-cart')
+def my_cart():
+    """
+        showing the page of "my shopping cart" of current user
+    """
+    # if the user has logged in
+    if session.get("username"):
+
+        # get the instance of the current user
+        current_user = get_user_by_name(session.get("username"))
+
+        # get a list of cart relations of this user (with all the products in his cart)
+        cart_relation_list = current_user.cart_relations.all()
+
+        return render_template('main/my_cart.html', user=current_user, cart_relation_list=cart_relation_list)
+
+    # if the user has not logged in
+    else:
+        return redirect(url_for('auth.login'))
+
+
+@main.route('/shopping-history')
+def shopping_history():
+    """
+        showing the page of "my shopping history" of current user
+    """
+    # if the user has logged in
+    if session.get("username"):
+
+        # get the instance of the current user
+        current_user = get_user_by_name(session.get("username"))
+
+        return render_template('main/shopping_history.html', user=current_user)
+
+    # if the user has not logged in
+    else:
+        return redirect(url_for('auth.login'))
+
+
 # ------------------------------ BACK-END Server (using Ajax) ----------------------------------
 @main.route('/api/change-theme', methods=['POST'])
 def change_theme():
@@ -165,3 +203,35 @@ def change_theme():
         else:
             return jsonify({'returnValue': 1})
     return jsonify({'returnValue': 1})
+
+
+@main.route('/api/cart/update-product-count', methods=['POST'])
+def update_product_count():
+    """
+        update the product account of a specific cart relation, which is about
+        current user and the given product
+    """
+
+    if request.method == "POST":
+        product_id = request.form["product_id"]
+        new_count = request.form["new_count"]
+
+        # new_count from ajax might be 0
+        if new_count != 0:
+            # get the instance of current user
+            current_user = get_user_by_name(session.get("username"))
+
+            # check if the cart relation already exists
+            cart_relation = Cart.query.filter_by(product_id=product_id, user_id=current_user.id).first()
+
+            # if exist
+            if cart_relation:
+                cart_relation.product_count = new_count
+                db.session.commit()
+            else:
+                return jsonify({'returnValue': 1})
+
+        return jsonify({'returnValue': 0})
+
+    return jsonify({'returnValue': 1})
+

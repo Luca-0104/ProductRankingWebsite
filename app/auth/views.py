@@ -14,6 +14,7 @@ def logout():
     """
     session.pop("username", None)
     session.pop("role_id", None)
+    session.pop("avatar", None)
     session.pop("theme", None)
     flash('You have been logged out')
     return redirect(url_for("main.index"))
@@ -50,6 +51,7 @@ def login():
             # record the user in session, init the info in the session
             session["username"] = user.username
             session["role_id"] = user.role_id
+            session["avatar"] = user.avatar
             session["theme"] = user.theme
 
             flash("Login success!")

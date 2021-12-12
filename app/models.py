@@ -52,6 +52,43 @@ class Permission:
     REMOVE_PRODUCT = 64
 
 
+
+class Cart(db.Model):
+    """
+    This is a table for record the relation of user and product.
+    (which user have which product in their shopping cart)
+    1 user --> n products
+    1 product --> n users
+    """
+    __tablename__ = 'carts'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    product_count = db.Column(db.Integer, default=1)    # how many this product the user want to by
+    timestamp = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Cart user: %r --- product: %r * %r>' % (self.user, self.product, self.product_count)
+
+
+class History(db.Model):
+    """
+    This is a table for record the shopping history, which is a relation between user and product.
+    (which user bought how many which product. this is similar with 'Cart' relation)
+    1 user --> n products
+    1 product --> n users
+    """
+    __tablename__ = 'histories'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    product_count = db.Column(db.Integer, default=1)    # how many this product the user want to by
+    timestamp = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<History user: %r --- product: %r * %r>' % (self.user, self.product, self.product_count)
+
+
 '''
     This is a table for containing the 'n to n' relationship of Product model and Category model 
 '''
@@ -76,6 +113,7 @@ class UserProductRank(db.Model):
 
     def __repr__(self):
         return '<UserProductRank %r ranked %r as %r>' % (self.user, self.product, self.rank)
+
 
 
 class Category(db.Model):
@@ -223,6 +261,9 @@ class Product(db.Model):
     ranked_user_relations = db.relationship('UserProductRank', backref='product', lazy='dynamic')
     rank = db.Column(db.Float, default=0)  # the stars rank, 0 - 5
     rank_count = db.Column(db.Integer, default=0)  # How many times is this product being rated
+    # the cart relation with user (similar with ranked_user_relations)
+    cart_relations = db.relationship('Cart', backref='product', lazy='dynamic')
+    history_relations = db.relationship('History', backref='product', lazy='dynamic')
     is_deleted = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
@@ -280,7 +321,7 @@ class Product(db.Model):
             comment_text = "This is the best combination of light and functionality I've ever used.It feels really light in the hand, and it's easy to pick it up between two fingers.Most of all, the EVO -certified 11 Core delivers maximum performance while being light, which is perfect for a traveler like me.My purpose is very clear: suitable for business trip, light office, as for games and entertainment, I don't care.However, the laptop display effect is good, and dolby vision and Dolby sound, occasionally entertainment or can be satisfied.In conclusion, fit is best."
 
             # select all users
-            user_lst = User.query.all()
+            user_lst = User.query.limit(15).all()
 
             # assume all the users have commented this product
             for user in user_lst:
@@ -378,6 +419,8 @@ class User(db.Model):
     released_comment_replies = db.relationship('ReplyComment', backref='author', lazy='dynamic')  # 1 user --> n replies
     # 1 product --> rated ranked by n users; 1 user --> can rank n products
     ranked_product_relations = db.relationship('UserProductRank', backref='user', lazy='dynamic')
+    cart_relations = db.relationship('Cart', backref='user', lazy='dynamic')
+    history_relations = db.relationship('History', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User %r>' % self.username

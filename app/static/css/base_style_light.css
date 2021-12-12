@@ -92,6 +92,37 @@ html{
     transform: translateY(0);       /* put the list down from the navbar */
 }
 
+/*!* the profile avatar *!*/
+/*.avatar::before{*/
+/*    content: '';*/
+/*    display: block;*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    border-radius: 50%;*/
+/*    transform: translate(30px, -30px);*/
+/*    background-image: url('../../static/upload/avatar/default__0__.jpg');*/
+/*    background-size: cover;*/
+/*    border: 10px solid #fff;*/
+/*}*/
+
+/* the user avatar on the navbar */
+.avatar img{
+    height: 57px;
+    width: 57px;
+    background-size: cover;
+}
+
+/* the <a> links in the menu item */
+.avatar .avatar-menu .user-link{
+    font-size: 10px;
+}
+
+/* each menu item when hovering the avatar */
+.avatar .avatar-menu .avatar-menu-item{
+    transform: translate(-47px, -22px);
+}
+
+
 /* the whole content in the page between the navbar and the footer */
 .block-content{
     background-color: white;
@@ -118,6 +149,11 @@ html{
     /*margin-top: 30px;*/
     color: #CC9999;
     font-family: 'Lucida Bright', 'Times New Roman', 'Geneva', 'Verdana', sans-serif;
+
+    /*!* keep the footer at the bottom *!*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
 }
 
 /* clear the style of the link */

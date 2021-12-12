@@ -10,6 +10,11 @@ user_list = [
     ['Customer3@163.com', 'Customer3', '123', 1],
     ['Customer4@163.com', 'Customer4', '123', 1],
     ['Customer5@163.com', 'Customer5', '123', 1],
+    ['Customer6@163.com', 'Customer6', '123', 1],
+    ['Customer7@163.com', 'Customer7', '123', 1],
+    ['Customer8@163.com', 'Customer8', '123', 1],
+    ['Customer9@163.com', 'Customer9', '123', 1],
+    ['Customer10@163.com', 'Customer10', '123', 1],
     ['Retailer1@163.com', 'Retailer1', '123', 2],
     ['Retailer2@163.com', 'Retailer2', '123', 2],
     ['Retailer3@163.com', 'Retailer3', '123', 2],
@@ -20,6 +25,7 @@ user_list = [
     ['Retailer8@163.com', 'Retailer8', '123', 2],
     ['Retailer9@163.com', 'Retailer9', '123', 2],
     ['Retailer10@163.com', 'Retailer10', '123', 2],
+    ['Retailer11@163.com', 'Retailer11', '123', 2],
 ]
 
 category_list = [
