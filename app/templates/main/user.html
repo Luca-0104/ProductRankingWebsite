@@ -41,10 +41,15 @@
 
 
                         </div>
-                        {#                    the edit button#}
-                        <div class="edit">
-                            <a href="{{ url_for('main.edit_profile') }}">Edit</a>
-                        </div>
+
+                        {% if user.username == session.get("username") %}
+                            {#                    the edit button#}
+                            <div class="edit">
+                                <a href="{{ url_for('main.edit_profile') }}">Edit</a>
+                            </div>
+                        {% endif %}
+
+
 
                         {#                            This is an empty div, which is used to clear the float#}
                         <div class="empty-for-clear-float"></div>
