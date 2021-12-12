@@ -12,7 +12,7 @@ from . import product
 from app.product.forms import ProductUploadForm
 from ..auth.forms import LoginForm
 from ..decorators import permission_required
-from ..models import Permission, Product, ProductPic, UserProductRank, User, Category, Comment
+from ..models import Permission, Product, ProductPic, UserProductRank, User, Category, Comment, Cart
 from .forms import ProductUploadForm
 from ..public_tools import get_user_by_name
 
@@ -79,7 +79,6 @@ def upload_product():
                 product.categories.append(Category.query.get(12))
 
             db.session.commit()
-
 
             flash("Product uploaded successfully!")
 
@@ -253,7 +252,6 @@ def rate_product():
     # rate the product for user logged in
     # return returnValue 0 in json format if successful.
 
-
     if request.method == "POST":
         product_id = request.form["product_id"]
         star_id = request.form["star_id"]
@@ -308,9 +306,15 @@ def rate_product():
                     we have to update the star_num this this comment
                 '''
                 comment = Comment.query.filter(and_(Comment.author == current_user, Comment.product == product)).first()
+                print(current_user.username)
+                print(product.id)
                 if comment:
+                    print(comment.id)
                     comment.star_num = int(rate)
+                    db.session.add(comment)
                     db.session.commit()
+                else:
+                    print("no such comment")
 
                 flash("Submitted! Thanks for your feedback!")
 
@@ -326,3 +330,39 @@ def rate_product():
         else:
             return jsonify({'returnValue': 1})
     return jsonify({'returnValue': 1})
+
+
+@product.route('/api/product/add-to-cart', methods=['POST'])
+def add_to_cart():
+    """
+        add the product into the user shopping cart
+    """
+    if request.method == "POST":
+        # get the product_id and "how many to add" from ajax
+        product_id = request.form["product_id"]
+        product_count = int(request.form["product_count"])
+
+        p = Product.query.get(product_id)
+        # check if the input is acceptable
+        if p is not None and (product_count > 0):
+            # get current user instance (if the user has not logged in, he should be redirect to the login page (in frontend))
+            current_user = get_user_by_name(session.get("username"))
+
+            # check if the cart relation already exists
+            cart_relation = Cart.query.filter_by(product_id=product_id, user_id=current_user.id).first()
+
+            if cart_relation:
+                cart_relation.product_count += product_count
+                db.session.commit()
+            else:
+                # create a new cart relation between this user and product
+                new_cart = Cart(product_id=product_id, user_id=current_user.id, product_count=product_count)
+                db.session.add(new_cart)
+                db.session.commit()
+
+            return jsonify({'returnValue': 0})
+        else:
+            return jsonify({'returnValue': 1})
+    else:
+        return jsonify({'returnValue': 1})
+

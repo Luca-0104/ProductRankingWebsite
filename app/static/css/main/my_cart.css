@@ -1,0 +1,21 @@
+
+/* the image of each products  */
+.product-row .product-img img{
+    height: 60px;
+    width: 60px;
+    background-size: cover;
+}
+
+/* this class should be assigned to the decrease button by js, when the number is 1 */
+.btn-disabled{
+    color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+
+/* keep the footer at the bottom */
+.footer{
+    margin-top: 30%;
+}

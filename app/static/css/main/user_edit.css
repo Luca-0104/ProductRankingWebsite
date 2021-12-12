@@ -147,12 +147,9 @@ body{
     color: red;
 }
 
-/* the error message for the picture file uploading */
-.error-message-choose-pic{
-    margin-left: -30px;
-}
 
-/* The 'register' button */
+
+/* The 'confirm' button */
 #submit {
     color: #fff;
     margin-top: 40px;
@@ -164,6 +161,7 @@ body{
     transition: .3s;
 }
 
+/*the submit button when hover*/
 #submit:hover {
     letter-spacing: 2px;
     color: #000;
@@ -179,4 +177,9 @@ body{
     display: inline-block;
     position: absolute;
     right: 0;
+}
+
+/* the error message for the picture file uploading */
+.error-message-choose-pic{
+    margin-top: 0;
 }

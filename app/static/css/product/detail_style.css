@@ -149,6 +149,7 @@
     float: left;
     line-height: 60px;
     margin-left: 20px;
+    display: contents;
 }
 
 /* the single star in the list */
@@ -184,6 +185,17 @@
 }
 
 /*
+    Add to cart module ---------------------------------------------------------------------------------------------
+*/
+/* this class should be assigned to the decrease button by js, when the number is 1 */
+.btn-disabled{
+    color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+/*
     product comments---------------------------------------------------------------------------------------------
  */
 
@@ -209,7 +221,7 @@
 }
 
 /* author info */
-.comment-item .comment-user{
+.comment-item .comment-user {
     /*padding: 10px;*/
 }
 
@@ -221,15 +233,24 @@
 }
 
 /* author's username */
-.comment-item .comment-user .comment-user-username{
+.comment-item .comment-user .comment-user-username {
     font-size: 20px;
     display: inline-block;
     margin-top: 20px;
     margin-right: 10px;
 }
 
+/* if the author has not commented this product, the hint will be there */
+.comment-item .hint-no-star {
+    color: #9f96ff;
+    width: 100%;
+    font-size: 20px;
+    margin-left: 1.5%;
+    margin-bottom: 3%;
+}
+
 /* the star list in comment */
-.comment-item .comment-star{
+.comment-item .comment-star {
     margin-top: -45px;
     margin-left: 20px;
 }
@@ -242,17 +263,47 @@
 }
 
 /* the text content of the comment */
-.comment-item .comment-text{
+.comment-item .comment-text {
     line-height: 30px;
     margin-bottom: 25px;
     margin-left: 30px;
 }
 
-/* the date of the comment */
-.comment-item .comment-date{
-    margin-left: 30px;
+/* the list of the comment pictures */
+.comment-item .comment-pic-list {
+    /*float: left;*/
+    /*clear: both;*/
 }
 
+/* the list item (li) of the comment pictures */
+.comment-item .comment-pic-list .comment-pic {
+    /*float: left;*/
+    /*clear: both;*/
+    width: 1243px;
+
+}
+
+/* each comment picture in the list */
+.comment-item .comment-pic-list .comment-pic img {
+    float: left;
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    margin-left: 4%;
+    border: 2px solid #9f96ff;
+}
+
+/* the date of the comment */
+.comment-item .comment-date {
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+
+/* This is an empty div, which is used to clear the float */
+.empty-for-clear-float{
+    clear: both;
+}
 
 
 
