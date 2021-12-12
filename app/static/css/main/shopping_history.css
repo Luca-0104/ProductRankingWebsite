@@ -1,4 +1,89 @@
-/* keep the footer at the bottom */
-.footer{
-    margin-top: 30%;
+/* the whole content in the page between the navbar and the footer */
+.block-content {
+    padding-bottom: 400px;
+    padding-top: 50px;
+    padding-left: 160px;
 }
+
+/*the shopping cart title*/
+#shopping-history-title {
+    font-size: 50px;
+    font-family: "Lucida Bright", sans-serif;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/*the position of the table*/
+#cart-table{
+    position: relative;
+    /*the relative position use to change table's position*/
+    left: 130px;
+    top: 40px;
+}
+
+/*the border */
+.history-product-row{
+     /*border: 4px solid #CC9999;*/
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 4px solid #CC9999;
+    border-left: 0;
+    padding: 40px;
+    margin-bottom: 20px;
+    width: 1700px;
+    height: 150px;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+}
+
+/* the image of each products  */
+.history-product-row .product-img img {
+    height: 100px;
+    width: 100px;
+    margin-top: 10px;
+    margin-right: 20px;
+    background-size: cover;
+}
+
+/*the name of the product*/
+.product-name {
+    vertical-align: top;
+    padding: 12px;
+}
+
+.product-count p{
+    margin-right: 10px;
+}
+
+/*the price of the price*/
+.product-price{
+    padding-right: 5px;
+}
+
+#comment-btn{
+    background-color: #999999;
+    margin-left: 20px;
+    padding: 5px;
+}
+
+/*the comment button in table */
+#comment-btn a{
+    font-weight: 700;
+    color: black;
+    font-family: "Lucida Bright", sans-serif;
+    /*margin-left: 20px;*/
+}
+
+#comment-btn:hover{
+    background-color: black;
+}
+
+#comment-btn:hover a{
+    color: white;
+}
+
+/*!* keep the footer at the bottom *!*/
+/*.footer{*/
+/*    margin-top: 30%;*/
+/*}*/

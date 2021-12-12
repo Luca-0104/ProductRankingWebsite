@@ -9,9 +9,9 @@
 {% block content %}
     <div class="block-content">
 
-        <h1>My Shopping History</h1>
+        <h1 id="shopping-history-title">My Shopping History</h1>
 
-        <table>
+        <table id="history-table">
             {#  loop through all the history relations in of this user (all the products have bought)#}
             {% for history in history_list %}
                 <tr class="history-product-row" id="row-{{ history.id }}">
@@ -32,14 +32,14 @@
                     </td>
 
                     {#                count #}
-                    <td>
+                    <td class="product-count">
                         <p id="history-product-count-{{ history.id }}" product_id="{{ history.product.id }}">
                             Count: {{ history.product_count }}
                         </p>
                     </td>
 
                     {#                date#}
-                    <td>
+                    <td class="history-date">
                         <p id="history-date-{{ history.id }}">
                             {{ history.timestamp.date() }}
                         </p>
@@ -47,7 +47,10 @@
 
                     {#                comment button#}
                     <td>
-                        <span id="history-comment-btn-{{ history.id }}"><a href="{{ url_for('comment.upload_comment', product_id=history.product.id) }}">Comment</a></span>
+                        <div id="comment-btn"><span id="history-comment-btn-{{ history.id }}"><a
+                                href="{{ url_for('comment.upload_comment', product_id=history.product.id) }}">Comment</a></span>
+                        </div>
+
                     </td>
 
                 </tr>

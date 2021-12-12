@@ -57,3 +57,20 @@ just view the rating feedback they have done.
 1. Some initial product data are made up (just for show) and 
    there are also the mechanism of auto inserting these data into our database.
 
+## Functions implemented in milestone 2
+1. Users can view products in different categories, by the pulldown bar in the nav. bar(under "categories").
+2. Users can check their own profiles and  the profiles of the retailer of each product (with frontend).
+3. Users can edit their profiles, includes change avatar.
+4. Users can view the shopping cart by the pulldown bar in the nav. bar(under "Profile").
+5. Users can add products to the cart in the detail page of a product.
+6. Users can remove products in the cart.
+7. Users can purchase products in the cart, with the total cost.
+8. Users can see their avatar on the nav. bar, which is also the button to profile page.
+9. Users can view the shopping history by the pulldown bar in the nav. bar(under ).
+10. Users can change the theme(in dark or light), by the pulldown bar on the nav. bar(under "Theme").
+11. Users can comment a bought product in the shopping history page.
+12. Users can view comments in the product detail page.
+13. A log file has been created.
+14. Administrator can delete all the products in the website.
+15. Administrator can delete one product of a retailer.
+
