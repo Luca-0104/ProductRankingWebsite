@@ -187,11 +187,76 @@
 /*
     Add to cart module ---------------------------------------------------------------------------------------------
 */
+
+/*whole cart box*/
+#cart-box {
+    margin-left: 200px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* number add in cart box */
+#cart-num-box {
+    margin-right: 10px;
+    margin-top: 15px;
+    height: 50px;
+}
+
 /* this class should be assigned to the decrease button by js, when the number is 1 */
-.btn-disabled{
+.btn-disabled {
     color: #ccc;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+/* decrease button*/
+#btn-cart-dec {
+
+    height: 30px;
+    width: 30px;
+}
+
+/*number field*/
+#cart-product-count {
+    height: 30px;
+    width: 80px;
+}
+
+/*increase button*/
+#btn-cart-inc {
+    height: 30px;
+    width: 30px;
+}
+
+/*add to cart button box*/
+#cart-button-box {
+    margin-left: 5px;
+    height: 50px;
+    width: 200px;
+    padding: 5px;
+    background-color: red;
+    text-align: center;
+}
+
+/*add to cart button*/
+#btn-add-cart {
+    font-size: 30px;
+    font-family: "Lucida Bright", sans-serif;
+    font-weight: 700;
+    color: white;
+    line-height: 50px;
+}
+
+/*add to cart button when hover*/
+#cart-button-box:hover {
+    background-color: yellow;
+
+}
+
+/*add to cart button text when hover*/
+#cart-button-box:hover #btn-add-cart {
+    color: red;
 }
 
 
@@ -301,7 +366,7 @@
 
 
 /* This is an empty div, which is used to clear the float */
-.empty-for-clear-float{
+.empty-for-clear-float {
     clear: both;
 }
 

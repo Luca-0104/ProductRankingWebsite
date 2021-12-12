@@ -14,70 +14,71 @@
 {% block content %}
     <div class="block-content">
 
-        <h1>My Shopping Cart</h1>
+        <h1 id="shopping-cart-title">My Shopping Cart</h1>
 
-{#                a form contains a cart table and a purchase button #}
-{#        <form id="cart-form" method="POST" action="">#}
-            {# a table of items in the cart#}
-            <table>
-                {#        loop through all the cart relations in of this user (all the items in the cart)#}
-                {% for cart_relation in cart_relation_list %}
-                    <tr class="product-row">
-                        {#  a checkbox for select products to purcahse #}
-                        <td class="product-check">
-                            <input type="checkbox"/>
-                        </td>
-
-                        {#  product picture#}
-                        <td class="product-img">
-                            <img src="{{ url_for('static', filename=cart_relation.product.pictures.all()[0].address) }}">
-                        </td>
-
-                        {#  product name#}
-                        <td class="product-name">
-                            <p>{{ cart_relation.product.name }}</p>
-                        </td>
-
-                        {#  product price#}
-                        <td class="product-price">
-                            <span>￥ {{ cart_relation.product.price }}</span>
-                        </td>
-
-                        {#  product count module #}
-                        <td class="product-count-module">
-                            {#            the box of the module to set the product count#}
-                            <div class="cart-num-box">
-                                <button class="btn-cart-dec">-</button>
-                                <input type="number" class="cart-product-count" min="1" max="100"
-                                       value="{{ cart_relation.product_count }}" readonly="readonly"
-                                       product_id="{{ cart_relation.product.id }}">
-                                <button class="btn-cart-inc">+</button>
-                            </div>
-                        </td>
-
-                        {#  delete button#}
-                        <td class="product-remove">
-                            <button class="btn-cart-remove">Remove</button>
-                        </td>
-                    </tr>
-                {% endfor %}
-
-
-                {#  the purchase module#}
-                <tr>
-                    {#  total price #}
-                    <td colspan="5">
-                        <span>Total Price: ￥</span> <span id="total-price"></span>
+        {#                a form contains a cart table and a purchase button #}
+        {#        <form id="cart-form" method="POST" action="">#}
+        {# a table of items in the cart#}
+        <table class="cart-table">
+            {#        loop through all the cart relations in of this user (all the items in the cart)#}
+            {% for cart_relation in cart_relation_list %}
+                <tr class="product-row">
+                    {#  a checkbox for select products to purcahse #}
+                    <td class="product-check">
+                        <input type="checkbox" class="checkbox"/>
                     </td>
 
-                    {# purchase button #}
-                    <td>
-                        <button id="btn-purchase">Purchase</button>
+                    {#  product picture#}
+                    <td class="product-img">
+                        <img src="{{ url_for('static', filename=cart_relation.product.pictures.all()[0].address) }}"
+                             alt="product-picture">
+                    </td>
+
+                    {#  product name#}
+                    <td class="product-name">
+                        <p>{{ cart_relation.product.name }}</p>
+                    </td>
+
+                    {#  product price#}
+                    <td class="product-price">
+                        <span>￥ {{ cart_relation.product.price }}</span>
+                    </td>
+
+                    {#  product count module #}
+                    <td class="product-count-module">
+                        {#            the box of the module to set the product count#}
+                        <div class="cart-num-box">
+                            <button class="btn-cart-dec">-</button>
+                            <input type="number" class="cart-product-count" min="1" max="100"
+                                   value="{{ cart_relation.product_count }}" readonly="readonly"
+                                   product_id="{{ cart_relation.product.id }}">
+                            <button class="btn-cart-inc">+</button>
+                        </div>
+                    </td>
+
+                    {#  delete button#}
+                    <td class="product-remove">
+                        <button class="btn-cart-remove">Remove</button>
                     </td>
                 </tr>
-            </table>
+            {% endfor %}
 
-{#        </form>#}
+
+            {#  the purchase module#}
+            <tr class="purchase-row">
+                {#  total price #}
+                <td colspan="5" class="purchase">
+                    <span>Total Price: ￥</span> <span id="total-price"></span>
+                </td>
+
+                {# purchase button #}
+                <td class="purchase">
+                    <button id="btn-purchase">Purchase</button>
+                </td>
+            </tr>
+        </table>
+
+        {#        </form>#}
 
 
         {#    This is an empty div, which is used to clear the float #}
