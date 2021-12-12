@@ -57,3 +57,14 @@ just view the rating feedback they have done.
 1. Some initial product data are made up (just for show) and 
    there are also the mechanism of auto inserting these data into our database.
 
+## Functions implemented in milestone 2
+1. Users can view products in different categories, by the pulldown bar in the nav. bar(under "categories").
+2. Users can check their own profiles and  the profiles of the retailer of each product (with frontend).
+3. Users can edit their profiles, includes change avatar.
+4. Users can view the shopping cart by the pulldown bar in the nav. bar(under "Profile").
+5. Users can add products to the cart in the detail page of a product.
+6. Users can purchase products in the cart, with the total cost.
+7. Users can see their avatar on the nav. bar, which is also the button to profile page.
+8. Users can view the shopping history by the pulldown bar in the nav. bar(under ).
+9. Users can change the theme(in dark or light), by the pulldown bar on the nav. bar(under "Theme").
+10. 
